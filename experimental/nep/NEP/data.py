@@ -118,8 +118,8 @@ def main():
     # Data Preparation
     # ==================================================
 
-    fn_training = os.path.abspath("./NegNN/NegNN/data/training/sherlock_train.txt")
-    fn_dev = os.path.abspath("./NegNN/NegNN/data/dev/sherlock_dev.txt")
+    fn_training = os.path.abspath("./NEP/data/training/sherlock_train.txt")
+    fn_dev = os.path.abspath("./NEP/data/dev/sherlock_dev.txt")
 
     train_data = processor.load_data(
         fn_training, FLAGS.scope_detection, FLAGS.event_detection, FLAGS.training_lang
@@ -152,7 +152,7 @@ def main():
     ]
     for test_file in tests:
         test_name = test_file.split("/")[-1].split(".")[0]
-        fn_test = os.path.abspath(f"./NegNN/NegNN/data/test/{test_file}")
+        fn_test = os.path.abspath(f"./NEP/data/test/{test_file}")
         test_data = processor.load_data(
             fn_test, FLAGS.scope_detection, FLAGS.event_detection, FLAGS.training_lang
         )
