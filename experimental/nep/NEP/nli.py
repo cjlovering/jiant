@@ -120,7 +120,7 @@ def get_nli(series):
             # clause: he did run
             yield {
                 "premise": sent,
-                "hypothesis": c,
+                "hypothesis": fix_hypothesis(c, scope_set),
                 "label": "contradiction",
                 "case": "a: within scope.",
             }
@@ -131,9 +131,11 @@ def get_nli(series):
             # premise: ...he did not run, but he did dance.
             # hypothesis: he did run, but he did dance.
             # scope: he did [not] run
+            hypothesis = c.replace(cue + " ", "").replace(cue, "")
+            hypothesis = fix_hypothesis(hypothesis, scope_set)
             yield {
                 "premise": sent,
-                "hypothesis": c.replace(cue + " ", "").replace(cue, ""),
+                "hypothesis": hypothesis,
                 "label": "contradiction",
                 "case": "b: cue-removed",
             }
@@ -142,16 +144,51 @@ def get_nli(series):
             yield {"premise": sent, "hypothesis": c, "label": "entailment", "case": "c: a S clause"}
 
 
+def fix_hypothesis(hypothesis, scope_set):
+    """Replace or delete NPIs.
+
+    TODO: Re-implement scope to use the locations of the words in the original sentence.
+    Currently we are implicitly making assumptions about the number of times a word appears.
+    Consider `spacy:span` or something similar.
+    """
+    fix = {
+        "ever": False,
+        "either": False,
+        "any": "some",
+        "anyone": "someone",
+        "anybody": "somebody",
+    }
+    fix_keys = set(fix.keys())
+
+    def fix_word(word):
+        if word not in scope_set:
+            return True, word
+
+        if word in fix_keys:
+            if fix[word]:
+                return True, fix[word]
+            else:
+                return False, None
+        return True, word
+
+    hypothesis = " ".join(word for keep, word in map(fix_word, hypothesis.split()) if keep)
+    return hypothesis
+
+
 def filter_nli(hypothesis):
-    """Filter bad hypothesis. """
+    """Filter bad hypothesis. 
+    
+    Returns True if we should keep it, and False otherwise.
+    """
     result = predictor.predict(sentence=hypothesis)
     tree = Tree.fromstring(result["trees"])
 
     # bad cases
     is_not_S = tree.label() != "S"
-    is_bad_S = len(tree) == 1 and tree[0].label() == "VP"
+    is_bad_S1 = len(tree) == 1 and tree[0].label() == "VP"
+    is_bad_S2 = len(tree) == 2 and tree[0].label() == "PP" and tree[0].label() == "VP"
 
-    if is_not_S or is_bad_S:
+    if is_not_S or is_bad_S1 or is_bad_S2:
         return False
 
     return True
@@ -166,12 +203,8 @@ def fix_nli(series):
     premise = series["premise"]
     label = series["label"]
     case = series["case"]
-    return {
-        "hypothesis": hypothesis.replace("- ", "").replace(" -", ""),
-        "premise": premise.replace("- ", "").replace(" -", ""),
-        "label": label,
-        "case": case,
-    }
+    fix = lambda x: x.replace("- ", "").replace(" -", "").replace("``", '"').replace("''", '"')
+    return {"hypothesis": fix(hypothesis), "premise": fix(premise), "label": label, "case": case}
 
 
 def get_cue(series):
