@@ -445,6 +445,50 @@ class RankingTask(Task):
 
     pass
 
+
+@register_task("nep", rel_path="NEP/")
+class NegatedScopeEntailmentTask(PairClassificationTask):
+    """ Task class for Multi-Genre Natural Language Inference. 
+    """
+
+    def __init__(self, path, max_seq_len, name, two_class_evaluation=True, **kw):
+        """Set up the MNLI task object.
+
+        When genre is set to one of the ten MNLI genres, only examples matching that genre will be
+        loaded in any split. That may result in some of the sections (train, dev mismatched, ...)
+        being empty.
+
+        When two_class_evaluation is set, merge the contradiction and neutral labels, for both
+        predictions and gold labels, in the metric when evaluating on this task.
+        """
+        super(NegatedScopeEntailmentTask, self).__init__(name, n_classes=2, **kw)
+        self.path = path
+        self.max_seq_len = max_seq_len
+        # if two_class_evaluation:
+        #     self.scorer1 = NLITwoClassAccuracy()
+        #     self.scorers = [self.scorer1]
+
+        self.train_data_text = None
+        self.val_data_text = None
+        self.test_data_text = None
+
+    def load_data(self):
+        """Process the dataset located at path."""
+        targ_map = {"contradiction": 0, "entailment": 1}
+        self.test_data_text = load_tsv(
+            self._tokenizer_name,
+            os.path.join(self.path, "eval.tsv"),
+            max_seq_len=self.max_seq_len,
+            label_fn=targ_map.__getitem__,
+            s1_idx=0,
+            s2_idx=1,
+            label_idx=2,
+            skip_rows=1,
+            return_indices=True,
+        )
+        self.sentences = self.test_data_text
+
+
 @register_task("mnli_hans", rel_path="MNLI/")
 class HansMnliNLITask(PairClassificationTask):
     """ Task class for Multi-Genre Natural Language Inference. 
@@ -546,7 +590,7 @@ class HansMnliNLITask(PairClassificationTask):
         )
         te_data = [m + mm for m, mm in zip(te_matched_data, te_mismatched_data)]
 
-        HANS_targ_map = {"non-entailment": 0, "entailment": 1,}
+        HANS_targ_map = {"non-entailment": 0, "entailment": 1}
         HANS_train_data_text = load_tsv(
             self._tokenizer_name,
             os.path.join("./HANS/", "train.tsv"),
@@ -583,6 +627,7 @@ class HansMnliNLITask(PairClassificationTask):
         )
         log.info("\tFinished loading MNLI + HANS data.")
 
+
 @register_task("hans", rel_path="HANS/")
 class HANSBaseTask(PairClassificationTask):
     """ Task class for Stanford Natural Language Inference 
@@ -602,7 +647,7 @@ class HANSBaseTask(PairClassificationTask):
 
     def load_data(self):
         """ Process the dataset located at path.  """
-        targ_map = {"non-entailment": 0, "entailment": 1,}
+        targ_map = {"non-entailment": 0, "entailment": 1}
         self.train_data_text = load_tsv(
             self._tokenizer_name,
             os.path.join(self.path, "train.tsv"),
@@ -635,7 +680,7 @@ class HANSBaseTask(PairClassificationTask):
             s2_idx=6,
             label_idx=0,
             skip_rows=1,
-            return_indices=True
+            return_indices=True,
         )
         print(len(self.train_data_text), len(self.val_data_text), len(self.test_data_text))
         self.sentences = (
@@ -728,14 +773,16 @@ class HANSTask(PairClassificationTask):
 
     def load_data(self):
         """ Process the dataset located at path.  """
+
         def label_fn(x):
             if self.target_class == x:
                 # instance is target
                 return 0
             else:
                 return 1
+
         def label_idx():
-            if self.target_class in {'constituent', 'lexical_overlap', 'subsequence'}:
+            if self.target_class in {"constituent", "lexical_overlap", "subsequence"}:
                 # target is heuristic
                 return 8
             else:
@@ -808,6 +855,7 @@ class HANSTask(PairClassificationTask):
             + self.val_data_text[1]
         )
 
+
 @register_task("hans-perturbed", target_class="not-perturbed", rel_path="HANS-perturbed/")
 class HANSPerturbedTask(PairClassificationTask):
     """ Task class for Stanford Natural Language Inference.
@@ -878,6 +926,7 @@ class HANSPerturbedTask(PairClassificationTask):
             + self.val_data_text[0]
             + self.val_data_text[1]
         )
+
 
 @register_task("sst", rel_path="SST-2/")
 class SSTTask(SingleClassificationTask):
