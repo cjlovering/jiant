@@ -93,7 +93,7 @@ def load_tsv(
     filter_value=None,
     tag_vocab=None,
     tag2idx_dict=None,
-    shuffle: bool=False,
+    shuffle: bool=True,
 ):
     """
     Load a tsv.

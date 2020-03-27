@@ -834,7 +834,7 @@ class SamplingMultiTaskTrainer:
         else:
             max_data_points = task.n_val_examples
         val_generator = BasicIterator(batch_size, instances_per_epoch=max_data_points)(
-            task.val_data, num_epochs=1, shuffle=False
+            task.val_data, num_epochs=1, shuffle=True
         )
         n_val_batches = math.ceil(max_data_points / batch_size)
         all_val_metrics["%s_loss" % task.name] = 0.0

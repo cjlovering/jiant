@@ -645,10 +645,74 @@ class HANSBaseTask(PairClassificationTask):
             + self.val_data_text[1]
         )
 
+@register_task("nep", rel_path="NEP/")
+class NEPBaseTask(PairClassificationTask):
+    """ Task class for Stanford Natural Language Inference 
+    
+    NEP only task.
+    """
+
+    def __init__(self, path, max_seq_len, name, **kw):
+        """ Do stuff """
+        super(NEPBaseTask, self).__init__(name, n_classes=2, **kw)
+        self.path = path
+        self.max_seq_len = max_seq_len
+
+        self.train_data_text = None
+        self.val_data_text = None
+        self.test_data_text = None
+
+    def load_data(self):
+        """ Process the dataset located at path.  """
+        targ_map = {"contradiction": 0, "entailment": 1}
+        self.train_data_text = load_tsv(
+            self._tokenizer_name,
+            os.path.join(self.path, "train.tsv"),
+            max_seq_len=self.max_seq_len,
+            label_fn=targ_map.__getitem__,
+            s1_idx=0,
+            s2_idx=1,
+            label_idx=2,
+            skip_rows=1,
+            return_indices=True
+        )
+        self.val_data_text = load_tsv(
+            self._tokenizer_name,
+            os.path.join(self.path, "val.tsv"),
+            max_seq_len=self.max_seq_len,
+            label_fn=targ_map.__getitem__,
+            s1_idx=0,
+            s2_idx=1,
+            label_idx=2,
+            skip_rows=1,
+            return_indices=True
+        )
+        self.test_data_text = load_tsv(
+            self._tokenizer_name,
+            os.path.join(self.path, "eval.tsv"),
+            max_seq_len=self.max_seq_len,
+            label_fn=targ_map.__getitem__,
+            s1_idx=0,
+            s2_idx=1,
+            label_idx=2,
+            skip_rows=1,
+            return_indices=True
+        )
+
+        self.sentences = (
+            self.train_data_text[0]
+            + self.train_data_text[1]
+            + self.val_data_text[0]
+            + self.val_data_text[1]
+        )
+        print(len(self.test_data_text))
+
 @register_task("bert-heuristic-lexical_overlap", target_class='lexical_overlap', rel_path="HANS/")
 @register_task("disjunction", target_class='cn_disjunction', rel_path="HANS/")
 @register_task("all-the-same-label", target_class='something_random', rel_path="HANS/")
 @register_task("bert-syntax-ln_subject-object_swap", target_class='ln_subject/object_swap', rel_path="HANS/")
+@register_task("lexical-overlap-rand", target_class="lexical_overlap", rel_path="HANSR/")
+@register_task("swap", target_class="ln_subject/object_swap", rel_path="HANSS/")
 class HANSTask(PairClassificationTask):
     """ Task class for Stanford Natural Language Inference """
 
