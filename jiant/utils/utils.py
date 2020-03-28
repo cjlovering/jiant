@@ -337,12 +337,16 @@ def load_model_state(model, state_path, gpu_id, skip_task_models=[], strict=True
     strict: Whether we should fail if any parameters aren't found in the checkpoint. If false,
         there is a risk of leaving some parameters in their randomly initialized state.
     """
+    
     model_state = torch.load(state_path)
 
     assert_for_log(
         not (skip_task_models and strict),
         "Can't skip task models while also strictly loading task models. Something is wrong.",
     )
+
+    # NOTE: Had to add this in for the model names to match
+    model_state = {key.replace('module.', ''): value for (key, value) in model_state.items()}
 
     for name, param in model.named_parameters():
         # Make sure no trainable params are missing.
