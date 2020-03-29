@@ -346,7 +346,7 @@ def load_model_state(model, state_path, gpu_id, skip_task_models=[], strict=True
     )
 
     # NOTE: Had to add this in for the model names to match
-    model_state = {key.replace('module.', ''): value for (key, value) in model_state.items()}
+    # model_state = {key.replace('module.', ''): value for (key, value) in model_state.items()}
 
     for name, param in model.named_parameters():
         # Make sure no trainable params are missing.
