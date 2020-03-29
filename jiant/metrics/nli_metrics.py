@@ -12,7 +12,7 @@ class NLITwoClassAccuracy(Metric):
     """
     Metric that evaluates two-way NLI classifiers on three-way data or vice-versa.
 
-    Thhis computes standard accuracy, but collapses 'neutral' and 'contradiction'
+    This computes standard accuracy, but collapses 'neutral' and 'contradiction'
     into one label, assuming that 'entailment' is at index 1 (as in the jiant
     implementations of SNLI, MNLI and RTE).
 
