@@ -14,7 +14,7 @@ predictor = Predictor.from_path(
 )
 
 
-def main():
+def nli():
     files = [
         "dev",
         "training",
@@ -31,11 +31,30 @@ def main():
     for f in files:
         df = pipeline(f)
         df.to_csv(
-            f"./nli/{f}.tsv",
+            f"./random/{f}.tsv",
             index=False,
             sep="\t",
             columns=["premise", "hypothesis", "label", "case"],
         )
+
+
+def random():
+    files = [
+        "dev",
+        "training",
+        "sherlock_cardboard",
+        "sherlock_circle",
+        "unseen_full",
+        "lexical_full",
+        "mw_full",
+        "prefixal_full",
+        "simple_full",
+        "suffixal_full",
+        "unseen_full",
+    ]
+    for f in files:
+        df = pipeline_random(f)
+        df.to_csv(f"./random/{f}.tsv", index=False, sep="\t")
 
 
 def pipeline(name: str):
@@ -75,6 +94,83 @@ def pipeline(name: str):
     df = pd.DataFrame(map(fix_nli, records))
     df = df.drop_duplicates(subset=["premise", "hypothesis"], ignore_index=True)
     return df
+
+
+def pipeline_random(name: str):
+    # setup data
+    data = pd.read_csv(f"./raw/{name}.tsv", sep="\t")
+
+    # we replace n't with not.
+    data.sent = data.sent.apply(lambda x: x.replace("n't", "not"))
+    data.sent = data.sent.apply(lambda x: " ".join(["can" if w == "ca" else w for w in x.split()]))
+    data["cues"] = (
+        data.apply(get_cue, axis=1)
+        # lower the cues
+        .apply(lambda x: x.lower() if isinstance(x, str) else x)
+    )
+    # filter out sentences with multiple words
+    data = data[
+        (
+            # handle cases where the cues are multiple words
+            data.cues.apply(lambda x: not isinstance(x, list))
+        )
+    ]
+
+    pos = data[data.cues.apply(lambda x: x is None)]
+    pos = pos[["sent"]]
+    pos["positive"] = True
+    pos["subsequence"] = False
+
+    neg = data[data.cues.apply(lambda x: x is not None)]
+    neg = neg[["sent"]]
+    neg["positive"] = False
+    neg["subsequence"] = False
+
+    # filter cues to a smaller subset.
+    cue_filter = set(["not", "no", "never", "nor"])
+    data = data[data.cues.apply(lambda c: c in cue_filter)]
+
+    # add additional fields.
+    data["scope"] = data.apply(get_scope, axis=1)
+    data["full_scope"] = data.apply(get_full_scope, axis=1)
+
+    # filter scopes that area really short.
+    data = data[data.scope.apply(len) > 10]
+
+    # generate pairs for entailment classification.
+    records = data.to_dict(orient="records")
+    df_sent = pd.DataFrame(list(itertools.chain.from_iterable(map(get_sentences, records))))
+    df_sent["subsequence"] = True
+
+    out = pd.concat([pos, neg, df_sent])
+    out = out.sample(frac=1).reset_index(drop=True)
+    out = out[out.sent.apply(filter_nli)]
+    out["sent"] = out.sent.apply(fix_sent)
+    pos = out[out.positive]
+    neg = out[~out.positive]
+
+    def cat(x, y):
+        # shuffle
+        x = x.sample(frac=1).reset_index(drop=True)
+        # shuffle
+        y = y.sample(frac=1).reset_index(drop=True)
+        return pd.concat([x.add_suffix("_1"), y.add_suffix("_2")], axis=1)
+
+    pos_pos = cat(pos, pos)
+    neg_neg = cat(neg, neg)
+    neg_pos = cat(neg, pos)
+    pos_neg = cat(pos, neg)
+
+    nli = pd.concat([pos_pos, neg_neg, neg_pos, pos_neg])
+    nli["label"] = "neutral"
+    nli = nli.drop_duplicates(subset=["sent_1", "sent_2"], ignore_index=True)
+    # remove sentences where both sentences are the same.
+    nli = nli[nli.sent_1 != nli.sent_2]
+    nli = nli.dropna()
+    # fix outputs (de-split words like im-possible).
+    # df = pd.DataFrame(map(fix_nli, records))
+    # df = df.drop_duplicates(subset=["sent_1", "sent_2"], ignore_index=True)
+    return nli
 
 
 def get_clauses(sent):
@@ -144,6 +240,52 @@ def get_nli(series):
             yield {"premise": sent, "hypothesis": c, "label": "entailment", "case": "c: a S clause"}
 
 
+def get_sentences(series):
+    """Map instance to nli pairs. """
+    negated_scope = series["full_scope"]
+    scope = series["scope"]
+    sent = series["sent"]
+    cue = series["cues"]
+
+    negated_scope_set = set(negated_scope.split())
+    scope_set = set(scope.split())
+
+    # We look at all the clauses within the sentence, and then
+    # also look at the clauses within the scope. They can overlap
+    # but sometimes looking directly at the scope gives alternate
+    # or more complete picture.
+    clauses = itertools.chain(get_clauses(scope), get_clauses(sent))
+    for c in clauses:
+        # Skip the full-sentence.
+        if c == "sent":
+            continue
+
+        # We approximate looking at the various sliding windows, and just make
+        # sets of the words to determine the various relations between clauses
+        # and scopes.
+        c_set = set(c.split())
+
+        if c_set.issubset(scope_set) and not negated_scope_set.issubset(c_set):
+            # scope: he did not run
+            # clause: he did run
+            yield {"sent": fix_hypothesis(c, scope_set), "positive": True}
+
+        elif negated_scope_set.issubset(c_set):
+            # input clause: he did not run, but he did dance.
+            # scope: he did [not] run
+
+            # premise: ...he did not run, but he did dance.
+            # hypothesis: he did run, but he did dance.
+            # scope: he did [not] run
+            hypothesis = c.replace(cue + " ", "").replace(cue, "")
+            hypothesis = fix_hypothesis(hypothesis, scope_set)
+            yield {"sent": hypothesis, "positive": True}
+        else:
+            # other cases.
+            # We are asssuming the input sentence is Negative to begin with.
+            yield {"sent": c, "positive": False}
+
+
 def fix_hypothesis(hypothesis, scope_set):
     """Replace or delete NPIs.
 
@@ -194,6 +336,10 @@ def filter_nli(hypothesis):
     return True
 
 
+def fix_sent(sent):
+    return sent.replace("- ", "").replace(" -", "").replace("``", '"').replace("''", '"')
+
+
 def fix_nli(series):
     """Fix up the entailment instances.
 
@@ -239,4 +385,5 @@ def get_full_scope(series):
 
 
 if __name__ == "__main__":
-    main()
+    # nli()
+    random()
