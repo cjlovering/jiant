@@ -1,6 +1,8 @@
-from . import common
+# https://github.com/ffancellu/NegNN
+
+import common
 from string import punctuation
-from . import tree
+import tree
 import codecs
 
 
@@ -371,9 +373,7 @@ class Token(object):
         if len(fields) == 7 or fields[7] == Token._no_annotation:
             self.annotations = []
         else:
-            self.annotations = [
-                (Annotation(fields[i : i + 3])) for i in range(7, len(fields), 3)
-            ]
+            self.annotations = [(Annotation(fields[i : i + 3])) for i in range(7, len(fields), 3)]
 
     def __str__(self):
         return self.word
@@ -402,9 +402,7 @@ class Token(object):
     # Changed from (pos form) to (pos lemma) -- shouldn't cause a problem...?
     def to_ptb(self):
         return self.syntax.replace(
-            "*",
-            "(%s %s)"
-            % (ptb_escape_brackets(self.pos), ptb_escape_brackets(self.lemma)),
+            "*", "(%s %s)" % (ptb_escape_brackets(self.pos), ptb_escape_brackets(self.lemma))
         )
 
     @staticmethod
@@ -431,8 +429,7 @@ class Token(object):
                         end_of_span = True
                     else:
                         if (
-                            current.word.find(current_annotation)
-                            + len(current_annotation)
+                            current.word.find(current_annotation) + len(current_annotation)
                             < len(current.word) - 1
                         ):
                             end_of_span = True
@@ -461,9 +458,7 @@ class Token(object):
         return self.annotations
 
     def set_annotations(self, fields):
-        self.annotations = [
-            (Annotation(fields[i : i + 3])) for i in range(0, len(fields), 3)
-        ]
+        self.annotations = [(Annotation(fields[i : i + 3])) for i in range(0, len(fields), 3)]
 
     def is_cue(self):
         cues = [a.get_cue() for a in self.get_annotations()]

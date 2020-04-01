@@ -1,5 +1,6 @@
 # -*-coding:utf-8-*-
 #! /usr/bin/env python
+# https://github.com/ffancellu/NegNN
 
 import argparse
 import codecs
@@ -10,7 +11,7 @@ import time
 
 import pandas as pd
 
-from NegNN.processors import processor
+import processor
 
 
 def main():
@@ -45,23 +46,25 @@ def main():
     # Data Preparation
     # ==================================================
 
-    fn_dev = os.path.abspath("./NEP/data/dev/sherlock_dev.txt")
+    fn_dev = os.path.abspath("./data/dev/sherlock_dev.txt")
     dev_data = processor.load_data(
         fn_dev, FLAGS.scope_detection, FLAGS.event_detection, FLAGS.training_lang
     )
+    if not os.path.isdir("./raw/"):
+        os.mkdir("./raw/")
     pd.DataFrame(dev_data).to_csv(
-        "./NEP/raw/dev.tsv",
+        "./raw/dev.tsv",
         columns=["sent", "cues_idx", "label", "labels_idx", "scopes_idx", "scope"],
         sep="\t",
         index=False,
     )
 
-    fn_training = os.path.abspath("./NEP/data/training/sherlock_train.txt")
+    fn_training = os.path.abspath("./data/training/sherlock_train.txt")
     train_data = processor.load_data(
         fn_training, FLAGS.scope_detection, FLAGS.event_detection, FLAGS.training_lang
     )
     pd.DataFrame(train_data).to_csv(
-        "./NEP/raw/training.tsv",
+        "./raw/training.tsv",
         columns=["sent", "cues_idx", "label", "labels_idx", "scopes_idx", "scope"],
         sep="\t",
         index=False,
@@ -79,12 +82,12 @@ def main():
         "simple_wiki/full/unseen_full.conll",
     ]
     for test_file in tests:
-        fn_test = os.path.abspath(f"./NegNN/NegNN/data/test/{test_file}")
+        fn_test = os.path.abspath(f"./data/test/{test_file}")
         test_data = processor.load_data(
             fn_test, FLAGS.scope_detection, FLAGS.event_detection, FLAGS.training_lang
         )
         test_name = test_file.split("/")[-1].split(".")[0]
-        pd.DataFrame(test_data).to_csv(f"./NEP/raw/{test_name}.tsv", sep="\t", index=False)
+        pd.DataFrame(test_data).to_csv(f"./raw/{test_name}.tsv", sep="\t", index=False)
 
 
 if __name__ == "__main__":
