@@ -649,6 +649,7 @@ class HANSBaseTask(PairClassificationTask):
 
 
 @register_task("nep", rel_path="NEP/")
+@register_task("nep-random", rel_path="NEP-random/")
 class NEPBaseTask(PairClassificationTask):
     """ Task class for Stanford Natural Language Inference 
     
@@ -656,7 +657,7 @@ class NEPBaseTask(PairClassificationTask):
     """
 
     def __init__(self, path, max_seq_len, name, **kw):
-        super(NEPBaseTask, self).__init__(name, n_classes=2, **kw)
+        super(NEPBaseTask, self).__init__(name, n_classes=3, **kw)
         self.path = path
         self.max_seq_len = max_seq_len
 
@@ -666,7 +667,7 @@ class NEPBaseTask(PairClassificationTask):
 
     def load_data(self):
         """ Process the dataset located at path.  """
-        targ_map = {"entailment": 1, "contradiction": 2}
+        targ_map = {"neutral": 0, "entailment": 1, "contradiction": 2}
         self.train_data_text = load_tsv(
             self._tokenizer_name,
             os.path.join(self.path, "train.tsv"),

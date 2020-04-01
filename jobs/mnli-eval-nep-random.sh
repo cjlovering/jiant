@@ -8,4 +8,4 @@
 mkdir -p ./logs/
 . ~/.bashrc
 conda activate jiant
-. ./user_config.sh; python main.py --config_file jiant/config/mnli_eval.conf
+. ./user_config.sh; python main.py --config_file jiant/config/mnli_eval_nep-random.conf
