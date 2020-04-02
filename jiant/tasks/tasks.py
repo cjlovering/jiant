@@ -691,7 +691,7 @@ class NEPBaseTask(PairClassificationTask):
         )
         self.test_data_text = load_tsv(
             self._tokenizer_name,
-            os.path.join(self.path, "eval.tsv"),
+            os.path.join(self.path, "all.tsv"),
             max_seq_len=self.max_seq_len,
             label_fn=targ_map.__getitem__,
             s1_idx=0,
