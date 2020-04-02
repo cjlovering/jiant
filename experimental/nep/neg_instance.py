@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# https://github.com/ffancellu/NegNN
 
 from itertools import izip
 import pickle as pickle

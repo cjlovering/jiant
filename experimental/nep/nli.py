@@ -1,3 +1,5 @@
+# https://github.com/ffancellu/NegNN
+
 import ast
 import itertools
 import pandas as pd
@@ -28,14 +30,25 @@ def nli():
         "suffixal_full",
         "unseen_full",
     ]
+    if not os.path.isdir("./nli/"):
+        os.mkdir("./nli/")
+    out = []
     for f in files:
         df = pipeline(f)
+        out.append(df)
         df.to_csv(
-            f"./random/{f}.tsv",
+            f"./nli/{f}.tsv",
             index=False,
             sep="\t",
-            columns=["premise", "hypothesis", "label", "case"],
+            columns=["premise", "hypothesis", "label", "case", "cue", "common_cue"],
         )
+    out_df = pd.concat(out)
+    out_df.to_csv(
+        f"./nli/all.tsv",
+        index=False,
+        sep="\t",
+        columns=["premise", "hypothesis", "label", "case", "cue", "common_cue"],
+    )
 
 
 def random():
@@ -52,9 +65,39 @@ def random():
         "suffixal_full",
         "unseen_full",
     ]
+    out = []
     for f in files:
         df = pipeline_random(f)
-        df.to_csv(f"./random/{f}.tsv", index=False, sep="\t")
+        out.append(df)
+        df.to_csv(
+            f"./random/{f}.tsv",
+            index=False,
+            sep="\t",
+            columns=[
+                "label",
+                "sent_1",
+                "sent_2",
+                "positive_1",
+                "positive_2",
+                "subsequence_1",
+                "subsequence_2",
+            ],
+        )
+    out_df = pd.concat(out)
+    out_df.to_csv(
+        f"./random/all.tsv",
+        index=False,
+        sep="\t",
+        columns=[
+            "label",
+            "sent_1",
+            "sent_2",
+            "positive_1",
+            "positive_2",
+            "subsequence_1",
+            "subsequence_2",
+        ],
+    )
 
 
 def pipeline(name: str):
@@ -77,10 +120,10 @@ def pipeline(name: str):
 
     # filter cues to a smaller subset.
     cue_filter = set(["not", "no", "never", "nor"])
-    df = data[data.cues.apply(lambda c: c in cue_filter)]
+    data["common_cue"] = data.cues.apply(lambda c: c in cue_filter)
 
     # filter scopes that area really short.
-    df = df[df.scope.apply(len) > 10]
+    df = data[data.scope.apply(len) > 10]
 
     # generate pairs for entailment classification.
     records = df.to_dict(orient="records")
@@ -192,6 +235,7 @@ def get_nli(series):
     scope = series["scope"]
     sent = series["sent"]
     cue = series["cues"]
+    common_cue = series["common_cue"]
 
     negated_scope_set = set(negated_scope.split())
     scope_set = set(scope.split())
@@ -219,6 +263,8 @@ def get_nli(series):
                 "hypothesis": fix_hypothesis(c, scope_set),
                 "label": "contradiction",
                 "case": "a: within scope.",
+                "cue": cue,
+                "common_cue": common_cue,
             }
         elif negated_scope_set.issubset(c_set):
             # input clause: he did not run, but he did dance.
@@ -234,10 +280,19 @@ def get_nli(series):
                 "hypothesis": hypothesis,
                 "label": "contradiction",
                 "case": "b: cue-removed",
+                "cue": cue,
+                "common_cue": common_cue,
             }
         else:
             # other cases.
-            yield {"premise": sent, "hypothesis": c, "label": "entailment", "case": "c: a S clause"}
+            yield {
+                "premise": sent,
+                "hypothesis": c,
+                "label": "entailment",
+                "case": "c: a S clause",
+                "cue": cue,
+                "common_cue": common_cue,
+            }
 
 
 def get_sentences(series):
@@ -349,8 +404,17 @@ def fix_nli(series):
     premise = series["premise"]
     label = series["label"]
     case = series["case"]
+    cue = series["cue"]
+    common_cue = series["common_cue"]
     fix = lambda x: x.replace("- ", "").replace(" -", "").replace("``", '"').replace("''", '"')
-    return {"hypothesis": fix(hypothesis), "premise": fix(premise), "label": label, "case": case}
+    return {
+        "hypothesis": fix(hypothesis),
+        "premise": fix(premise),
+        "label": label,
+        "case": case,
+        "cue": cue,
+        "common_cue": common_cue,
+    }
 
 
 def get_cue(series):
@@ -385,5 +449,5 @@ def get_full_scope(series):
 
 
 if __name__ == "__main__":
-    # nli()
-    random()
+    nli()
+    # random()
