@@ -639,7 +639,6 @@ class HANSBaseTask(PairClassificationTask):
             skip_rows=1,
             return_indices=True,
         )
-        print(len(self.train_data_text), len(self.val_data_text), len(self.test_data_text))
         self.sentences = (
             self.train_data_text[0]
             + self.train_data_text[1]

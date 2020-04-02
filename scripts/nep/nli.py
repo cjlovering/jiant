@@ -5,10 +5,11 @@ import itertools
 import pandas as pd
 from collections import Counter
 from nltk import Tree
+import os
 
 # We use the allennlp parser (I liked the outputs I sampled.)
 # https://demo.allennlp.org/constituency-parsing/MTU5NjQxOQ==
-
+from jiant.utils.data_loaders import tokenize_and_truncate
 from allennlp.predictors.predictor import Predictor
 
 predictor = Predictor.from_path(
@@ -40,14 +41,14 @@ def nli():
             f"./nli/{f}.tsv",
             index=False,
             sep="\t",
-            columns=["premise", "hypothesis", "label", "case", "cue", "common_cue"],
+            columns=["sent_1", "sent_2", "label", "case", "cue", "common_cue"],
         )
     out_df = pd.concat(out)
     out_df.to_csv(
         f"./nli/all.tsv",
         index=False,
         sep="\t",
-        columns=["premise", "hypothesis", "label", "case", "cue", "common_cue"],
+        columns=["sent_1", "sent_2", "label", "case", "cue", "common_cue"],
     )
 
 
@@ -130,12 +131,21 @@ def pipeline(name: str):
     df_nli = pd.DataFrame(list(itertools.chain.from_iterable(map(get_nli, records))))
 
     # filter hypotheses s.t. they are (more) well-formed.
-    df_nli = df_nli[df_nli.hypothesis.apply(filter_nli)]
+    df_nli = df_nli[df_nli.sent_2.apply(filter_nli)]
 
     # fix outputs (de-split words like im-possible).
     records = df_nli.to_dict(orient="records")
     df = pd.DataFrame(map(fix_nli, records))
-    df = df.drop_duplicates(subset=["premise", "hypothesis"], ignore_index=True)
+    df = df.drop_duplicates(subset=["sent_1", "sent_2"], ignore_index=True)
+
+    # match outputs for jiant
+    # Filter for sentence1s that are of length 0
+    # Filter if row[targ_idx] is nan
+    mask = df.sent_1.str.len() > 0 & (df.sent_2.str.len() > 0) & rows.label.notnull()
+    df = df[mask]
+    df.sent_1 = df.sent_1.apply(lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len))
+    df.sent_2 = df.sent_2.apply(lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len))
+
     return df
 
 
@@ -209,11 +219,22 @@ def pipeline_random(name: str):
     nli = nli.drop_duplicates(subset=["sent_1", "sent_2"], ignore_index=True)
     # remove sentences where both sentences are the same.
     nli = nli[nli.sent_1 != nli.sent_2]
-    nli = nli.dropna()
+    df = nli.dropna()
     # fix outputs (de-split words like im-possible).
     # df = pd.DataFrame(map(fix_nli, records))
     # df = df.drop_duplicates(subset=["sent_1", "sent_2"], ignore_index=True)
-    return nli
+
+    # match outputs for jiant
+    # Filter for sentence1s that are of length 0
+    # Filter if row[targ_idx] is nan
+    mask = df.sent_1.str.len() > 0 & (df.sent_2.str.len() > 0) & df.label.notnull()
+    df = df[mask]
+    # hope: pre-tokenizing sentences will make it easier to match back to the original data
+    # after it is processed by jiant. hopefully tokenizing a sentence twice won't have any
+    # impact: e.g. tokenize(tokenize(x)) = tokenize(x)
+    df.sent_1 = df.sent_1.apply(lambda x: tokenize_and_truncate("bert-base-cased", x, 50000))
+    df.sent_2 = df.sent_2.apply(lambda x: tokenize_and_truncate("bert-base-cased", x, 50000))
+    return df
 
 
 def get_clauses(sent):
@@ -259,8 +280,8 @@ def get_nli(series):
             # scope: he did not run
             # clause: he did run
             yield {
-                "premise": sent,
-                "hypothesis": fix_hypothesis(c, scope_set),
+                "sent_1": sent,
+                "sent_2": fix_sent_2(c, scope_set),
                 "label": "contradiction",
                 "case": "a: within scope.",
                 "cue": cue,
@@ -270,14 +291,14 @@ def get_nli(series):
             # input clause: he did not run, but he did dance.
             # scope: he did [not] run
 
-            # premise: ...he did not run, but he did dance.
-            # hypothesis: he did run, but he did dance.
+            # sent_1: ...he did not run, but he did dance.
+            # sent_2: he did run, but he did dance.
             # scope: he did [not] run
-            hypothesis = c.replace(cue + " ", "").replace(cue, "")
-            hypothesis = fix_hypothesis(hypothesis, scope_set)
+            sent_2 = c.replace(cue + " ", "").replace(cue, "")
+            sent_2 = fix_sent_2(sent_2, scope_set)
             yield {
-                "premise": sent,
-                "hypothesis": hypothesis,
+                "sent_1": sent,
+                "sent_2": sent_2,
                 "label": "contradiction",
                 "case": "b: cue-removed",
                 "cue": cue,
@@ -286,8 +307,8 @@ def get_nli(series):
         else:
             # other cases.
             yield {
-                "premise": sent,
-                "hypothesis": c,
+                "sent_1": sent,
+                "sent_2": c,
                 "label": "entailment",
                 "case": "c: a S clause",
                 "cue": cue,
@@ -323,25 +344,25 @@ def get_sentences(series):
         if c_set.issubset(scope_set) and not negated_scope_set.issubset(c_set):
             # scope: he did not run
             # clause: he did run
-            yield {"sent": fix_hypothesis(c, scope_set), "positive": True}
+            yield {"sent": fix_sent_2(c, scope_set), "positive": True}
 
         elif negated_scope_set.issubset(c_set):
             # input clause: he did not run, but he did dance.
             # scope: he did [not] run
 
-            # premise: ...he did not run, but he did dance.
-            # hypothesis: he did run, but he did dance.
+            # sent_1: ...he did not run, but he did dance.
+            # sent_2: he did run, but he did dance.
             # scope: he did [not] run
-            hypothesis = c.replace(cue + " ", "").replace(cue, "")
-            hypothesis = fix_hypothesis(hypothesis, scope_set)
-            yield {"sent": hypothesis, "positive": True}
+            sent_2 = c.replace(cue + " ", "").replace(cue, "")
+            sent_2 = fix_sent_2(sent_2, scope_set)
+            yield {"sent": sent_2, "positive": True}
         else:
             # other cases.
             # We are asssuming the input sentence is Negative to begin with.
             yield {"sent": c, "positive": False}
 
 
-def fix_hypothesis(hypothesis, scope_set):
+def fix_sent_2(sent_2, scope_set):
     """Replace or delete NPIs.
 
     TODO: Re-implement scope to use the locations of the words in the original sentence.
@@ -368,16 +389,16 @@ def fix_hypothesis(hypothesis, scope_set):
                 return False, None
         return True, word
 
-    hypothesis = " ".join(word for keep, word in map(fix_word, hypothesis.split()) if keep)
-    return hypothesis
+    sent_2 = " ".join(word for keep, word in map(fix_word, sent_2.split()) if keep)
+    return sent_2
 
 
-def filter_nli(hypothesis):
-    """Filter bad hypothesis. 
+def filter_nli(sent_2):
+    """Filter bad sent_2. 
     
     Returns True if we should keep it, and False otherwise.
     """
-    result = predictor.predict(sentence=hypothesis)
+    result = predictor.predict(sentence=sent_2)
     tree = Tree.fromstring(result["trees"])
 
     # bad cases
@@ -400,16 +421,16 @@ def fix_nli(series):
 
     * De-split words like "im-possible".
     """
-    hypothesis = series["hypothesis"]
-    premise = series["premise"]
+    sent_2 = series["sent_2"]
+    sent_1 = series["sent_1"]
     label = series["label"]
     case = series["case"]
     cue = series["cue"]
     common_cue = series["common_cue"]
     fix = lambda x: x.replace("- ", "").replace(" -", "").replace("``", '"').replace("''", '"')
     return {
-        "hypothesis": fix(hypothesis),
-        "premise": fix(premise),
+        "sent_2": fix(sent_2),
+        "sent_1": fix(sent_1),
         "label": label,
         "case": case,
         "cue": cue,
