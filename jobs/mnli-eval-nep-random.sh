@@ -1,7 +1,7 @@
 #!/bin/sh
 #$ -cwd
 #$ -l short
-#$ -l gpus=2
+#$ -l gpus=1
 #$ -e ./logs/
 #$ -o ./logs/
 
