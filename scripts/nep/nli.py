@@ -9,7 +9,7 @@ import os
 
 # We use the allennlp parser (I liked the outputs I sampled.)
 # https://demo.allennlp.org/constituency-parsing/MTU5NjQxOQ==
-from jiant.utils.data_loaders import tokenize_and_truncate
+# from jiant.utils.data_loaders import tokenize_and_truncate
 from allennlp.predictors.predictor import Predictor
 
 predictor = Predictor.from_path(
@@ -232,8 +232,8 @@ def pipeline_random(name: str):
     # hope: pre-tokenizing sentences will make it easier to match back to the original data
     # after it is processed by jiant. hopefully tokenizing a sentence twice won't have any
     # impact: e.g. tokenize(tokenize(x)) = tokenize(x)
-    df.sent_1 = df.sent_1.apply(lambda x: tokenize_and_truncate("bert-base-cased", x, 50000))
-    df.sent_2 = df.sent_2.apply(lambda x: tokenize_and_truncate("bert-base-cased", x, 50000))
+    # df.sent_1 = df.sent_1.apply(lambda x: tokenize_and_truncate("bert-base-cased", x, 50000))
+    # df.sent_2 = df.sent_2.apply(lambda x: tokenize_and_truncate("bert-base-cased", x, 50000))
     return df
 
 
@@ -471,4 +471,4 @@ def get_full_scope(series):
 
 if __name__ == "__main__":
     nli()
-    # random()
+    random()
