@@ -93,7 +93,7 @@ def load_tsv(
     filter_value=None,
     tag_vocab=None,
     tag2idx_dict=None,
-    shuffle: bool=False,
+    shuffle: bool = False,
 ):
     """
     Load a tsv.
@@ -150,6 +150,15 @@ def load_tsv(
     )
     if shuffle:
         rows = rows.sample(frac=1).reset_index(drop=True)
+
+    # Save the tokenized dataset for post-processing.
+    rows["sent1_str"] = rows[s1_idx].apply(
+        lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len)
+    )
+    rows["sent2_str"] = rows[s2_idx].apply(
+        lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len)
+    )
+    pd.to_csv(data_file.replace(".tsv", "-tokenized.tsv"), sep=delimiter, index=False)
 
     if filter_idx and filter_value:
         rows = rows[rows[filter_idx] == filter_value]
