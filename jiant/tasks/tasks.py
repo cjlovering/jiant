@@ -448,9 +448,9 @@ class RankingTask(Task):
 
 @register_task("mnli_hans", rel_path="MNLI/")
 class HansMnliNLITask(PairClassificationTask):
-    """ Task class for Multi-Genre Natural Language Inference. 
-    
-    
+    """ Task class for Multi-Genre Natural Language Inference.
+
+
     MNLI + HANS (joint training.)
     """
 
@@ -587,8 +587,8 @@ class HansMnliNLITask(PairClassificationTask):
 
 @register_task("hans", rel_path="HANS/")
 class HANSBaseTask(PairClassificationTask):
-    """ Task class for Stanford Natural Language Inference 
-    
+    """ Task class for Stanford Natural Language Inference
+
     HANS only task.
     """
 
@@ -650,8 +650,8 @@ class HANSBaseTask(PairClassificationTask):
 @register_task("nep", rel_path="NEP/")
 @register_task("nep-random", rel_path="NEP-random/")
 class NEPBaseTask(PairClassificationTask):
-    """ Task class for Stanford Natural Language Inference 
-    
+    """ Task class for Stanford Natural Language Inference
+
     NEP only task.
     """
 
@@ -819,7 +819,7 @@ class HANSTask(PairClassificationTask):
 @register_task("hans-perturbed", target_class="not-perturbed", rel_path="HANS-perturbed/")
 class HANSPerturbedTask(PairClassificationTask):
     """ Task class for Stanford Natural Language Inference.
-    
+
     This task is aimed at detecting whether or not there is lexical
     overlap (or a derivative thereof) where the negative cases consist
     of examples where there is an additional adjective modifying the object.
@@ -3168,7 +3168,7 @@ class WiCTask(PairClassificationTask):
 
         def _process_preserving_word(sent, word):
             """ Find out the index of the [first] instance of the word in the original sentence,
-            and project the span containing marked word to the span containing tokens created from 
+            and project the span containing marked word to the span containing tokens created from
             the marked word. """
             token_aligner, sent_tok = aligner_fn(sent)
             raw_start_idx = len(sent.split(word)[0].split(" ")) - 1
