@@ -32,6 +32,7 @@ from jiant.utils.data_loaders import (
     load_diagnostic_tsv,
     load_span_data,
     load_tsv,
+    load_and_save_tsv,
     tokenize_and_truncate,
     load_pair_nli_jsonl,
 )
@@ -667,7 +668,7 @@ class NEPBaseTask(PairClassificationTask):
     def load_data(self):
         """ Process the dataset located at path.  """
         targ_map = {"neutral": 0, "entailment": 1, "contradiction": 2}
-        self.train_data_text = load_tsv(
+        self.train_data_text = load_and_save_tsv(
             self._tokenizer_name,
             os.path.join(self.path, "train.tsv"),
             max_seq_len=self.max_seq_len,
@@ -678,7 +679,7 @@ class NEPBaseTask(PairClassificationTask):
             skip_rows=1,
             return_indices=True,
         )
-        self.val_data_text = load_tsv(
+        self.val_data_text = load_and_save_tsv(
             self._tokenizer_name,
             os.path.join(self.path, "val.tsv"),
             max_seq_len=self.max_seq_len,
@@ -689,7 +690,7 @@ class NEPBaseTask(PairClassificationTask):
             skip_rows=1,
             return_indices=True,
         )
-        self.test_data_text = load_tsv(
+        self.test_data_text = load_and_save_tsv(
             self._tokenizer_name,
             os.path.join(self.path, "all.tsv"),
             max_seq_len=self.max_seq_len,

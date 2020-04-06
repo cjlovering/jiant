@@ -160,8 +160,156 @@ def load_tsv(
     )
     data_file = data_file.replace(".tsv", "-tokenized.tsv")
     rows.to_csv(data_file, sep=delimiter, index=False)
-     
+
     print(len(rows), data_file)
+
+    if filter_idx and filter_value:
+        rows = rows[rows[filter_idx] == filter_value]
+    # Filter for sentence1s that are of length 0
+    # Filter if row[targ_idx] is nan
+    mask = rows[s1_idx].str.len() > 0
+    if s2_idx is not None:
+        mask = mask & (rows[s2_idx].str.len() > 0)
+    if has_labels:
+        mask = mask & rows[label_idx].notnull()
+    rows = rows.loc[mask]
+    sent1s = rows[s1_idx].apply(lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len))
+    if s2_idx is None:
+        sent2s = pd.Series()
+    else:
+        sent2s = rows[s2_idx].apply(lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len))
+
+    label_fn = label_fn if label_fn is not None else (lambda x: x)
+    if has_labels:
+        labels = rows[label_idx].apply(lambda x: label_fn(x))
+    else:
+        # If dataset doesn't have labels, for example for test set, then mock labels
+        labels = np.zeros(len(rows), dtype=int)
+    if tag2idx_dict is not None:
+        # -2 offset to cancel @@unknown@@ and @@padding@@ in vocab
+        def tags_to_tids(coarse_tag, fine_tags):
+            return (
+                []
+                if pd.isna(fine_tags)
+                else (
+                    [tag_vocab.add_token_to_namespace(coarse_tag) - 2]
+                    + [
+                        tag_vocab.add_token_to_namespace("%s__%s" % (coarse_tag, fine_tag)) - 2
+                        for fine_tag in fine_tags.split(";")
+                    ]
+                )
+            )
+
+        tid_temp = [
+            rows[idx].apply(lambda x: tags_to_tids(coarse_tag, x)).tolist()
+            for coarse_tag, idx in tag2idx_dict.items()
+        ]
+        tagids = [[tid for column in tid_temp for tid in column[idx]] for idx in range(len(rows))]
+    if return_indices:
+        idxs = rows.index.tolist()
+        # Get indices of the remaining rows after filtering
+        return sent1s.tolist(), sent2s.tolist(), labels.tolist(), idxs
+    elif tag2idx_dict is not None:
+        return sent1s.tolist(), sent2s.tolist(), labels.tolist(), tagids
+    else:
+        return sent1s.tolist(), sent2s.tolist(), labels.tolist()
+
+
+def load_and_save_tsv(
+    tokenizer_name,
+    data_file,
+    max_seq_len,
+    label_idx=2,
+    s1_idx=0,
+    s2_idx=1,
+    s1_name="sent_1",
+    s2_name="sent_2",
+    label_fn=None,
+    skip_rows=0,
+    return_indices=False,
+    delimiter="\t",
+    quote_level=csv.QUOTE_NONE,
+    filter_idx=None,
+    has_labels=True,
+    filter_value=None,
+    tag_vocab=None,
+    tag2idx_dict=None,
+    shuffle: bool = False,
+):
+    """
+    Load a tsv.
+
+    To load only rows that have a certain value for a certain columnn, set filter_idx and
+    filter_value (for example, for mnli-fiction we want rows where the genre column has
+    value 'fiction').
+
+    Args:
+        tokenizer_name (str): The name of the tokenizer to use (see defaluts.conf for values).
+        data_file (str): The path to the file to read.
+        max_seq_len (int): The maximum number of tokens to keep after tokenization, per text field.
+            Start and end symbols are introduced before tokenization, and are counted, so we will
+            keep max_seq_len - 2 tokens *of text*.
+        label_idx (int|None): The column index for the label field, if present.
+        s1_idx (int): The column index for the first text field.
+        s2_idx (int|None): The column index for the second text field, if present.
+        label_fn (fn: str -> int|None): A function to map items in column label_idx to int-valued
+            labels.
+        skip_rows (int|list): Skip this many header rows or skip these specific row indices.
+        has_labels (bool): If False, don't look for labels at position label_idx.
+        filter_value (str|None): The value in which we want filter_idx to be equal to.
+        filter_idx (int|None): The column index in which to look for filter_value.
+        tag_vocab (allennlp vocabulary): In some datasets, examples are attached to tags, and we
+            need to know the results on examples with certain tags, this is a vocabulary for
+            tracking tags in a dataset across splits
+        tag2idx_dict (dict<string, int>): The tags form a two-level hierarchy, each fine tag belong
+            to a coarse tag. In the tsv, each coarse tag has one column, the content in that column
+            indicates what fine tags(seperated by ;) beneath that coarse tag the examples have.
+            tag2idx_dict is a dictionary to map coarse tag to the index of corresponding column.
+            e.g. if we have two coarse tags: source at column 0, topic at column 1; and four fine
+            tags: wiki, reddit beneath source, and economics, politics beneath topic. The tsv will
+            be: | wiki  | economics;politics|, with the tag2idx_dict as {"source": 0, "topic": 1}
+                | reddit| politics          |
+        shuffle (bool): If true, shuffle the rows of the dataset.
+
+    Returns:
+        List of first and second sentences, labels, and if applicable indices
+    """
+
+    # TODO(Yada): Instead of index integers, adjust this to pass in column names
+    # get the first row as the columns to pass into the pandas reader
+    # This reads the data file given the delimiter, skipping over any rows
+    # (usually header row)
+    rows = pd.read_csv(
+        data_file,
+        sep=delimiter,
+        error_bad_lines=False,
+        header=None,
+        skiprows=skip_rows,
+        quoting=quote_level,
+        keep_default_na=False,
+        encoding="utf-8",
+    )
+    if shuffle:
+        rows = rows.sample(frac=1).reset_index(drop=True)
+
+    saved = pd.read_csv(
+        data_file,
+        sep=delimiter,
+        error_bad_lines=False,
+        skiprows=skip_rows,
+        quoting=quote_level,
+        keep_default_na=False,
+        encoding="utf-8",
+    )
+    # Save the tokenized dataset for post-processing.
+    saved["sent1_str"] = saved[s1_name].apply(
+        lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len)
+    )
+    saved["sent2_str"] = saved[s2_name].apply(
+        lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len)
+    )
+    saved_data_file = data_file.replace(".tsv", "-tokenized.tsv")
+    saved.to_csv(saved_data_file, sep=delimiter, index=False)
 
     if filter_idx and filter_value:
         rows = rows[rows[filter_idx] == filter_value]
