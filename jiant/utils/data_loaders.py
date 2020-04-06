@@ -158,7 +158,10 @@ def load_tsv(
     rows["sent2_str"] = rows[s2_idx].apply(
         lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len)
     )
-    pd.to_csv(data_file.replace(".tsv", "-tokenized.tsv"), sep=delimiter, index=False)
+    data_file = data_file.replace(".tsv", "-tokenized.tsv")
+    rows.to_csv(data_file, sep=delimiter, index=False)
+     
+    print(len(rows), data_file)
 
     if filter_idx and filter_value:
         rows = rows[rows[filter_idx] == filter_value]
