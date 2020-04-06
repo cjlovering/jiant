@@ -143,9 +143,6 @@ def pipeline(name: str):
     # Filter if row[targ_idx] is nan
     mask = df.sent_1.str.len() > 0 & (df.sent_2.str.len() > 0) & df.label.notnull()
     df = df[mask]
-    # df.sent_1 = df.sent_1.apply(lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len))
-    # df.sent_2 = df.sent_2.apply(lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len))
-
     return df
 
 
@@ -216,7 +213,7 @@ def pipeline_random(name: str):
 
     nli = pd.concat([pos_pos, neg_neg, neg_pos, pos_neg])
     nli["label"] = "neutral"
-    nli = nli.drop_duplicates(subset=["sent_1", "sent_2"]) # , ignore_index=True)
+    nli = nli.drop_duplicates(subset=["sent_1", "sent_2"])  # , ignore_index=True)
     # remove sentences where both sentences are the same.
     nli = nli[nli.sent_1 != nli.sent_2]
     df = nli.dropna()
