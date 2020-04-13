@@ -296,11 +296,11 @@ def load_and_save_tsv(
         data_file,
         sep=delimiter,
         error_bad_lines=False,
-        skiprows=skip_rows,
         quoting=quote_level,
         keep_default_na=False,
         encoding="utf-8",
     )
+    
     # Save the tokenized dataset for post-processing.
     saved["sent1_str"] = saved[s1_name].apply(
         lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len)
