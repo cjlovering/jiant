@@ -345,8 +345,14 @@ def load_model_state(model, state_path, gpu_id, skip_task_models=[], strict=True
         "Can't skip task models while also strictly loading task models. Something is wrong.",
     )
 
-    # NOTE: Had to add this in for the model names to match
-    model_state = {key.replace('module.', ''): value for (key, value) in model_state.items()}
+    # NOTE: Had to add this in for parameter names to match; sometimes, the new parameter names
+    # in the new model are prefaced with 'module.' and sometimes they aren't
+
+    # name of the first parameter in the new model to be filled
+    first_param_name = list(model.named_parameters())[0][0]
+    if 'module.' not in first_param_name:
+        # remove 'module' from each of the parameters in the loaded module
+        model_state = {key.replace('module.', ''): value for (key, value) in model_state.items()}
 
     for name, param in model.named_parameters():
         # Make sure no trainable params are missing.
