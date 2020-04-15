@@ -278,7 +278,6 @@ def load_and_save_tsv(
         data_file,
         sep=delimiter,
         error_bad_lines=False,
-        header=None,
         quoting=quote_level,
         keep_default_na=False,
         encoding="utf-8",
