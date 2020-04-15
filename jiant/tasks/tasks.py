@@ -676,8 +676,8 @@ class NEPBaseTask(PairClassificationTask):
             label_name="label",
             max_seq_len=self.max_seq_len,
             label_fn=targ_map.__getitem__,
-            skip_rows=1,
             return_indices=True,
+            shuffle=True,
         )
         self.val_data_text = load_and_save_tsv(
             self._tokenizer_name,
@@ -687,8 +687,8 @@ class NEPBaseTask(PairClassificationTask):
             label_name="label",
             max_seq_len=self.max_seq_len,
             label_fn=targ_map.__getitem__,
-            skip_rows=1,
             return_indices=True,
+            shuffle=True,
         )
         self.test_data_text = load_and_save_tsv(
             self._tokenizer_name,
@@ -698,8 +698,107 @@ class NEPBaseTask(PairClassificationTask):
             label_name="label",
             max_seq_len=self.max_seq_len,
             label_fn=targ_map.__getitem__,
-            skip_rows=1,
             return_indices=True,
+            shuffle=True,
+        )
+
+        self.sentences = (
+            self.train_data_text[0]
+            + self.train_data_text[1]
+            + self.val_data_text[0]
+            + self.val_data_text[1]
+        )
+        print(len(self.test_data_text))
+
+
+@register_task(
+    "nep-lexical_overlap-both",
+    rel_path="NEP-probes/",
+    target_class="lexical_overlap",
+    dataset="nep-both",
+)
+@register_task(
+    "nep-lexical_overlap-sherlock",
+    rel_path="NEP-probes/",
+    target_class="lexical_overlap",
+    dataset="nep-sherlock",
+)
+@register_task(
+    "nep-lexical_overlap-swapped",
+    rel_path="NEP-probes/",
+    target_class="lexical_overlap",
+    dataset="nep-swapped",
+)
+@register_task(
+    "nep-negated_scope-both",
+    rel_path="NEP-probes/",
+    target_class="negated_scope",
+    dataset="nep-both",
+)
+@register_task(
+    "nep-negated_scope-sherlock",
+    rel_path="NEP-probes/",
+    target_class="negated_scope",
+    dataset="nep-sherlock",
+)
+@register_task(
+    "nep-negated_scope-swapped",
+    rel_path="NEP-probes/",
+    target_class="negated_scope",
+    dataset="nep-swapped",
+)
+class NEPProbingTask(PairClassificationTask):
+    """ Task class for Stanford Natural Language Inference
+
+    NEP only task.
+    """
+
+    def __init__(self, path, max_seq_len, name, target_class, dataset, **kw):
+        super(NEPProbingTask, self).__init__(name, n_classes=3, **kw)
+        self.path = path + dataset
+        self.max_seq_len = max_seq_len
+
+        self.target_class = target_class
+
+        self.train_data_text = None
+        self.val_data_text = None
+        self.test_data_text = None
+
+    def load_data(self):
+        """ Process the dataset located at path.  """
+        targ_map = {False: 0, True: 1}
+        self.train_data_text = load_and_save_tsv(
+            self._tokenizer_name,
+            os.path.join(self.path, "train.tsv"),
+            s1_name="sent_1",
+            s2_name="sent_2",
+            label_name=self.target_class,
+            max_seq_len=self.max_seq_len,
+            label_fn=targ_map.__getitem__,
+            return_indices=True,
+            shuffle=True,
+        )
+        self.val_data_text = load_and_save_tsv(
+            self._tokenizer_name,
+            os.path.join(self.path, "val.tsv"),
+            s1_name="sent_1",
+            s2_name="sent_2",
+            label_name=self.target_class,
+            max_seq_len=self.max_seq_len,
+            label_fn=targ_map.__getitem__,
+            return_indices=True,
+            shuffle=True,
+        )
+        self.test_data_text = load_and_save_tsv(
+            self._tokenizer_name,
+            os.path.join(self.path, "test.tsv"),
+            s1_name="sent_1",
+            s2_name="sent_2",
+            label_name=self.target_class,
+            max_seq_len=self.max_seq_len,
+            label_fn=targ_map.__getitem__,
+            return_indices=True,
+            shuffle=True,
         )
 
         self.sentences = (
