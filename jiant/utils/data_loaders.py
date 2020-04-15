@@ -161,8 +161,6 @@ def load_tsv(
     data_file = data_file.replace(".tsv", "-tokenized.tsv")
     rows.to_csv(data_file, sep=delimiter, index=False)
 
-    print(len(rows), data_file)
-
     if filter_idx and filter_value:
         rows = rows[rows[filter_idx] == filter_value]
     # Filter for sentence1s that are of length 0
@@ -219,13 +217,10 @@ def load_and_save_tsv(
     tokenizer_name,
     data_file,
     max_seq_len,
-    label_idx=2,
-    s1_idx=0,
-    s2_idx=1,
+    label_name="label",
     s1_name="sent_1",
     s2_name="sent_2",
     label_fn=None,
-    skip_rows=0,
     return_indices=False,
     delimiter="\t",
     quote_level=csv.QUOTE_NONE,
@@ -284,7 +279,6 @@ def load_and_save_tsv(
         sep=delimiter,
         error_bad_lines=False,
         header=None,
-        skiprows=skip_rows,
         quoting=quote_level,
         keep_default_na=False,
         encoding="utf-8",
@@ -300,7 +294,7 @@ def load_and_save_tsv(
         keep_default_na=False,
         encoding="utf-8",
     )
-    
+
     # Save the tokenized dataset for post-processing.
     saved["sent1_str"] = saved[s1_name].apply(
         lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len)
@@ -315,21 +309,23 @@ def load_and_save_tsv(
         rows = rows[rows[filter_idx] == filter_value]
     # Filter for sentence1s that are of length 0
     # Filter if row[targ_idx] is nan
-    mask = rows[s1_idx].str.len() > 0
-    if s2_idx is not None:
-        mask = mask & (rows[s2_idx].str.len() > 0)
+    mask = rows[s1_name].str.len() > 0
+    if s2_name is not None:
+        mask = mask & (rows[s2_name].str.len() > 0)
     if has_labels:
-        mask = mask & rows[label_idx].notnull()
+        mask = mask & rows[label_name].notnull()
     rows = rows.loc[mask]
-    sent1s = rows[s1_idx].apply(lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len))
-    if s2_idx is None:
+    sent1s = rows[s1_name].apply(lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len))
+    if s2_name is None:
         sent2s = pd.Series()
     else:
-        sent2s = rows[s2_idx].apply(lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len))
+        sent2s = rows[s2_name].apply(
+            lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len)
+        )
 
     label_fn = label_fn if label_fn is not None else (lambda x: x)
     if has_labels:
-        labels = rows[label_idx].apply(lambda x: label_fn(x))
+        labels = rows[label_name].apply(lambda x: label_fn(x))
     else:
         # If dataset doesn't have labels, for example for test set, then mock labels
         labels = np.zeros(len(rows), dtype=int)
