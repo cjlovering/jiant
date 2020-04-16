@@ -20,7 +20,8 @@ from jiant.tasks.tasks import (
     WiCTask,
     WinogradCoreferenceTask,
     GLUEDiagnosticTask,
-    NEPBaseTask
+    NEPBaseTask,
+    NEPProbingTask,
 )
 from jiant.tasks.qa import MultiRCTask, ReCoRDTask, QASRLTask
 from jiant.tasks.edge_probing import EdgeProbingTask
@@ -214,7 +215,11 @@ def write_preds(
             _write_winograd_preds(
                 task, preds_df, pred_dir, split_name, strict_glue_format=strict_glue_format
             )
-        elif isinstance(task, GLUEDiagnosticTask) or isinstance(task, NEPBaseTask):
+        elif (
+            isinstance(task, GLUEDiagnosticTask)
+            or isinstance(task, NEPBaseTask)
+            or isinstance(task, NEPProbingTask)
+        ):
             # glue-diagnostic is caught above by being in ALL_GLUE_TASKS
             # currently this only catches superglue-diagnostic
             _write_diagnostics_preds(
