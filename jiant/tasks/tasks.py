@@ -755,7 +755,8 @@ class NEPProbingTask(PairClassificationTask):
 
     def __init__(self, path, max_seq_len, name, target_class, dataset, **kw):
         super(NEPProbingTask, self).__init__(name, n_classes=3, **kw)
-        self.path = path + dataset
+        self.path = path
+        self.dataset = dataset
         self.max_seq_len = max_seq_len
 
         self.target_class = target_class
@@ -769,7 +770,7 @@ class NEPProbingTask(PairClassificationTask):
         targ_map = {False: 0, True: 1}
         self.train_data_text = load_and_save_tsv(
             self._tokenizer_name,
-            os.path.join(self.path, "train.tsv"),
+            os.path.join(self.path, f"{self.dataset}-train.tsv"),
             s1_name="sent_1",
             s2_name="sent_2",
             label_name=self.target_class,
@@ -780,7 +781,7 @@ class NEPProbingTask(PairClassificationTask):
         )
         self.val_data_text = load_and_save_tsv(
             self._tokenizer_name,
-            os.path.join(self.path, "val.tsv"),
+            os.path.join(self.path, f"{self.dataset}-val.tsv"),
             s1_name="sent_1",
             s2_name="sent_2",
             label_name=self.target_class,
@@ -791,7 +792,7 @@ class NEPProbingTask(PairClassificationTask):
         )
         self.test_data_text = load_and_save_tsv(
             self._tokenizer_name,
-            os.path.join(self.path, "test.tsv"),
+            os.path.join(self.path, f"{self.dataset}-test.tsv"),
             s1_name="sent_1",
             s2_name="sent_2",
             label_name=self.target_class,
