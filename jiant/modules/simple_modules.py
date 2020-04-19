@@ -46,12 +46,77 @@ class Pooler(nn.Module):
         return seq_emb
 
 
+#---------------------------------------------------------------
+# Lena
+
+from jiant import BayesianLayers
+
+
+class BayesMLP(nn.Module):
+    """ Computes an MLP function of pairs of vectors.
+    For a batch of sentences, computes all n scores
+    for each sentence in the batch.
+    """
+
+    def __init__(self, d_inp, d_hid, d_out, num_hid_layers, dropout, first_layer_clip_var):
+        print('Constructing BayesMLP')
+        super(BayesMLP, self).__init__()
+        self.d_inp = d_inp
+        self.d_hid = d_hid
+        self.d_out = d_out
+        self.num_hid_layers = num_hid_layers
+        self.dropout = nn.Dropout(p=dropout)
+
+        # ------------------------------------------------
+        # diff
+        self.relu = nn.ReLU()
+        self.initial_linear = BayesianLayers.LinearGroupNJ(self.d_inp, self.d_hid, clip_var=first_layer_clip_var)
+        self.intermediate_linears = nn.ModuleList()
+        for i in range(self.num_hid_layers - 1):
+            self.intermediate_linears.append(BayesianLayers.LinearGroupNJ(self.d_hid, self.d_hid))
+        self.last_linear = BayesianLayers.LinearGroupNJ(self.d_hid, self.d_out)
+
+        # layers including kl_divergence
+        self.kl_list = [self.initial_linear] + [l for l in self.intermediate_linears] + [self.last_linear]
+        # end diff
+        # ------------------------------------------------
+        print('Applying dropout {}'.format(dropout))
+        print('Using intermediate size (hidden dim / rank) {}'.format(self.d_hid))
+
+    def forward(self, batch):
+        """ Computes all n label logits for each sentence in a batch.
+        Computes W2(relu(W1[h_i]+b1)+b2 or
+                 W3(relu(W2(relu(W1[h_i]+b1)+b2)+b3
+        for MLP-1, MLP-2, respectively for all i
+        Args:
+          batch: a batch of word representations of the shape
+            (batch_size, max_seq_len, representation_dim)
+        Returns:
+          A tensor of logits of shape (batch_size, max_seq_len)
+        """
+        batchlen, seqlen, dimension = batch.size()
+        batch = self.dropout(batch)
+
+        batch_2dim = batch.view(-1, dimension)
+
+        batch_2dim = self.initial_linear(batch_2dim)
+        batch_2dim = torch.relu(batch_2dim)
+        for linear in self.intermediate_linears:
+            batch_2dim = linear(batch_2dim)
+            batch_2dim = torch.relu(batch_2dim)
+            batch_2dim = self.dropout(batch_2dim)
+        batch_2dim = self.last_linear(batch_2dim)
+
+        batch = batch_2dim.view(batchlen, seqlen, -1)
+        return batch
+
+
 class Classifier(nn.Module):
     """ Logistic regression or MLP classifier """
 
     # NOTE: Expects dropout to have already been applied to its input.
 
-    def __init__(self, d_inp, n_classes, cls_type="mlp", dropout=0.2, d_hid=512):
+    def __init__(self, d_inp, n_classes, cls_type="mlp", dropout=0.2, d_hid=512, **kwargs):
         super(Classifier, self).__init__()
         if cls_type == "log_reg":
             classifier = nn.Linear(d_inp, n_classes)
@@ -75,6 +140,13 @@ class Classifier(nn.Module):
                 nn.Dropout(p=dropout),
                 nn.Linear(d_hid, n_classes),
             )
+        elif cls_type == "bayes_mlp":  # Bayes MDL
+            classifier = BayesMLP(d_inp,
+                                  d_hid,
+                                  n_classes,
+                                  num_hid_layers=kwargs["num_hid_layers"],
+                                  dropout=dropout, first_layer_clip_var=kwargs.get("first_layer_clip_var") or 0.04)
+            # TODO: num_hid_layers in params
         else:
             raise ValueError("Classifier type %s not found" % type)
         self.classifier = classifier
@@ -91,6 +163,8 @@ class Classifier(nn.Module):
             cls_type=params["cls_type"],
             dropout=params["dropout"],
             d_hid=params["d_hid"],
+            num_hid_layers=params.get("clf_num_hid_layers"),
+            first_layer_clip_var=params.get("clf_first_layer_clip_var")
         )
 
 
@@ -108,7 +182,6 @@ class SingleClassifier(nn.Module):
             possibly extracts some specific representations from the input sequence
             and concatenates those reps to the overall representations,
             then passes the whole thing through a classifier.
-
         args:
             - sent (FloatTensor): sequence of hidden states representing a sentence
             Assumes batch_size x seq_len x d_emb.
@@ -117,7 +190,6 @@ class SingleClassifier(nn.Module):
                 concatenate to the post-pooling representation.
                 For each element in idxs, we extract all the non-pad (0) representations, pool,
                 and concatenate the resulting fixed size vector to the overall representation.
-
         returns:
             - logits (FloatTensor): logits for classes
         """
@@ -170,7 +242,6 @@ class PairClassifier(nn.Module):
             possibly extracts some specific representations from the input sequence
             and concatenates those reps to the overall representations,
             then passes the whole thing through a classifier.
-
         args:
             - s1/s2 (FloatTensor): sequence of hidden states representing a sentence
                 Assumes batch_size x seq_len x d_emb.
@@ -179,7 +250,6 @@ class PairClassifier(nn.Module):
                 concatenate to the post-pooling representation.
                 For each element in idxs, we extract all the non-pad (0) representations, pool,
                 and concatenate the resulting fixed size vector to the overall representation.
-
         returns:
             - logits (FloatTensor): logits for classes
         """
@@ -234,28 +304,3 @@ class PairClassifier(nn.Module):
         pair_emb = torch.cat([emb1, emb2, torch.abs(emb1 - emb2), emb1 * emb2], 1)
         logits = self.classifier(pair_emb)
         return logits
-
-
-class TokenProjectionEncoder(nn.Module):
-    """ Applies projection to each token representation """
-
-    def __init__(self, d_inp=512):
-        super(TokenProjectionEncoder, self).__init__()
-        self.project = nn.Linear(d_inp, 1)
-
-    def forward(self, sequence, mask):
-        logits = self.project(sequence).squeeze(-1)
-        return logits
-
-
-class TokenMultiProjectionEncoder(nn.Module):
-    """ Applies multiple projections to each token representation """
-
-    def __init__(self, projection_names, d_inp=512):
-        super(TokenMultiProjectionEncoder, self).__init__()
-        self.projections = nn.ModuleDict(
-            {name: TokenProjectionEncoder(d_inp=d_inp) for name in projection_names}
-        )
-
-    def forward(self, sequence, mask):
-        return {name: projection(sequence, mask) for name, projection in self.projections.items()}

@@ -4,6 +4,7 @@
 
 import _pickle as pkl
 import base64
+import random
 from zlib import crc32
 
 
@@ -19,7 +20,6 @@ def _serialize(examples, fd, flush_every):
 
 def write_records(examples, filename, flush_every=10000):
     """Streaming read records from file.
-
     Args:
       examples: iterable(object), iterable of examples to write
       filename: path to file to write
@@ -34,12 +34,22 @@ class RepeatableIterator(object):
 
     def __init__(self, iter_fn):
         """Create a repeatable iterator.
-
         Args:
           iter_fn: callable with no arguments, creates an iterator
         """
         self._iter_fn = iter_fn
         self._counter = 0
+        data = list(iter_fn())
+        self.size = len(data)
+
+    def get_data_portion(self, begin=0, end=-1):
+        data = list(self._iter_fn())[begin:end]
+        return RepeatableIterator(lambda: iter(data))
+
+    def shuffled(self, seed=None):
+        data = list(self._iter_fn().__iter__())
+        random.Random(seed).shuffle(data)
+        return RepeatableIterator(lambda: iter(data))
 
     def get_counter(self):
         return self._counter
@@ -51,7 +61,6 @@ class RepeatableIterator(object):
 
 def bytes_to_float(b):
     """ Maps a byte string to a float in [0, 1].
-
     Verified to be uniform, at least over text strings and zero byte strings of varying lengths.
     """
     return float(crc32(b) & 0xFFFFFFFF) / 2 ** 32
@@ -59,7 +68,6 @@ def bytes_to_float(b):
 
 def read_records(filename, repeatable=False, fraction=None):
     """Streaming read records from file.
-
     Args:
       filename: path to file of b64-encoded pickles, one per line
       repeatable: if true, returns a RepeatableIterator that can read the file
@@ -67,7 +75,6 @@ def read_records(filename, repeatable=False, fraction=None):
       fraction: if set to a float between 0 and 1, load only the specified percentage
         of examples. Hashing is used to ensure that the same examples are loaded each
         epoch.
-
     Returns:
       iterable, possible repeatable, yielding deserialized Python objects
     """
