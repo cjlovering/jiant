@@ -890,7 +890,7 @@ class MultiTaskModel(nn.Module):
         out["logits"] = logits
         # What is going on?
         # out["n_exs"] = get_batch_size(batch)
-        out["n_exs"] = get_batch_size(batch, self._cuda_device)
+        out["n_exs"] = get_batch_size(batch, next(self.parameters()).device)
 
         if "labels" in batch:  # means we should compute loss
             if batch["labels"].dim() == 0:
