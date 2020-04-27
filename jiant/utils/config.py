@@ -19,10 +19,8 @@ log.basicConfig(format="%(asctime)s: %(message)s", datefmt="%m/%d %I:%M:%S %p", 
 
 class Params(object):
     """Params handler object.
-
     This functions as a nested dict, but allows for seamless dot-style access, similar to
     tf.HParams but without the type validation. For example:
-
     p = Params(name="model", num_layers=4)
     p.name  # "model"
     p['data'] = Params(path="file.txt")
@@ -101,7 +99,6 @@ class Params(object):
 
 def get_task_attr(args: Type[Params], task_name: str, attr_name: str, default=None):
     """ Get a task-specific param.
-
     Look in args.task_name.attr_name, then fall back to default (if provided),
     then fall back to args.attr_name.
     """
@@ -109,30 +106,14 @@ def get_task_attr(args: Type[Params], task_name: str, attr_name: str, default=No
         return args[task_name][attr_name]
     if default is not None:
         return default
-    return args[attr_name]
+    return args.get(attr_name, None)
 
 
-def params_from_file(config_files: Union[str, Iterable[str]], overrides: str = None) -> Params:
-    """Generate config map from config_files and overrides:
-
-    1) read config file(s) lines (into a str)
-    2) append overrides (into str from #1)
-    3) call pyhocon's parse_string on combined config-str
-    4) return a Params object (a custom jiant config map)
-
-    Parameters
-    ----------
-    config_files : Union[str, Iterable[str]]
-        filepath(s) for config files.
-    overrides : str
-        parameters overriding parameters found in config files.
-
-    Returns
-    -------
-    Params
-        config map.
-
-    """
+def params_from_file(config_files: Union[str, Iterable[str]], overrides: str = None):
+    # Argument handling is as follows:
+    # 1) read config file into pyhocon.ConfigTree
+    # 2) merge overrides into the ConfigTree
+    # 3) validate specific parameters with custom logic
     config_string = ""
     if isinstance(config_files, str):
         config_files = [config_files]

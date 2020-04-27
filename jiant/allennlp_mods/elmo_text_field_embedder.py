@@ -11,7 +11,8 @@ import torch
 from allennlp.common import Params
 from allennlp.common.checks import ConfigurationError
 from allennlp.data import Vocabulary
-from allennlp.modules import Elmo
+#from allennlp.modules import Elmo - use our version because of different layers
+from .elmo import Elmo
 from allennlp.modules.text_field_embedders.text_field_embedder import TextFieldEmbedder
 from allennlp.modules.time_distributed import TimeDistributed
 from allennlp.modules.token_embedders.token_embedder import TokenEmbedder
@@ -22,7 +23,6 @@ from overrides import overrides
 class ElmoTokenEmbedderWrapper(TokenEmbedder):
     """
     Wraps the Elmo call so that the parameters are saved correctly
-
     Forwards all calls to Elmo
     """
 
@@ -35,6 +35,7 @@ class ElmoTokenEmbedderWrapper(TokenEmbedder):
         requires_grad: bool = False,
         projection_dim: int = None,
         num_output_representations: int = 1,
+        layer_index=None,
     ) -> None:
         super(ElmoTokenEmbedderWrapper, self).__init__()
 
@@ -44,6 +45,7 @@ class ElmoTokenEmbedderWrapper(TokenEmbedder):
             weight_file=weight_file,
             num_output_representations=num_output_representations,
             dropout=dropout,
+            layer_index=layer_index
         )
 
     def get_output_dim(self):
@@ -68,7 +70,6 @@ class ElmoTextFieldEmbedder(TextFieldEmbedder):
     to return. init() also requires a dict of classifier names (i.e. the number of tasks that need their own
     ELMo scalars). which map to an int corresponding to their elmo scalars in the elmo object. These are
     names (strings) and not necessarily the same as task names (e.g. mnli for mnli-diagnostic).
-
     This is a ``TextFieldEmbedder`` that wraps a collection of :class:`TokenEmbedder` objects.  Each
     ``TokenEmbedder`` embeds or encodes the representation output from one
     :class:`~allennlp.data.TokenIndexer`.  As the data produced by a
@@ -83,6 +84,7 @@ class ElmoTextFieldEmbedder(TextFieldEmbedder):
         classifiers: Dict[str, int],
         elmo_chars_only=False,  # Flag ensuring we are using real ELMo
         sep_embs_for_skip=False,
+
     ) -> None:  # Flag indicating separate scalars per task
         super(ElmoTextFieldEmbedder, self).__init__()
         self._token_embedders = token_embedders

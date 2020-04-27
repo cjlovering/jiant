@@ -1,12 +1,10 @@
-"""Main flow for jiant.
 
+"""Train a multi-task model using AllenNLP
 To debug this, run with -m ipdb:
-
     ipdb3 jiant/__main__.py  --config_file ...
 """
 # pylint: disable=no-member
 import logging as log
-from typing import Iterable
 
 log.basicConfig(
     format="%(asctime)s: %(message)s", datefmt="%m/%d %I:%M:%S %p", level=log.INFO
@@ -22,7 +20,6 @@ import sys
 import time
 import copy
 import torch
-import torch.nn as nn
 
 from jiant import evaluate
 from jiant.models import build_model
@@ -30,7 +27,6 @@ from jiant.preprocess import build_tasks
 from jiant import tasks as task_modules
 from jiant.trainer import build_trainer
 from jiant.utils import config, tokenizers
-from jiant.utils.options import parse_cuda_list_arg
 from jiant.utils.utils import (
     assert_for_log,
     load_model_state,
@@ -41,8 +37,6 @@ from jiant.utils.utils import (
     check_for_previous_checkpoints,
     select_pool_type,
     delete_all_checkpoints,
-    get_model_attribute,
-    uses_cuda,
 )
 
 
@@ -50,19 +44,7 @@ from jiant.utils.utils import (
 EMAIL_NOTIFIER = None
 
 
-def handle_arguments(cl_arguments: Iterable[str]) -> argparse.Namespace:
-    """Defines jiant's CLI argument parsing logic
-
-    Parameters
-    ----------
-    cl_arguments : Iterable[str]
-        An sys.argv-style args obj.
-
-    Returns
-    -------
-    argparse.Namespace
-        A map of params and parsed args
-    """
+def handle_arguments(cl_arguments):
     parser = argparse.ArgumentParser(description="")
     # Configuration files
     parser.add_argument(
@@ -111,13 +93,11 @@ def setup_target_task_training(args, target_tasks, model, strict):
     1) If load_target_train_checkpoint is used, then load the weights from that checkpoint.
     2) If we did pretraining, then load the best model from pretraining.
     3) Default case: we save untrained encoder weights.
-
     Parameters
     ----------------
     args: Params object
     target_tasks: list of target Task objects
     mdoel: a MultiTaskModel object
-
     Returns
     ----------------
     model_path: str
@@ -145,13 +125,11 @@ def check_configurations(args, pretrain_tasks, target_tasks):
     Checks configurations for any obvious logical flaws
     and that necessary parameters are set for each step -
     throws asserts and exits if found.
-
     Parameters
     ----------------
     args: Params object
     pretrain_tasks: list of pretraining Task objects
     target_tasks: list of target task training Task objects
-
     Returns
     ----------------
     None
@@ -161,10 +139,6 @@ def check_configurations(args, pretrain_tasks, target_tasks):
         [not t.val_metric_decreases for t in pretrain_tasks]
     ):
         log.warn("\tMixing training tasks with increasing and decreasing val metrics!")
-
-    assert (
-        hasattr(args, "accumulation_steps") and args.accumulation_steps >= 1
-    ), "accumulation_steps must be a positive int."
 
     if args.load_target_train_checkpoint != "none":
         assert_for_log(
@@ -323,15 +297,15 @@ def get_best_checkpoint_path(args, phase, task_name=None):
     return None
 
 
-def evaluate_and_write(args, model, tasks, splits_to_write, cuda_device):
+def evaluate_and_write(args, model, tasks, splits_to_write):
     """ Evaluate a model on dev and/or test, then write predictions """
-    val_results, val_preds = evaluate.evaluate(model, tasks, args.batch_size, cuda_device, "val")
+    val_results, val_preds = evaluate.evaluate(model, tasks, args.batch_size, args.cuda, "val")
     if "val" in splits_to_write:
         evaluate.write_preds(
             tasks, val_preds, args.run_dir, "val", strict_glue_format=args.write_strict_glue_format
         )
     if "test" in splits_to_write:
-        _, te_preds = evaluate.evaluate(model, tasks, args.batch_size, cuda_device, "test")
+        _, te_preds = evaluate.evaluate(model, tasks, args.batch_size, args.cuda, "test")
         evaluate.write_preds(
             tasks, te_preds, args.run_dir, "test", strict_glue_format=args.write_strict_glue_format
         )
@@ -342,34 +316,22 @@ def evaluate_and_write(args, model, tasks, splits_to_write, cuda_device):
     evaluate.write_results(val_results, results_tsv, run_name=run_name)
 
 
-def initial_setup(args: config.Params, cl_args: argparse.Namespace) -> (config.Params, int):
-    """Perform setup steps:
-
-    1. create project, exp, and run dirs if they don't already exist
-    2. create log formatter
-    3. configure GCP remote logging
-    4. set up email notifier
-    5. log git info
-    6. write the config out to file
-    7. log diff between default and experiment's configs
-    8. choose torch's and random's random seed
-    9. if config specifies a single GPU, then set the GPU's random seed (doesn't cover multi-GPU)
-    10. resolve "auto" settings for tokenizer and pool_type parameters
-
+def initial_setup(args, cl_args):
+    """
+    Sets up email hook, creating seed, and cuda settings.
     Parameters
-    ----------
-    args : config.Params
-        config map
-    cl_args : argparse.Namespace
-        mapping named arguments to parsed values
-
+    ----------------
+    args: Params object
+    cl_args: list of arguments
     Returns
-    -------
-    args : config.Params
-        config map
-    seed : int
-        random's and pytorch's random seed
-
+    ----------------
+    tasks: list of Task objects
+    pretrain_tasks: list of pretraining tasks
+    target_tasks: list of target tasks
+    vocab: list of vocab
+    word_embs: loaded word embeddings, may be None if args.input_module in
+    {gpt, elmo, elmo-chars-only, bert-*}
+    model: a MultiTaskModel object
     """
     output = io.StringIO()
     maybe_make_dir(args.project_dir)  # e.g. /nfs/jsalt/exp/$HOSTNAME
@@ -408,8 +370,10 @@ def initial_setup(args: config.Params, cl_args: argparse.Namespace) -> (config.P
     random.seed(seed)
     torch.manual_seed(seed)
     log.info("Using random seed %d", seed)
-    if isinstance(args.cuda, int) and args.cuda >= 0:
-        # If only running on one GPU.
+    
+    # Rohan: had to do weird stuff here to get things to run
+    print(args.cuda)
+    if args.cuda != 0:
         try:
             if not torch.cuda.is_available():
                 raise EnvironmentError("CUDA is not available, or not detected" " by PyTorch.")
@@ -431,20 +395,8 @@ def initial_setup(args: config.Params, cl_args: argparse.Namespace) -> (config.P
     return args, seed
 
 
-def check_arg_name(args: config.Params):
-    """Check for obsolete params in config, throw exceptions if obsolete params are found.
-
-    Parameters
-    ----------
-    args: config.Params
-        config map
-
-    Raises
-    ------
-    AssertionError
-        If obsolete parameter names are present in config
-
-    """
+def check_arg_name(args):
+    """ Raise error if obsolete arg names are present. """
     # Mapping - key: old name, value: new name
     name_dict = {
         "task_patience": "lr_patience",
@@ -487,12 +439,11 @@ def check_arg_name(args: config.Params):
         )
 
 
-def load_model_for_target_train_run(args, ckpt_path, model, strict, task, cuda_devices):
+def load_model_for_target_train_run(args, ckpt_path, model, strict, task):
     """
         Function that reloads model if necessary and extracts trainable parts
         of the model in preparation for target_task training.
         It only reloads model after the first task is trained.
-
         Parameters
         -------------------
         args: config.Param object,
@@ -500,14 +451,13 @@ def load_model_for_target_train_run(args, ckpt_path, model, strict, task, cuda_d
         model: MultiTaskModel object,
         strict: bool,
         task: Task object
-
         Returns
         -------------------
         to_train: List of tuples of (name, weight) of trainable parameters
-
     """
-    load_model_state(model, ckpt_path, cuda_devices, skip_task_models=[task.name], strict=strict)
+
     if args.transfer_paradigm == "finetune":
+        load_model_state(model, ckpt_path, args.cuda, skip_task_models=[task.name], strict=strict)
         # Train both the task specific models as well as sentence encoder.
         to_train = [(n, p) for n, p in model.named_parameters() if p.requires_grad]
     else:  # args.transfer_paradigm == "frozen":
@@ -526,13 +476,9 @@ def load_model_for_target_train_run(args, ckpt_path, model, strict, task, cuda_d
             "they should not be updated! Check sep_embs_for_skip flag or make an issue.",
         )
         # Only train task-specific module
-
-        pred_module = get_model_attribute(model, "%s_mdl" % task.name, cuda_devices)
+        pred_module = getattr(model, "%s_mdl" % task.name)
         to_train = [(n, p) for n, p in pred_module.named_parameters() if p.requires_grad]
         to_train += elmo_scalars
-    model = model.cuda() if uses_cuda(cuda_devices) else model
-    if isinstance(cuda_devices, list):
-        model = nn.DataParallel(model, device_ids=cuda_devices)
     return to_train
 
 
@@ -540,13 +486,17 @@ def main(cl_arguments):
     """ Train a model for multitask-training."""
     cl_args = handle_arguments(cl_arguments)
     args = config.params_from_file(cl_args.config_file, cl_args.overrides)
+
+    train_type = args.get('train_type', "SamplingMultiTaskTrainer")
+    if train_type != "SamplingMultiTaskTrainer":
+        print("\n\n\n", train_type, "\n\n\n")
+
     # Check for deprecated arg names
     check_arg_name(args)
     args, seed = initial_setup(args, cl_args)
     # Load tasks
     log.info("Loading tasks...")
     start_time = time.time()
-    cuda_device = parse_cuda_list_arg(args.cuda)
     pretrain_tasks, target_tasks, vocab, word_embs = build_tasks(args)
     tasks = sorted(set(pretrain_tasks + target_tasks), key=lambda x: x.name)
     log.info("\tFinished loading tasks in %.3fs", time.time() - start_time)
@@ -555,7 +505,7 @@ def main(cl_arguments):
     # Build model
     log.info("Building model...")
     start_time = time.time()
-    model = build_model(args, vocab, word_embs, tasks, cuda_device)
+    model = build_model(args, vocab, word_embs, tasks)
     log.info("Finished building model in %.3fs", time.time() - start_time)
 
     # Start Tensorboard if requested
@@ -572,7 +522,7 @@ def main(cl_arguments):
             pretrain_tasks[0].val_metric_decreases if len(pretrain_tasks) == 1 else False
         )
         trainer, _, opt_params, schd_params = build_trainer(
-            args, cuda_device, [], model, args.run_dir, should_decrease, phase="pretrain"
+            args, [], model, args.run_dir, should_decrease, phase="pretrain", train_type=train_type
         )
         to_train = [(n, p) for n, p in model.named_parameters() if p.requires_grad]
         _ = trainer.train(
@@ -613,16 +563,16 @@ def main(cl_arguments):
                 continue
 
             params_to_train = load_model_for_target_train_run(
-                args, pre_target_train_path, model, strict, task, cuda_device
+                args, pre_target_train_path, model, strict, task
             )
             trainer, _, opt_params, schd_params = build_trainer(
                 args,
-                cuda_device,
                 [task.name],
                 model,
                 args.run_dir,
                 task.val_metric_decreases,
                 phase="target_train",
+                train_type=train_type
             )
 
             _ = trainer.train(
@@ -645,12 +595,11 @@ def main(cl_arguments):
         # Evaluate on target_tasks.
         for task in target_tasks:
             # Find the task-specific best checkpoint to evaluate on.
-            task_params = get_model_attribute(model, "_get_task_params", cuda_device)
-            task_to_use = task_params(task.name).get("use_classifier", task.name)
+            task_to_use = model._get_task_params(task.name).get("use_classifier", task.name)
             ckpt_path = get_best_checkpoint_path(args, "eval", task_to_use)
             assert ckpt_path is not None
-            load_model_state(model, ckpt_path, cuda_device, skip_task_models=[], strict=strict)
-            evaluate_and_write(args, model, [task], splits_to_write, cuda_device)
+            load_model_state(model, ckpt_path, args.cuda, skip_task_models=[], strict=strict)
+            evaluate_and_write(args, model, [task], splits_to_write)
 
     if args.delete_checkpoints_when_done and not args.keep_all_checkpoints:
         log.info("Deleting all checkpoints.")

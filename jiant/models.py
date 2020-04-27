@@ -3,7 +3,6 @@ import copy
 import json
 import logging as log
 import os
-from typing import Dict, List
 
 import numpy as np
 import torch
@@ -30,7 +29,6 @@ from jiant.modules.simple_modules import (
     SingleClassifier,
     PairClassifier,
     NullPhraseLayer,
-    TokenMultiProjectionEncoder,
 )
 from jiant.modules.attn_pair_encoder import AttnPairEncoder
 from jiant.modules.sentence_encoder import SentenceEncoder
@@ -43,7 +41,7 @@ from jiant.modules.onlstm.ON_LSTM import ONLSTMStack
 from jiant.modules.prpn.PRPN import PRPN
 from jiant.modules.seq2seq_decoder import Seq2SeqDecoder
 from jiant.modules.span_modules import SpanClassifierModule
-from jiant.huggingface_transformers_interface import input_module_uses_transformers
+from jiant.pytorch_transformers_interface import input_module_uses_pytorch_transformers
 from jiant.tasks.edge_probing import EdgeProbingTask
 from jiant.tasks.lm import LanguageModelingTask
 from jiant.tasks.lm_parsing import LanguageModelingParsingTask
@@ -59,7 +57,6 @@ from jiant.tasks.tasks import (
     SequenceGenerationTask,
     SingleClassificationTask,
     SpanClassificationTask,
-    SpanPredictionTask,
     STSBTask,
     TaggingTask,
     WiCTask,
@@ -73,8 +70,6 @@ from jiant.utils.utils import (
     get_batch_utilization,
     get_elmo_mixing_weights,
     maybe_make_dir,
-    format_output,
-    uses_cuda,
 )
 
 # Elmo stuff
@@ -228,7 +223,7 @@ def build_sent_encoder(args, vocab, d_emb, tasks, embedder, cove_layer):
     return sent_encoder, d_sent
 
 
-def build_model(args, vocab, pretrained_embs, tasks, cuda_devices):
+def build_model(args, vocab, pretrained_embs, tasks):
     """
     Build model according to args
     Returns: model which has attributes set in it with the attrbutes.
@@ -237,49 +232,43 @@ def build_model(args, vocab, pretrained_embs, tasks, cuda_devices):
     # Build embeddings.
     cove_layer = None
     if args.input_module.startswith("bert-"):
-        from jiant.huggingface_transformers_interface.modules import BertEmbedderModule
+        from jiant.pytorch_transformers_interface.modules import BertEmbedderModule
 
         log.info(f"Using BERT model ({args.input_module}).")
         embedder = BertEmbedderModule(args)
         d_emb = embedder.get_output_dim()
     elif args.input_module.startswith("roberta-"):
-        from jiant.huggingface_transformers_interface.modules import RobertaEmbedderModule
+        from jiant.pytorch_transformers_interface.modules import RobertaEmbedderModule
 
         log.info(f"Using RoBERTa model ({args.input_module}).")
         embedder = RobertaEmbedderModule(args)
         d_emb = embedder.get_output_dim()
-    elif args.input_module.startswith("albert-"):
-        from jiant.huggingface_transformers_interface.modules import AlbertEmbedderModule
-
-        log.info(f"Using ALBERT model ({args.input_module}).")
-        embedder = AlbertEmbedderModule(args)
-        d_emb = embedder.get_output_dim()
     elif args.input_module.startswith("xlnet-"):
-        from jiant.huggingface_transformers_interface.modules import XLNetEmbedderModule
+        from jiant.pytorch_transformers_interface.modules import XLNetEmbedderModule
 
         log.info(f"Using XLNet model ({args.input_module}).")
         embedder = XLNetEmbedderModule(args)
         d_emb = embedder.get_output_dim()
     elif args.input_module.startswith("openai-gpt"):
-        from jiant.huggingface_transformers_interface.modules import OpenAIGPTEmbedderModule
+        from jiant.pytorch_transformers_interface.modules import OpenAIGPTEmbedderModule
 
         log.info(f"Using OpenAI GPT model ({args.input_module}).")
         embedder = OpenAIGPTEmbedderModule(args)
         d_emb = embedder.get_output_dim()
     elif args.input_module.startswith("gpt2"):
-        from jiant.huggingface_transformers_interface.modules import GPT2EmbedderModule
+        from jiant.pytorch_transformers_interface.modules import GPT2EmbedderModule
 
         log.info(f"Using GPT-2 model ({args.input_module}).")
         embedder = GPT2EmbedderModule(args)
         d_emb = embedder.get_output_dim()
     elif args.input_module.startswith("transfo-xl-"):
-        from jiant.huggingface_transformers_interface.modules import TransfoXLEmbedderModule
+        from jiant.pytorch_transformers_interface.modules import TransfoXLEmbedderModule
 
         log.info(f"Using Transformer-XL model ({args.input_module}).")
         embedder = TransfoXLEmbedderModule(args)
         d_emb = embedder.get_output_dim()
     elif args.input_module.startswith("xlm-"):
-        from jiant.huggingface_transformers_interface.modules import XLMEmbedderModule
+        from jiant.pytorch_transformers_interface.modules import XLMEmbedderModule
 
         log.info(f"Using XLM model ({args.input_module}).")
         embedder = XLMEmbedderModule(args)
@@ -297,12 +286,9 @@ def build_model(args, vocab, pretrained_embs, tasks, cuda_devices):
     d_task_input = d_sent_output + (args.skip_embs * d_emb)
 
     # Build model and classifiers
-    model = MultiTaskModel(args, sent_encoder, vocab, cuda_devices)
+    model = MultiTaskModel(args, sent_encoder, vocab)
     build_task_modules(args, tasks, model, d_task_input, d_emb, embedder, vocab)
-    model = model.cuda() if uses_cuda(cuda_devices) else model
-    if isinstance(cuda_devices, list):
-        model = nn.DataParallel(model, device_ids=cuda_devices)
-
+    model = model.cuda() if args.cuda >= 0 else model
     log.info("Model specification:")
     log.info(model)
     param_count = 0
@@ -349,7 +335,7 @@ def build_embeddings(args, vocab, tasks, pretrained_embs=None):
         d_word = args.d_word
         word_embs = nn.Embedding(n_token_vocab, d_word).weight
     else:
-        assert input_module_uses_transformers(args.input_module) or args.input_module in [
+        assert input_module_uses_pytorch_transformers(args.input_module) or args.input_module in [
             "elmo",
             "elmo-chars-only",
         ], f"'{args.input_module}' is not a valid value for input_module."
@@ -478,7 +464,12 @@ def build_embeddings(args, vocab, tasks, pretrained_embs=None):
                 num_output_representations=num_reps,
                 # Dropout is added by the sentence encoder later.
                 dropout=0.0,
+                #scalar_mix=None if "elmo_scalar_mix" not in args else list(map(float, args.elmo_scalar_mix.split(','))),
+                layer_index=None if "elmo_layer_index" not in args else int(args.elmo_layer_index),
             )
+            if "elmo_from_pth" in args:
+                elmo_embedder.load_state_dict(torch.load(args.elmo_from_pth), strict=False)
+                print("\n\n\nLoading PTH!!!\n\n\n")
             d_emb += 1024
 
         token_embedders["elmo"] = elmo_embedder
@@ -503,7 +494,7 @@ def build_task_modules(args, tasks, model, d_sent, d_emb, embedder, vocab):
     """
 
     # Attach task-specific params.
-    for task in sorted(set(tasks), key=lambda x: x.name):
+    for task in set(tasks):
         task_params = get_task_specific_params(args, task.name)
         log.info(
             "\tTask '%s' params: %s",
@@ -514,7 +505,7 @@ def build_task_modules(args, tasks, model, d_sent, d_emb, embedder, vocab):
         setattr(model, "%s_task_params" % task.name, task_params)
 
     # Actually construct modules.
-    for task in sorted(set(tasks), key=lambda x: x.name):
+    for task in set(tasks):
         # If the name of the task is different than the classifier it should use
         # then skip the module creation.
         if task.name != model._get_task_params(task.name).get("use_classifier", task.name):
@@ -539,21 +530,16 @@ def build_task_specific_modules(task, model, d_sent, d_emb, vocab, embedder, arg
     elif isinstance(task, (PairClassificationTask, PairRegressionTask, PairOrdinalRegressionTask)):
         module = build_pair_sentence_module(task, d_sent, model=model, params=task_params)
         setattr(model, "%s_mdl" % task.name, module)
-    elif isinstance(task, SpanPredictionTask):
-        module = TokenMultiProjectionEncoder(
-            projection_names=["span_start", "span_end"], d_inp=d_sent
-        )
-        setattr(model, "%s_mdl" % task.name, module)
     elif isinstance(task, LanguageModelingParsingTask):
         # The LM Parsing task does not support embeddings that use skip_embs.
         hid2voc = build_lm(task, d_sent, args)
         setattr(model, "%s_hid2voc" % task.name, hid2voc)
         setattr(model, "%s_mdl" % task.name, hid2voc)
     elif isinstance(task, LanguageModelingTask):
-        assert not input_module_uses_transformers(args.input_module), (
-            "our LM Task does not support transformers, if you need them, try to update",
+        assert not input_module_uses_pytorch_transformers(args.input_module), (
+            "our LM Task does not support pytorch_transformers, if you need them, try to update",
             "corresponding parts of the code. You may find get_pretrained_lm_head and",
-            "apply_lm_boundary_tokens from huggingface_transformers_interface.module useful,",
+            "apply_lm_boundary_tokens from pytorch_transformer_interface.module useful,",
             "do check if they are working correctly though.",
         )
         d_sent = args.d_hid + (args.skip_embs * d_emb)
@@ -646,6 +632,11 @@ def get_task_specific_params(args, task_name):
     # default to this task
     params["use_classifier"] = cls_task_name or task_name
 
+    # Lena
+    if params["cls_type"] == "bayes_mlp":
+        params["clf_num_hid_layers"] = _get_task_attr("clf_num_hid_layers")
+        params["clf_first_layer_clip_var"] = _get_task_attr("clf_first_layer_clip_var")
+
     return Params(params)
 
 
@@ -656,13 +647,11 @@ def build_image_sent_module(task, d_inp, params):
 
 def build_single_sentence_module(task, d_inp: int, project_before_pooling: bool, params: Params):
     """ Build a single sentence classifier
-
     args:
         - task (Task): task object, used to get the number of output classes
         - d_inp (int): input dimension to the module, needed for optional linear projection
         - project_before_pooling (bool): apply a projection layer before pooling.
         - params (Params): Params object with task-specific parameters
-
     returns:
         - SingleClassifier (nn.Module): single-sentence classifier consisting of
             (optional) a linear projection, pooling, and an MLP classifier
@@ -727,10 +716,6 @@ def build_pair_sentence_module(task, d_inp, model, params):
     # Build the classifier
     n_classes = task.n_classes if hasattr(task, "n_classes") else 1
     if model.uses_pair_embedding:
-        # TODO: Fix/inspect what's going on.
-        # d_out = d_inp
-        
-        
         # BERT/XLNet handle pair tasks by concatenating the inputs and classifying the joined
         # sequence, so we use a single sentence classifier
         if isinstance(task, WiCTask):
@@ -796,7 +781,6 @@ def build_qa_module(task, d_inp, project_before_pooling, params):
     1) pools representations (either of the joint (context, question, answer) or individually
     2) projects down to two logits
     3) classifier
-
     This module models each question-answer pair _individually_ """
     pooler = Pooler(
         project=project_before_pooling,
@@ -816,18 +800,17 @@ class MultiTaskModel(nn.Module):
     to the model.
     """
 
-    def __init__(self, args, sent_encoder, vocab, cuda_devices):
+    def __init__(self, args, sent_encoder, vocab):
         """ Args: sentence encoder """
         super(MultiTaskModel, self).__init__()
         self.sent_encoder = sent_encoder
-        self._cuda_device = cuda_devices
         self.vocab = vocab
         self.utilization = Average() if args.track_batch_utilization else None
         self.elmo = args.input_module == "elmo"
         self.uses_pair_embedding = input_module_uses_pair_embedding(args.input_module)
         self.uses_mirrored_pair = input_module_uses_mirrored_pair(args.input_module)
         self.project_before_pooling = not (
-            input_module_uses_transformers(args.input_module)
+            input_module_uses_pytorch_transformers(args.input_module)
             and args.transfer_paradigm == "finetune"
         )  # Rough heuristic. TODO: Make this directly user-controllable.
         self.sep_embs_for_skip = args.sep_embs_for_skip
@@ -879,8 +862,6 @@ class MultiTaskModel(nn.Module):
             out = self._multiple_choice_reading_comprehension_forward(batch, task, predict)
         elif isinstance(task, SpanClassificationTask):
             out = self._span_forward(batch, task, predict)
-        elif isinstance(task, SpanPredictionTask):
-            out = self._span_prediction_forward(batch, task, predict)
         else:
             raise ValueError("Task-specific components not found!")
         return out
@@ -907,7 +888,7 @@ class MultiTaskModel(nn.Module):
         classifier = self._get_classifier(task)
         logits = classifier(word_embs_in_context, sent_mask)
         out["logits"] = logits
-        out["n_exs"] = get_batch_size(batch, self._cuda_device)
+        out["n_exs"] = get_batch_size(batch)
 
         if "labels" in batch:  # means we should compute loss
             if batch["labels"].dim() == 0:
@@ -916,7 +897,7 @@ class MultiTaskModel(nn.Module):
                 labels = batch["labels"]
             else:
                 labels = batch["labels"].squeeze(-1)
-            out["loss"] = format_output(F.cross_entropy(logits, labels), self._cuda_device)
+            out["loss"] = F.cross_entropy(logits, labels)
             tagmask = batch.get("tagmask", None)
             task.update_metrics(logits, labels, tagmask=tagmask)
 
@@ -945,7 +926,7 @@ class MultiTaskModel(nn.Module):
             sent2, mask2 = self.sent_encoder(batch["input2"], task)
             logits = classifier(sent1, sent2, mask1, mask2)
         out["logits"] = logits
-        out["n_exs"] = get_batch_size(batch, self._cuda_device)
+        out["n_exs"] = get_batch_size(batch)
 
         if "labels" in batch:
             if batch["labels"].dim() == 0:
@@ -970,68 +951,10 @@ class MultiTaskModel(nn.Module):
         out = module.forward(batch, sent_embs, sent_mask, task, predict)
         return out
 
-    def _span_prediction_forward(self, batch, task, predict):
-        sent_embs, sent_mask = self.sent_encoder(batch["inputs"], task)
-        module = getattr(self, "%s_mdl" % task.name)
-        logits_dict = module.forward(sent_embs, sent_mask)
-        out = {
-            "logits": logits_dict,
-            "n_exs": get_batch_size(batch, self._cuda_device),
-            "start_loss": F.cross_entropy(
-                input=logits_dict["span_start"], target=batch["span_start"].long().squeeze(dim=1)
-            ),
-            "end_loss": F.cross_entropy(
-                input=logits_dict["span_end"], target=batch["span_end"].long().squeeze(dim=1)
-            ),
-        }
-        out["loss"] = (out["start_loss"] + out["end_loss"]) / 2
-
-        # Form string predictions
-        pred_str_list = []
-        pred_span_start = torch.argmax(logits_dict["span_start"], dim=1)
-        pred_span_end = torch.argmax(logits_dict["span_end"], dim=1)
-        batch_size = sent_embs.shape[0]
-        for i in range(batch_size):
-
-            # Adjust for start_offset (e.g. [CLS] tokens).
-            pred_span_start_i = pred_span_start[i] - batch["start_offset"][i]
-            pred_span_end_i = pred_span_end[i] - batch["start_offset"][i]
-
-            # Ensure that predictions fit within the range of valid tokens
-            pred_span_start_i = min(
-                pred_span_start_i, len(batch["space_processed_token_map"][i]) - 1
-            )
-            pred_span_end_i = min(
-                max(pred_span_end_i, pred_span_start_i + 1),
-                len(batch["space_processed_token_map"][i]) - 1,
-            )
-
-            # space_processed_token_map is a list of tuples
-            #   (space_token, processed_token (e.g. BERT), space_token_index)
-            # The assumption is that each space_token corresponds to multiple processed_tokens.
-            # After we get the corresponding start/end space_token_indices, we can do " ".join
-            #   to get the corresponding string that is definitely within the original input.
-            # One constraint here is that our predictions can only go up to a the granularity of
-            # space_tokens. This is not so bad because SQuAD-style scripts also remove punctuation.
-            pred_char_span_start = batch["space_processed_token_map"][i][pred_span_start_i][2]
-            pred_char_span_end = batch["space_processed_token_map"][i][pred_span_end_i][2]
-            pred_str_list.append(
-                " ".join(
-                    batch["passage_str"][i].split()[pred_char_span_start:pred_char_span_end]
-                ).strip()
-            )
-        task.update_metrics(pred_str_list=pred_str_list, gold_str_list=batch["answer_str"])
-
-        if predict:
-            out["preds"] = {
-                "span_start": pred_span_start,
-                "span_end": pred_span_end,
-                "span_str": pred_str_list,
-            }
-        return out
-
     def _pair_sentence_forward(self, batch, task, predict):
         out = {}
+
+        # embed the sentence
         classifier = self._get_classifier(task)
         if isinstance(task, (MRPCTask, STSBTask, QQPTask)) and self.uses_mirrored_pair:
             # Mirrored pair is a trick used by GPT-like models in similarity tasks
@@ -1055,7 +978,7 @@ class MultiTaskModel(nn.Module):
             else:
                 logits = classifier(sent1, sent2, mask1, mask2)
         out["logits"] = logits
-        out["n_exs"] = get_batch_size(batch, self._cuda_device)
+        out["n_exs"] = get_batch_size(batch)
         tagmask = batch.get("tagmask", None)
         if "labels" in batch:
             labels = batch["labels"]
@@ -1069,7 +992,7 @@ class MultiTaskModel(nn.Module):
             else:
                 out["loss"] = F.cross_entropy(logits, labels)
                 task.update_metrics(logits, labels, tagmask=tagmask)
-        out["loss"] = format_output(out["loss"], self._cuda_device)
+
         if predict:
             if isinstance(task, RegressionTask):
                 if logits.ndimension() > 1:
@@ -1086,7 +1009,7 @@ class MultiTaskModel(nn.Module):
         """ For sequence generation tasks """
         out = {}
         sent, sent_mask = self.sent_encoder(batch["inputs"], task)
-        out["n_exs"] = get_batch_size(batch, self._cuda_device)
+        out["n_exs"] = get_batch_size(batch)
 
         decoder = getattr(self, "%s_decoder" % task.name)
         out.update(decoder.forward(sent, sent_mask, batch["targs"], generate=predict))
@@ -1126,22 +1049,28 @@ class MultiTaskModel(nn.Module):
         # batch[inputs] only has one item
         b_size, seq_len = list(batch["inputs"].values())[0].size()
         seq_len -= 2
-        # Note: we are assuming there is one beginning and one ending token, when that no longer
-        # holds, we need to refactor this by adjusting mask according to boundry function
-        out["n_exs"] = get_batch_size(batch, self._cuda_device)
-        sent, mask = self.sent_encoder(batch["inputs"], task)
-        hid2tag = self._get_classifier(task)
-        logits = hid2tag(sent[:, 1:-1, :]).view(b_size * seq_len, -1)
-        out["logits"] = logits
-        targs = batch["targs"]["words"][:, :seq_len].contiguous().view(-1)
+        sent_encoder = self.sent_encoder
+        out["n_exs"] = get_batch_size(batch)
+        if not isinstance(sent_encoder, BiLMEncoder):
+            sent, mask = sent_encoder(batch["inputs"], task)
+            sent = sent.masked_fill(1 - mask.byte(), 0)  # avoid NaNs
+            sent = sent[:, 1:-1, :]
+            hid2tag = self._get_classifier(task)
+            logits = hid2tag(sent)
+            logits = logits.view(b_size * seq_len, -1)
+            out["logits"] = logits
+            targs = batch["targs"]["words"][:, :seq_len].contiguous().view(-1)
         if "mask" in batch:
             # Prevent backprop for tags generated for tokenization-introduced tokens
             # such as word boundaries
-            batch_mask = batch["mask"][:, :seq_len]
-            keep_idxs = torch.nonzero(batch_mask.contiguous().view(-1).data).squeeze()
+            mask = batch["mask"]
+            batch_mask = [mask[i][:seq_len] for i in range(b_size)]
+            batch_mask = torch.stack(batch_mask)
+            keep_idxs = torch.nonzero(batch_mask.view(-1).data).squeeze()
             logits = logits.index_select(0, keep_idxs)
             targs = targs.index_select(0, keep_idxs)
-        out["loss"] = format_output(F.cross_entropy(logits, targs), self._cuda_device)
+        pad_idx = self.vocab.get_token_index(self.vocab._padding_token)
+        out["loss"] = F.cross_entropy(logits, targs, ignore_index=pad_idx)
         task.scorer1(logits, targs)
         return out
 
@@ -1172,7 +1101,7 @@ class MultiTaskModel(nn.Module):
         pad_idx = self.vocab.get_token_index(self.vocab._padding_token, "tokens")
         b_size, seq_len = batch["targs"]["words"].size()
         n_pad = batch["targs"]["words"].eq(pad_idx).sum().item()
-        out["n_exs"] = format_output(((b_size * seq_len - n_pad) * 2), self._cuda_device)
+        out["n_exs"] = (b_size * seq_len - n_pad) * 2
 
         sent, mask = sent_encoder(batch["input"], task)
         sent = sent.masked_fill(1 - mask.byte(), 0)  # avoid NaNs
@@ -1195,9 +1124,7 @@ class MultiTaskModel(nn.Module):
         trg_bwd = batch["targs_b"]["words"].view(-1)
         targs = torch.cat([trg_fwd, trg_bwd], dim=0)
         assert logits.size(0) == targs.size(0), "Number of logits and targets differ!"
-        out["loss"] = format_output(
-            F.cross_entropy(logits, targs, ignore_index=pad_idx), self._cuda_device
-        )
+        out["loss"] = F.cross_entropy(logits, targs, ignore_index=pad_idx)
         task.scorer1(out["loss"].item())
         if predict:
             pass
@@ -1224,14 +1151,16 @@ class MultiTaskModel(nn.Module):
                 logits.append(logit)
         logits = torch.cat(logits, dim=1)
         out["logits"] = logits
-        out["n_exs"] = get_batch_size(batch, self._cuda_device, keyword="choice0")
+        out["n_exs"] = get_batch_size(batch, keyword="choice0")
+
         if "label" in batch:
             labels = batch["label"]
-            out["loss"] = format_output(F.cross_entropy(logits, labels), self._cuda_device)
+            out["loss"] = F.cross_entropy(logits, labels)
             task.update_metrics(logits, labels)
 
         if predict:
             out["preds"] = logits.argmax(dim=-1)
+
         return out
 
     def _lm_only_lr_forward(self, batch, task):
@@ -1257,7 +1186,7 @@ class MultiTaskModel(nn.Module):
         n_pad = batch["targs"]["words"].eq(pad_idx).sum().item()
         # No of examples: only left to right, every unit in the sequence length is
         # a training example only once.
-        out["n_exs"] = format_output(b_size * seq_len - n_pad, self._cuda_device)
+        out["n_exs"] = b_size * seq_len - n_pad
         sent, mask = self.sent_encoder(batch["input"], task)
         sent = sent.masked_fill(1 - mask.byte(), 0)
         hid2voc = getattr(self, "%s_hid2voc" % task.name)
@@ -1265,16 +1194,13 @@ class MultiTaskModel(nn.Module):
         out["logits"] = logits
         trg_fwd = batch["targs"]["words"].view(-1)
         assert logits.size(0) == trg_fwd.size(0), "Number of logits and targets differ!"
-        out["loss"] = format_output(
-            F.cross_entropy(logits, trg_fwd, ignore_index=pad_idx), self._cuda_device
-        )
+        out["loss"] = F.cross_entropy(logits, trg_fwd, ignore_index=pad_idx)
         task.scorer1(out["loss"].item())
         return out
 
     def _multiple_choice_reading_comprehension_forward(self, batch, task, predict):
         """ Forward call for multiple choice (selecting from a fixed set of answers)
         reading comprehension (have a supporting paragraph).
-
         Batch has a tensor of shape (n_questions, n_answers, n_tokens)
         """
         out = {}
@@ -1284,7 +1210,7 @@ class MultiTaskModel(nn.Module):
             inp = batch["psg_qst_ans"]
             ex_embs, ex_mask = self.sent_encoder(inp, task)
             logits = classifier(ex_embs, ex_mask)
-            out["n_exs"] = get_batch_size(batch, self._cuda_device, keyword="psg_qst_ans")
+            out["n_exs"] = get_batch_size(batch, keyword="psg_qst_ans")
         else:
             # else, we embed each independently and concat them
             psg_emb, psg_mask = self.sent_encoder(batch["psg"], task)
@@ -1294,18 +1220,19 @@ class MultiTaskModel(nn.Module):
                 ans_emb, ans_mask = self.sent_encoder(batch["ans"], task)
                 inp = torch.cat([psg_emb, qst_emb, ans_emb], dim=1)
                 inp_mask = torch.cat([psg_mask, qst_mask, ans_mask], dim=1)
-                out["n_exs"] = get_batch_size(batch, self._cuda_device, keyword="ans")
+                out["n_exs"] = get_batch_size(batch, keyword="ans")
             else:  # ReCoRD inserts answer into the query
                 inp = torch.cat([psg_emb, qst_emb], dim=1)
                 inp_mask = torch.cat([psg_mask, qst_mask], dim=1)
-                out["n_exs"] = get_batch_size(batch, self._cuda_device, keyword="qst")
+                out["n_exs"] = get_batch_size(batch, keyword="qst")
 
             logits = classifier(inp, inp_mask)
         out["logits"] = logits
+
         if "label" in batch:
             idxs = [(p, q) for p, q in zip(batch["psg_idx"], batch["qst_idx"])]
             labels = batch["label"]
-            out["loss"] = format_output(F.cross_entropy(logits, labels), self._cuda_device)
+            out["loss"] = F.cross_entropy(logits, labels)
             if isinstance(task, ReCoRDTask):
                 # ReCoRD needs the answer string to compute F1
                 task.update_metrics(logits, batch["ans_str"], idxs)
@@ -1354,9 +1281,9 @@ def input_module_uses_pair_embedding(input_module):
     running on pair tasks, like what GPT / BERT do on MNLI.
     It seems redundant now, but it allows us to load similar models from other sources later on
     """
-    from jiant.huggingface_transformers_interface import input_module_uses_transformers
+    from jiant.pytorch_transformers_interface import input_module_uses_pytorch_transformers
 
-    return input_module_uses_transformers(input_module)
+    return input_module_uses_pytorch_transformers(input_module)
 
 
 def input_module_uses_mirrored_pair(input_module):
