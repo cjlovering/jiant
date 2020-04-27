@@ -464,7 +464,7 @@ def build_embeddings(args, vocab, tasks, pretrained_embs=None):
                 num_output_representations=num_reps,
                 # Dropout is added by the sentence encoder later.
                 dropout=0.0,
-                #scalar_mix=None if "elmo_scalar_mix" not in args else list(map(float, args.elmo_scalar_mix.split(','))),
+                # scalar_mix=None if "elmo_scalar_mix" not in args else list(map(float, args.elmo_scalar_mix.split(','))),
                 layer_index=None if "elmo_layer_index" not in args else int(args.elmo_layer_index),
             )
             if "elmo_from_pth" in args:
@@ -888,7 +888,9 @@ class MultiTaskModel(nn.Module):
         classifier = self._get_classifier(task)
         logits = classifier(word_embs_in_context, sent_mask)
         out["logits"] = logits
-        out["n_exs"] = get_batch_size(batch)
+        # What is going on?
+        # out["n_exs"] = get_batch_size(batch)
+        out["n_exs"] = get_batch_size(batch, self._cuda_device)
 
         if "labels" in batch:  # means we should compute loss
             if batch["labels"].dim() == 0:
