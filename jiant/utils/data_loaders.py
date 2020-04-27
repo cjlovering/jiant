@@ -152,12 +152,14 @@ def load_tsv(
         rows = rows.sample(frac=1).reset_index(drop=True)
 
     # Save the tokenized dataset for post-processing.
-    rows["sent1_str"] = rows[s1_idx].apply(
-        lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len)
-    )
-    rows["sent2_str"] = rows[s2_idx].apply(
-        lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len)
-    )
+    if s1_idx is not None:
+        rows["sent1_str"] = rows[s1_idx].apply(
+            lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len)
+        )
+    if s2_idx is not None:
+        rows["sent2_str"] = rows[s2_idx].apply(
+            lambda x: tokenize_and_truncate(tokenizer_name, x, max_seq_len)
+        )
     data_file = data_file.replace(".tsv", "-tokenized.tsv")
     rows.to_csv(data_file, sep=delimiter, index=False)
 
