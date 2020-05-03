@@ -160,7 +160,9 @@ class MultiRCTask(Task):
 
         self.example_counts = example_counts
 
-    def update_metrics(self, logits, labels, idxs, tagmask=None):
+    def update_metrics(self, out, batch):
+        logits, labels = out["logits"], batch["label"]
+        idxs = [(p, q) for p, q in zip(batch["psg_idx"], batch["qst_idx"])]
         """ A batch of logits, labels, and the passage+questions they go with """
         self.scorer1(logits, labels)
         logits, labels = logits.detach().cpu(), labels.detach().cpu()
@@ -343,8 +345,11 @@ class ReCoRDTask(Task):
             example_counts[split] = sum([len(d["passage"]["entities"]) for d in data])
         self.example_counts = example_counts
 
-    def update_metrics(self, logits, anss, idxs, tagmask=None):
+    def update_metrics(self, out, batch):
         """ A batch of logits+answer strings and the questions they go with """
+        logits = out["logits"]
+        anss = batch["ans_str"]
+        idxs = [(p, q) for p, q in zip(batch["psg_idx"], batch["qst_idx"])]
         logits = logits.detach().cpu()
         for idx, logit, ans in zip(idxs, logits, anss):
             self._score_tracker[idx].append((logit, ans))
@@ -395,9 +400,9 @@ class QASRLTask(SpanPredictionTask):
         self.path = path
         self.max_seq_len = max_seq_len
 
-        self.train_data = None
-        self.val_data = None
-        self.test_data = None
+        self.train_data_text = None
+        self.val_data_text = None
+        self.test_data_text = None
 
         self.f1_metric = F1SpanMetric()
         self.em_metric = ExactMatchSpanMetric()
@@ -409,11 +414,6 @@ class QASRLTask(SpanPredictionTask):
         """ Count examples in the dataset. """
         pass
 
-    def update_metrics(self, pred_str_list, gold_str_list, tagmask=None):
-        """ A batch of logits+answer strings and the questions they go with """
-        self.f1_metric(pred_str_list=pred_str_list, gold_str_list=gold_str_list)
-        self.em_metric(pred_str_list=pred_str_list, gold_str_list=gold_str_list)
-
     def get_metrics(self, reset: bool = False) -> Dict:
         f1 = self.f1_metric.get_metric(reset)
         em = self.em_metric.get_metric(reset)
@@ -421,25 +421,25 @@ class QASRLTask(SpanPredictionTask):
         return collected_metrics
 
     def load_data(self):
-        self.train_data = self._load_file(os.path.join(self.path, "orig", "train.jsonl.gz"))
+        self.train_data_text = self._load_file(os.path.join(self.path, "orig", "train.jsonl.gz"))
 
         # Shuffle val_data to ensure diversity in periodic validation with val_data_limit
-        self.val_data = self._load_file(
+        self.val_data_text = self._load_file(
             os.path.join(self.path, "orig", "dev.jsonl.gz"), shuffle=True
         )
 
-        self.test_data = self._load_file(os.path.join(self.path, "orig", "test.jsonl.gz"))
+        self.test_data_text = self._load_file(os.path.join(self.path, "orig", "test.jsonl.gz"))
 
         self.sentences = (
-            [example["passage"] for example in self.train_data]
-            + [example["question"] for example in self.train_data]
-            + [example["passage"] for example in self.val_data]
-            + [example["question"] for example in self.val_data]
+            [example["passage"] for example in self.train_data_text]
+            + [example["question"] for example in self.train_data_text]
+            + [example["passage"] for example in self.val_data_text]
+            + [example["question"] for example in self.val_data_text]
         )
         self.example_counts = {
-            "train": len(self.train_data),
-            "val": len(self.val_data),
-            "test": len(self.test_data),
+            "train": len(self.train_data_text),
+            "val": len(self.val_data_text),
+            "test": len(self.test_data_text),
         }
 
     def get_sentences(self) -> Iterable[Sequence[str]]:
@@ -540,7 +540,7 @@ class QASRLTask(SpanPredictionTask):
         )
 
     def get_split_text(self, split: str):
-        return getattr(self, "%s_data" % split)
+        return getattr(self, "%s_data_text" % split)
 
     @classmethod
     def preprocess_qasrl_datum(cls, datum):
@@ -582,20 +582,15 @@ class QAMRTask(SpanPredictionTask):
         super(QAMRTask, self).__init__(name, **kw)
         self.max_seq_len = max_seq_len
 
-        self.train_data = None
-        self.val_data = None
-        self.test_data = None
+        self.train_data_text = None
+        self.val_data_text = None
+        self.test_data_text = None
 
         self.f1_metric = F1SpanMetric()
         self.em_metric = ExactMatchSpanMetric()
 
         self.val_metric = "%s_avg" % self.name
         self.val_metric_decreases = False
-
-    def update_metrics(self, pred_str_list, gold_str_list, tagmask=None):
-        """ A batch of logits+answer strings and the questions they go with """
-        self.f1_metric(pred_str_list=pred_str_list, gold_str_list=gold_str_list)
-        self.em_metric(pred_str_list=pred_str_list, gold_str_list=gold_str_list)
 
     def get_metrics(self, reset: bool = False) -> Dict:
         f1 = self.f1_metric.get_metric(reset)
@@ -646,7 +641,7 @@ class QAMRTask(SpanPredictionTask):
         return instances
 
     def get_split_text(self, split: str):
-        return getattr(self, "%s_data" % split)
+        return getattr(self, "%s_data_text" % split)
 
     @classmethod
     def load_tsv_dataset(cls, path, wiki_dict):
@@ -713,33 +708,33 @@ class QAMRTask(SpanPredictionTask):
 
     def load_data(self):
         wiki_dict = self.load_wiki_dict(os.path.join(self.path, "qamr/data/wiki-sentences.tsv"))
-        self.train_data = self.process_dataset(
+        self.train_data_text = self.process_dataset(
             self.load_tsv_dataset(
                 path=os.path.join(self.path, "qamr/data/filtered/train.tsv"), wiki_dict=wiki_dict
             )
         )
-        self.val_data = self.process_dataset(
+        self.val_data_text = self.process_dataset(
             self.load_tsv_dataset(
                 path=os.path.join(self.path, "qamr/data/filtered/dev.tsv"), wiki_dict=wiki_dict
             ),
             shuffle=True,
         )
-        self.test_data = self.process_dataset(
+        self.test_data_text = self.process_dataset(
             self.load_tsv_dataset(
                 path=os.path.join(self.path, "qamr/data/filtered/test.tsv"), wiki_dict=wiki_dict
             )
         )
 
         self.sentences = (
-            [example["passage"] for example in self.train_data]
-            + [example["question"] for example in self.train_data]
-            + [example["passage"] for example in self.val_data]
-            + [example["question"] for example in self.val_data]
+            [example["passage"] for example in self.train_data_text]
+            + [example["question"] for example in self.train_data_text]
+            + [example["passage"] for example in self.val_data_text]
+            + [example["question"] for example in self.val_data_text]
         )
         self.example_counts = {
-            "train": len(self.train_data),
-            "val": len(self.val_data),
-            "test": len(self.test_data),
+            "train": len(self.train_data_text),
+            "val": len(self.val_data_text),
+            "test": len(self.test_data_text),
         }
 
     @staticmethod
@@ -770,8 +765,8 @@ class QAMRTask(SpanPredictionTask):
 
 def remap_ptb_passage_and_answer_spans(ptb_tokens, answer_span, moses, tokenizer_name):
     # Start with PTB tokenized tokens
-    # The answer_span is also in ptb_token space. We first want to detokenize, and convert everything to
-    #   space-tokenization space.
+    # The answer_span is also in ptb_token space. We first want to detokenize, and convert
+    #   everything to space-tokenization space.
 
     # Detokenize the passage. Everything we do will be based on the detokenized input,
     #   INCLUDING evaluation.

@@ -17,7 +17,7 @@ import logging as log
 import os
 import sys
 from collections import defaultdict
-from typing import List, Dict, Union
+from typing import List, Dict, Union, Any
 
 import numpy as np
 import torch
@@ -54,6 +54,7 @@ from jiant.tasks import (
 from jiant.tasks import REGISTRY as TASKS_REGISTRY
 from jiant.tasks.seq2seq import Seq2SeqTask
 from jiant.tasks.tasks import SequenceGenerationTask, Task
+from jiant.tasks.lm import MaskedLanguageModelingTask
 from jiant.utils import config, serialize, utils, options
 from jiant.utils.options import parse_task_list_arg
 
@@ -261,6 +262,7 @@ def _build_vocab(args: config.Params, tasks: List[Task], vocab_path: str):
     for task in tasks:  # add custom label namespaces
         # TODO: surface more docs for add_task_label_vocab:
         add_task_label_vocab(vocab, task)
+
     if args.force_include_wsj_vocabulary:
         # Add WSJ full vocabulary for PTB F1 parsing tasks.
         add_wsj_vocab(vocab, args.data_dir)
@@ -304,7 +306,7 @@ def build_indexers(args):
 
 
 def build_tasks(
-    args: config.Params,
+    args: config.Params, cuda_device: Any
 ) -> (List[Task], List[Task], Vocabulary, Union[np.ndarray, float]):
     """Main logic for preparing tasks:
 
@@ -336,13 +338,13 @@ def build_tasks(
 
     """
     # 1) create / load tasks
-    tasks, pretrain_task_names, target_task_names = get_tasks(args)
+    tasks, pretrain_task_names, target_task_names = get_tasks(args, cuda_device)
     for task in tasks:
         task_classifier = config.get_task_attr(args, task.name, "use_classifier")
         setattr(task, "_classifier_name", task_classifier if task_classifier else task.name)
 
     tokenizer_names = {task.name: task.tokenizer_name for task in tasks}
-    assert len(set(tokenizer_names.values())) == 1, (
+    assert not len(set(tokenizer_names.values())) > 1, (
         f"Error: mixing tasks with different tokenizers!" " Tokenizations: {tokenizer_names:s}"
     )
 
@@ -405,10 +407,7 @@ def build_tasks(
                 )
 
         # Delete in-memory data - we'll lazy-load from disk later.
-        # TODO: delete task.{split}_data_text as well?
-        task.train_data = None
-        task.val_data = None
-        task.test_data = None
+        # TODO: delete task.{split}_data_text?
 
     log.info("\tFinished indexing tasks")
 
@@ -417,22 +416,36 @@ def build_tasks(
     target_tasks = []
     for task in tasks:
         # Replace lists of instances with lazy generators from disk.
-        task.val_data = _get_instance_generator(task.name, "val", preproc_dir)
-        task.test_data = _get_instance_generator(task.name, "test", preproc_dir)
+        task.set_instance_iterable(
+            split_name="val",
+            instance_iterable=_get_instance_generator(task.name, "val", preproc_dir),
+        )
+        task.set_instance_iterable(
+            split_name="test",
+            instance_iterable=_get_instance_generator(task.name, "test", preproc_dir),
+        )
         # When using pretrain_data_fraction, we need modified iterators for use
         # only on training datasets at pretraining time.
         if task.name in pretrain_task_names:
             log.info("\tCreating trimmed pretraining-only version of " + task.name + " train.")
-            task.train_data = _get_instance_generator(
-                task.name, "train", preproc_dir, fraction=args.pretrain_data_fraction
+            task.set_instance_iterable(
+                split_name="train",
+                instance_iterable=_get_instance_generator(
+                    task.name, "train", preproc_dir, fraction=args.pretrain_data_fraction
+                ),
+                phase="pretrain",
             )
             pretrain_tasks.append(task)
         # When using target_train_data_fraction, we need modified iterators
         # only for training datasets at do_target_task_training time.
         if task.name in target_task_names:
             log.info("\tCreating trimmed target-only version of " + task.name + " train.")
-            task.train_data = _get_instance_generator(
-                task.name, "train", preproc_dir, fraction=args.target_train_data_fraction
+            task.set_instance_iterable(
+                split_name="train",
+                instance_iterable=_get_instance_generator(
+                    task.name, "train", preproc_dir, fraction=args.target_train_data_fraction
+                ),
+                phase="target_train",
             )
             target_tasks.append(task)
 
@@ -506,7 +519,7 @@ def get_task_without_loading_data(task_name, args):
     return task
 
 
-def get_tasks(args: config.Params) -> (List[Task], List[str], List[str]):
+def get_tasks(args: config.Params, cuda_device: Any) -> (List[Task], List[str], List[str]):
     """Get and save tasks:
 
     1. Set up task storage file paths
@@ -663,10 +676,6 @@ def add_task_label_vocab(vocab, task):
     if namespace is None:
         return
     log.info("\tTask '%s': adding vocab namespace '%s'", task.name, namespace)
-
-    if isinstance(task, SequenceGenerationTask):
-        for special in SPECIALS:
-            vocab.add_token_to_namespace(special, namespace)
 
     for label in task.get_all_labels():
         vocab.add_token_to_namespace(label, namespace)

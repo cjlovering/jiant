@@ -321,8 +321,12 @@ class SamplingMultiTaskTrainer:
             ):
                 os.mkdir(os.path.join(self._serialization_dir, task.name))
 
-            # Adding task-specific smart iterator to speed up training
-            instance = [i for i in itertools.islice(task.train_data, 1)][0]
+            instance = [
+                i
+                for i in itertools.islice(
+                    task.get_instance_iterable(split_name="train", phase=phase), 1
+                )
+            ][0]
             pad_dict = instance.get_padding_lengths()
             sorting_keys = []
             for field in pad_dict:
@@ -335,14 +339,15 @@ class SamplingMultiTaskTrainer:
                 biggest_batch_first=True,
             )
             task_info["iterator"] = iterator
-            task_info["tr_generator"] = iterator(task.train_data, num_epochs=None)
+            task_info["tr_generator"] = iterator(
+                task.get_instance_iterable(split_name="train", phase=phase), num_epochs=None
+            )
 
             n_training_examples = task.n_train_examples
-            if phase == "pretrain":
-                # Warning: This won't be precise when training_data_fraction is set, since each
-                #  example is included or excluded independently using a hashing function.
-                # Fortunately, it doesn't need to be.
-                n_training_examples *= self._training_data_fraction
+            # Warning: This won't be precise when training_data_fraction is set, since each
+            #  example is included or excluded deterministically using a hashing function.
+            # See read_records function in serialize.py for details.
+            n_training_examples *= self._training_data_fraction
             task_info["n_tr_batches"] = math.ceil(n_training_examples / batch_size)
             task_info["n_tr_steps"] = math.ceil(
                 task_info["n_tr_batches"] / self._accumulation_steps
@@ -401,7 +406,6 @@ class SamplingMultiTaskTrainer:
             epochs = scaling_method.strip("max_epoch_").split("_")
             assert len(epochs) == num_tasks, "Loss Scaling Error: epoch number not match."
             scaling_weights = np.array(list(map(int, epochs)))
-
         # normalized by max weight
         if "max" in scaling_method:
             scaling_weights = scaling_weights / np.max(scaling_weights)
@@ -436,6 +440,9 @@ class SamplingMultiTaskTrainer:
             sample_weights = 1 / task_n_train_examples
         elif weighting_method == "inverse_log_example":
             sample_weights = 1 / np.log(task_n_train_examples)
+        elif "examples_proportional_mixing" in weighting_method:
+            max_K = int(weighting_method.split("K=")[1])
+            sample_weights = [min(num_examples, max_K) for num_examples in task_n_train_examples]
         elif weighting_method == "inverse_log_batch":
             sample_weights = 1 / np.log(task_n_train_batches)
         elif "power_" in weighting_method:
@@ -500,10 +507,15 @@ class SamplingMultiTaskTrainer:
             else:
                 val_limit = self._max_vals
             optimizer_params["t_total"] = val_limit * self._val_interval
+
+        # temporarily increase the log level to avoid some verbose INFO-level logging from AllenNLP
+        allen_params_log_level = log.getLogger("allennlp.common.params").level
+        log.getLogger("allennlp.common.params").setLevel(log.WARNING)
         self._optimizer = Optimizer.from_params(train_params, optimizer_params)
         self._scheduler = LearningRateScheduler.from_params(
             self._optimizer, copy.deepcopy(scheduler_params)
         )
+        log.getLogger("allennlp.common.params").setLevel(allen_params_log_level)
 
         # define these here b/c they might get overridden on load
         n_step, should_stop = 0, False
@@ -564,7 +576,6 @@ class SamplingMultiTaskTrainer:
         # Sample the tasks to train on. Do it all at once (val_interval) for
         # MAX EFFICIENCY.
         samples = random.choices(tasks, weights=sample_weights, k=self._val_interval)
-
         offset = 0
         all_tr_metrics = {}
         log.info("Beginning training with stopping criteria based on metric: %s", stop_metric)
@@ -575,7 +586,6 @@ class SamplingMultiTaskTrainer:
             if task_info["stopped"]:
                 offset += 1
                 continue
-
             # gradients are accumulated for accumulation_steps-many batches before an opt. step:
             for batch in itertools.islice(task_info["tr_generator"], self._accumulation_steps):
                 output_dict = self._forward(batch, task=task)
@@ -834,7 +844,8 @@ class SamplingMultiTaskTrainer:
         else:
             max_data_points = task.n_val_examples
         val_generator = BasicIterator(batch_size, instances_per_epoch=max_data_points)(
-            task.val_data, num_epochs=1, shuffle=True
+                # task.val_data, num_epochs=1, shuffle=True
+            task.get_instance_iterable(split_name="val"), num_epochs=1, shuffle=False
         )
         n_val_batches = math.ceil(max_data_points / batch_size)
         all_val_metrics["%s_loss" % task.name] = 0.0
@@ -843,10 +854,20 @@ class SamplingMultiTaskTrainer:
             batch_num += 1
             with torch.no_grad():
                 out = self._forward(batch, task=task)
+
             loss = get_output_attribute(out, "loss", self._cuda_device, "mean")
 
             all_val_metrics["%s_loss" % task.name] += loss.data.cpu().numpy()
-            n_examples += get_output_attribute(out, "n_exs", self._cuda_device)
+
+            n_exs = get_output_attribute(out, "n_exs", self._cuda_device)
+            # in multi-GPU mode n_exs is expected to be a tensor, w/ single-GPU an int is expected:
+            if isinstance(n_exs, torch.Tensor):
+                n_examples += n_exs.item()
+            elif isinstance(n_exs, int):
+                n_examples += n_exs
+            else:
+                raise ValueError("n_exs is type " + type(n_exs) + ", int or Tensor is expected.")
+
             if print_output:
                 if isinstance(task, Seq2SeqTask):
                     if batch_num == 1:
@@ -866,7 +887,7 @@ class SamplingMultiTaskTrainer:
                                 log.info("\tInput:\t%s", input_string)
                                 log.info("\tGold:\t%s", gold_string)
                             log.info("\tOutput:\t%s", output_string)
-            n_examples += get_output_attribute(out, "n_exs", self._cuda_device)
+
             # log
             if time.time() - task_info["last_log"] > self._log_interval:
                 task_metrics = task.get_metrics()
@@ -1033,6 +1054,7 @@ class SamplingMultiTaskTrainer:
         if isinstance(self._cuda_device, int) and self._cuda_device >= 0:
             batch = move_to_device(batch, self._cuda_device)
         model_out = self._model.forward(task, batch)
+        task.update_metrics(model_out, batch)
         return model_out
 
     def _description_from_metrics(self, metrics):

@@ -181,14 +181,14 @@ def check_configurations(args, pretrain_tasks, target_tasks):
 
     if args.do_pretrain:
         assert_for_log(
-            args.pretrain_tasks != "none",
+            args.pretrain_tasks not in ("none", "", None),
             "Error: Must specify at least one pretraining task: [%s]" % args.pretrain_tasks,
         )
         steps_log.write("Training model on tasks: %s \n" % args.pretrain_tasks)
 
     if args.do_target_task_training:
         assert_for_log(
-            args.target_tasks != "none",
+            args.target_tasks not in ("none", "", None),
             "Error: Must specify at least one target task: [%s]" % args.target_tasks,
         )
         steps_log.write("Re-training model for individual target tasks \n")
@@ -536,6 +536,33 @@ def load_model_for_target_train_run(args, ckpt_path, model, strict, task, cuda_d
     return to_train
 
 
+def get_pretrain_stop_metric(early_stopping_method, pretrain_tasks):
+    """
+    Get stop_metric, which is used for early stopping. 
+
+    Parameters
+    -------------------
+     early_stopping_method: str,
+     pretrain_tasks: List[Task]
+
+    Returns 
+    -------------------
+    stop_metric: str
+
+    """
+    if early_stopping_method != "auto":
+        pretrain_names = [task.name for task in pretrain_tasks]
+        if early_stopping_method in pretrain_names:
+            index = pretrain_names.index(early_stopping_method)
+            stop_metric = pretrain_tasks[index].val_metric
+        else:
+            raise ValueError("args.early_stopping_method must be either 'auto' or a task name")
+
+    else:
+        stop_metric = pretrain_tasks[0].val_metric if len(pretrain_tasks) == 1 else "macro_avg"
+    return stop_metric
+
+
 def main(cl_arguments):
     """ Train a model for multitask-training."""
     cl_args = handle_arguments(cl_arguments)
@@ -547,11 +574,10 @@ def main(cl_arguments):
     log.info("Loading tasks...")
     start_time = time.time()
     cuda_device = parse_cuda_list_arg(args.cuda)
-    pretrain_tasks, target_tasks, vocab, word_embs = build_tasks(args)
+    pretrain_tasks, target_tasks, vocab, word_embs = build_tasks(args, cuda_device)
     tasks = sorted(set(pretrain_tasks + target_tasks), key=lambda x: x.name)
     log.info("\tFinished loading tasks in %.3fs", time.time() - start_time)
     log.info("\t Tasks: {}".format([task.name for task in tasks]))
-
     # Build model
     log.info("Building model...")
     start_time = time.time()
@@ -567,7 +593,7 @@ def main(cl_arguments):
     if args.do_pretrain:
         # Train on pretrain tasks
         log.info("Training...")
-        stop_metric = pretrain_tasks[0].val_metric if len(pretrain_tasks) == 1 else "macro_avg"
+        stop_metric = get_pretrain_stop_metric(args.early_stopping_method, pretrain_tasks)
         should_decrease = (
             pretrain_tasks[0].val_metric_decreases if len(pretrain_tasks) == 1 else False
         )
