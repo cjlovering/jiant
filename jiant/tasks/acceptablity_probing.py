@@ -201,7 +201,7 @@ class CoLAAnalysisTask(SingleClassificationTask):
         )
         self.sentences = self.val_data_text[0]
         # Create score for each tag from tag-index dict
-        self.tag_list = self.tag_vocabget_tag_list()
+        self.tag_list = self.tag_vocab.get_tag_list()
         self.tag_scorers1 = create_subset_scorers(
             count=len(self.tag_list), scorer_type=Correlation, corr_type="matthews"
         )
@@ -533,7 +533,7 @@ class BlimpOnePrefixLMTask(BlimpTask):
         sentences """
         data_file = os.path.join(self.path, "blimp.jsonl")
         data = [json.loads(l) for l in open(data_file, encoding="utf-8").readlines()]
-        sent1s, sent2s, labels, tags, pairIDs, UIDs = [], [], [], [], [], [] 
+        sent1s, sent2s, labels, tags, pairIDs, UIDs = [], [], [], [], [], []
         shared_prefixes, good_words, bad_words = [], [], []
         for example in data:
             if not example["one_prefix_method"]:
@@ -593,7 +593,9 @@ class BlimpOnePrefixLMTask(BlimpTask):
         return
 
     def process_split(self, split, indexers, model_preprocessing_interface):
-        def _make_instance(sent1, sent2, label, tags, shared_prefix, good_word, bad_word, pairID, UID):
+        def _make_instance(
+            sent1, sent2, label, tags, shared_prefix, good_word, bad_word, pairID, UID
+        ):
             """ from multiple types in one column create multiple fields
             sent1: sentence1, the good one
             sent2: sentence2, the bad one
@@ -837,6 +839,131 @@ class BlimpFullSentLMTask(BlimpTask):
 
         instances = map(_make_instance, *split)
         return instances
+
+
+@register_task("blimp-acceptability", rel_path="blimp/splits")
+class BlimpAcceptabilityTask(SingleClassificationTask):
+    """ Task class for full sentence acceptability preference.
+    
+    We use a full sentence so that we can use edge probing tasks.
+    """
+
+    def __init__(self, path, max_seq_len, name, **kw):
+        super(BlimpAcceptabilityTask, self).__init__(name, n_classes=2, **kw)
+        self.path = path
+        self.max_seq_len = max_seq_len
+
+        self.train_data_text = None
+        self.val_data_text = None
+        self.test_data_text = None
+
+        self.val_metric = "%s_mcc" % self.name
+        self.val_metric_decreases = False
+
+        self.scorer1 = Correlation("matthews")
+        self.scorer2 = CategoricalAccuracy()
+        self.scorers = [self.scorer1, self.scorer2]
+
+        self.tag_vocab = TagVocab()
+        self.tag_list = None
+        self.tag_scorers1 = None
+        self.tag_scorers2 = None
+
+    def load_data(self):
+        """ Load linguistic phenomena benchmark data for simple LM method, each one-prefix
+        example includes one shared prefix and the following tokens from the good and bad
+        sentences """
+
+        def _load_split(split):
+            data_file = os.path.join(self.path, split)
+            data = [json.loads(l) for l in open(data_file, encoding="utf-8").readlines()]
+            labels, tags, pairIDs, UIDs = [], [], [], []
+            sents = []
+
+            for example in data:
+                sents.append(
+                    tokenize_and_truncate(
+                        self._tokenizer_name, example["sentence_good"], self.max_seq_len
+                    )
+                )
+                sents.append(
+                    tokenize_and_truncate(
+                        self._tokenizer_name, example["sentence_bad"], self.max_seq_len
+                    )
+                )
+                labels.append(1)
+                labels.append(0)
+                tags.append([])
+                if "UID" in example:
+                    tag_str = "%s__%s" % ("UID", example["UID"])
+                    tags[-1].append(self.tag_vocab[tag_str])
+                pairIDs.append(example["pairID"] + "_good")
+                pairIDs.append(example["pairID"] + "_bad")
+                UIDs.append(example["UID"] + "_good")
+                UIDs.append(example["UID"] + "_bad")
+
+            return (sents, labels, tags, pairIDs, UIDs)
+
+        self.val_data_text = _load_split("val.jsonl")
+        self.train_data_text = _load_split("train.jsonl")
+        self.test_data_text = _load_split("test.jsonl")
+
+        self.sentences = self.train_data_text[0] + self.val_data_text[0] + self.test_data_text[0]
+
+        self.tag_list = self.tag_vocab.get_tag_list()
+        self.tag_scorers1 = create_subset_scorers(
+            count=len(self.tag_list), scorer_type=CategoricalAccuracy
+        )
+
+        log.info("Dataset tags %s" % self.tag_list.__str__())
+        log.info("\tFinished loading blimp simple LM data.")
+        return
+
+    def process_split(self, split, indexers, model_preprocessing_interface):
+        def _make_instance(sent1, sent2, label, tags, pairID, UID):
+            """ from multiple types in one column create multiple fields
+            sent1: sentence1, the good one
+            sent2: sentence2, the bad one
+            label: always 0
+            tagmask: which tags this sample has
+            pairID: index of the pair
+            UID: which paradigm it belongs to
+            """
+            d = {}
+            d["input1"] = sentence_to_text_field(
+                model_preprocessing_interface.lm_boundary_token_fn(sent1), indexers
+            )
+            d["sent1_str"] = MetadataField(" ".join(sent1))
+            d["input2"] = sentence_to_text_field(
+                model_preprocessing_interface.lm_boundary_token_fn(sent2), indexers
+            )
+            d["sent2_str"] = MetadataField(" ".join(sent2))
+            d["labels"] = LabelField(label, label_namespace="label", skip_indexing=True)
+            d["tagmask"] = MultiLabelField(
+                tags, label_namespace="tags", skip_indexing=True, num_labels=len(self.tag_list)
+            )
+            d["pairID"] = MetadataField(pairID)
+            d["UID"] = MetadataField(UID)
+            return Instance(d)
+
+        instances = map(_make_instance, *split)
+        return instances
+
+    def update_metrics(self, logits, labels, tagmask=None):
+        logits, labels = logits.detach(), labels.detach()
+        self.scorer1(logits, labels)
+        if tagmask is not None:
+            update_subset_scorers(self.tag_scorers1, logits, labels, tagmask)
+        return
+
+    def get_metrics(self, reset=False):
+        """Get metrics specific to the task"""
+
+        collected_metrics = {"accuracy": self.scorer1.get_metric(reset)}
+        collected_metrics.update(
+            collect_subset_scores(self.tag_scorers1, "accuracy", self.tag_list, reset)
+        )
+        return collected_metrics
 
 
 def common_prefix_length(sent1, sent2):
