@@ -920,7 +920,7 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
         return
 
     def process_split(self, split, indexers, model_preprocessing_interface):
-        def _make_instance(sent1, sent2, label, tags, pairID, UID):
+        def _make_instance(sent1, label, tags, pairID, UID):
             """ from multiple types in one column create multiple fields
             sent1: sentence1, the good one
             sent2: sentence2, the bad one
@@ -934,10 +934,7 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
                 model_preprocessing_interface.lm_boundary_token_fn(sent1), indexers
             )
             d["sent1_str"] = MetadataField(" ".join(sent1))
-            d["input2"] = sentence_to_text_field(
-                model_preprocessing_interface.lm_boundary_token_fn(sent2), indexers
-            )
-            d["sent2_str"] = MetadataField(" ".join(sent2))
+
             d["labels"] = LabelField(label, label_namespace="label", skip_indexing=True)
             d["tagmask"] = MultiLabelField(
                 tags, label_namespace="tags", skip_indexing=True, num_labels=len(self.tag_list)
