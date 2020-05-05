@@ -902,7 +902,7 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
                 UIDs.append(example["UID"] + "_good")
                 UIDs.append(example["UID"] + "_bad")
 
-            return (sents, labels, tags, pairIDs, UIDs)
+            return sents, [], labels, tags
 
         self.val_data_text = _load_split("val.jsonl")
         self.train_data_text = _load_split("train.jsonl")
@@ -919,48 +919,48 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
         log.info("\tFinished loading blimp simple LM data.")
         return
 
-    def process_split(self, split, indexers, model_preprocessing_interface):
-        def _make_instance(sent1, label, tags, pairID, UID):
-            """ from multiple types in one column create multiple fields
-            sent1: sentence1, the good one
-            sent2: sentence2, the bad one
-            label: always 0
-            tagmask: which tags this sample has
-            pairID: index of the pair
-            UID: which paradigm it belongs to
-            """
-            d = {}
-            d["input1"] = sentence_to_text_field(
-                model_preprocessing_interface.lm_boundary_token_fn(sent1), indexers
-            )
-            d["sent1_str"] = MetadataField(" ".join(sent1))
+    # def process_split(self, split, indexers, model_preprocessing_interface):
+    #     def _make_instance(sent1, label, tags, pairID, UID):
+    #         """ from multiple types in one column create multiple fields
+    #         sent1: sentence1, the good one
+    #         sent2: sentence2, the bad one
+    #         label: always 0
+    #         tagmask: which tags this sample has
+    #         pairID: index of the pair
+    #         UID: which paradigm it belongs to
+    #         """
+    #         d = {}
+    #         d["input1"] = sentence_to_text_field(
+    #             model_preprocessing_interface.lm_boundary_token_fn(sent1), indexers
+    #         )
+    #         d["sent1_str"] = MetadataField(" ".join(sent1))
 
-            d["labels"] = LabelField(label, label_namespace="label", skip_indexing=True)
-            d["tagmask"] = MultiLabelField(
-                tags, label_namespace="tags", skip_indexing=True, num_labels=len(self.tag_list)
-            )
-            d["pairID"] = MetadataField(pairID)
-            d["UID"] = MetadataField(UID)
-            return Instance(d)
+    #         d["labels"] = LabelField(label, label_namespace="label", skip_indexing=True)
+    #         d["tagmask"] = MultiLabelField(
+    #             tags, label_namespace="tags", skip_indexing=True, num_labels=len(self.tag_list)
+    #         )
+    #         d["pairID"] = MetadataField(pairID)
+    #         d["UID"] = MetadataField(UID)
+    #         return Instance(d)
 
-        instances = map(_make_instance, *split)
-        return instances
+    #     instances = map(_make_instance, *split)
+    #     return instances
 
-    def update_metrics(self, logits, labels, tagmask=None):
-        logits, labels = logits.detach(), labels.detach()
-        self.scorer1(logits, labels)
-        if tagmask is not None:
-            update_subset_scorers(self.tag_scorers1, logits, labels, tagmask)
-        return
+    # def update_metrics(self, logits, labels, tagmask=None):
+    #     logits, labels = logits.detach(), labels.detach()
+    #     self.scorer1(logits, labels)
+    #     if tagmask is not None:
+    #         update_subset_scorers(self.tag_scorers1, logits, labels, tagmask)
+    #     return
 
-    def get_metrics(self, reset=False):
-        """Get metrics specific to the task"""
+    # def get_metrics(self, reset=False):
+    #     """Get metrics specific to the task"""
 
-        collected_metrics = {"accuracy": self.scorer1.get_metric(reset)}
-        collected_metrics.update(
-            collect_subset_scores(self.tag_scorers1, "accuracy", self.tag_list, reset)
-        )
-        return collected_metrics
+    #     collected_metrics = {"accuracy": self.scorer1.get_metric(reset)}
+    #     collected_metrics.update(
+    #         collect_subset_scores(self.tag_scorers1, "accuracy", self.tag_list, reset)
+    #     )
+    #     return collected_metrics
 
 
 def common_prefix_length(sent1, sent2):
