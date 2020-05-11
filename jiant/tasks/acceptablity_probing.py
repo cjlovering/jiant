@@ -890,7 +890,8 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
             UIDs.append(example["UID"] + "_good")
             UIDs.append(example["UID"] + "_bad")
 
-        return sents, [], labels, []
+        return sents, [], labels
+        # , []
 
     def load_data(self):
         """Load the data"""
