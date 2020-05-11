@@ -882,9 +882,9 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
             labels.append(1)
             labels.append(0)
             tags.append([])
-            if "UID" in example:
-                tag_str = "%s__%s" % ("UID", example["UID"])
-                tags[-1].append(self.tag_vocab[tag_str])
+            # if "UID" in example:
+            #     tag_str = "%s__%s" % ("UID", example["UID"])
+            #     tags[-1].append(self.tag_vocab[tag_str])
             pairIDs.append(example["pairID"] + "_good")
             pairIDs.append(example["pairID"] + "_bad")
             UIDs.append(example["UID"] + "_good")
