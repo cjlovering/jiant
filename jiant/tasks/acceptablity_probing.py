@@ -879,8 +879,8 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
                     self._tokenizer_name, example["sentence_bad"], self.max_seq_len
                 )
             )
-            labels.append(1)
-            labels.append(0)
+            labels.append("good")
+            labels.append("bad")
             tags.append()
             # if "UID" in example:
             #     tag_str = "%s__%s" % ("UID", example["UID"])
