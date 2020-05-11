@@ -881,7 +881,7 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
             )
             labels.append(1)
             labels.append(0)
-            tags.append([])
+            tags.append()
             # if "UID" in example:
             #     tag_str = "%s__%s" % ("UID", example["UID"])
             #     tags[-1].append(self.tag_vocab[tag_str])
@@ -890,7 +890,7 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
             UIDs.append(example["UID"] + "_good")
             UIDs.append(example["UID"] + "_bad")
 
-        return sents, [], labels, tags
+        return sents, [], labels, []
 
     def load_data(self):
         """Load the data"""
