@@ -847,7 +847,7 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
 
     def __init__(self, path, max_seq_len, name, **kw):
         """ """
-        super(CoLATask, self).__init__(name, n_classes=2, **kw)
+        super(BlimpAcceptabilityTask, self).__init__(name, n_classes=2, **kw)
         self.path = path
         self.max_seq_len = max_seq_len
 
@@ -900,7 +900,7 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
 
         self.sentences = self.train_data_text[0] + self.val_data_text[0] + self.test_data_text[0]
         print(self.val_data_text)
-        log.info("\tFinished loading CoLA.")
+        log.info("\tFinished loading BlimpAcceptabilityTask.")
 
     def get_metrics(self, reset=False):
         return {"mcc": self.scorer1.get_metric(reset), "accuracy": self.scorer2.get_metric(reset)}
