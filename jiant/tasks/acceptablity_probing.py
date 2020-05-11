@@ -879,19 +879,19 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
                     self._tokenizer_name, example["sentence_bad"], self.max_seq_len
                 )
             )
-            labels.append("good")
-            labels.append("bad")
-            tags.append()
-            # if "UID" in example:
-            #     tag_str = "%s__%s" % ("UID", example["UID"])
-            #     tags[-1].append(self.tag_vocab[tag_str])
+            labels.append(1)
+            labels.append(0)
+            # TODO: get the tags working.
+            tags.append([])
+            if "UID" in example:
+                tag_str = "%s__%s" % ("UID", example["UID"])
+                tags[-1].append(self.tag_vocab[tag_str])
             pairIDs.append(example["pairID"] + "_good")
             pairIDs.append(example["pairID"] + "_bad")
             UIDs.append(example["UID"] + "_good")
             UIDs.append(example["UID"] + "_bad")
 
-        return sents, [], labels
-        # , []
+        return sents, [], labels # , tags
 
     def load_data(self):
         """Load the data"""
@@ -900,6 +900,10 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
         self.val_data_text = self.load_split("val.jsonl")
 
         self.sentences = self.train_data_text[0] + self.val_data_text[0] + self.test_data_text[0]
+        #with open("data.txt", "w") as f:
+        #    print(self.sentences)
+        #    f.writelines(self.sentences)
+
         print(self.val_data_text)
         log.info("\tFinished loading BlimpAcceptabilityTask.")
 
