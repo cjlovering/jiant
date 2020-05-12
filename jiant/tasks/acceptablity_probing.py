@@ -886,10 +886,10 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
             # if "UID" in example:
             #     tag_str = "%s__%s" % ("UID", example["UID"])
             #     tags[-1].append(self.tag_vocab[tag_str])
-            pairIDs.append(example["pairID"] + "_good")
-            pairIDs.append(example["pairID"] + "_bad")
-            UIDs.append(example["UID"] + "_good")
-            UIDs.append(example["UID"] + "_bad")
+            # pairIDs.append(example["pairID"] + "_good")
+            # pairIDs.append(example["pairID"] + "_bad")
+            # UIDs.append(example["UID"] + "_good")
+            # UIDs.append(example["UID"] + "_bad")
 
         return sents, [], labels  # , tags
 
@@ -1071,10 +1071,10 @@ class BlimpProbeTask(SingleClassificationTask):
             # if "UID" in example:
             #     tag_str = "%s__%s" % ("UID", example["UID"])
             #     tags[-1].append(self.tag_vocab[tag_str])
-            pairIDs.append(example["pairID"] + "_good")
-            pairIDs.append(example["pairID"] + "_bad")
-            UIDs.append(example["UID"] + "_good")
-            UIDs.append(example["UID"] + "_bad")
+            # pairIDs.append(example["pairID"] + "_good")
+            # pairIDs.append(example["pairID"] + "_bad")
+            # UIDs.append(example["UID"] + "_good")
+            # UIDs.append(example["UID"] + "_bad")
 
         return sents, [], labels  # , tags
 
