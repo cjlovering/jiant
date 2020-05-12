@@ -4,8 +4,8 @@
 #$ -l gpus=2
 #$ -e ./logs/
 #$ -o ./logs/
-#$ -t 1-13
-#$ -tc 3
+#$ -t 1-12
+#$ -tc 4
 
 mkdir -p ./logs/
 . ~/.bashrc
