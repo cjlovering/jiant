@@ -4,7 +4,7 @@ Task definition for acceptability probing tasks
 import json
 import logging as log
 import os
-
+import random
 
 # Fields for instance processing
 from allennlp.data import Instance, Token, vocabulary
@@ -1029,7 +1029,7 @@ class BlimpProbeTask(SingleClassificationTask):
         data = [json.loads(l) for l in open(data_file, encoding="utf-8").readlines()]
         labels, tags, pairIDs, UIDs = [], [], [], []
         sents = []
-
+        random.shuffle(data)
         for example in data:
             sents.append(
                 tokenize_and_truncate(

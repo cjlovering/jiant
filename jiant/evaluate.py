@@ -62,9 +62,7 @@ def evaluate(
     ]
     # Enforce that these tasks have the 'idx' field set.
     IDX_REQUIRED_TASK_NAMES = (
-        tasks_module.ALL_GLUE_TASKS
-        + tasks_module.ALL_SUPERGLUE_TASKS
-        + tasks_module.ALL_NPI_TASKS
+        tasks_module.ALL_GLUE_TASKS + tasks_module.ALL_SUPERGLUE_TASKS + tasks_module.ALL_NPI_TASKS
     )
     model.eval()
     iterator = BasicIterator(batch_size)
@@ -160,8 +158,22 @@ def write_preds(
             + ["wmt"]
             + tasks_module.ALL_NPI_TASKS
         )
-
-        if task.name in glue_style_tasks:
+        blimp_probing_tasks = [
+            "distractor_agreement_relational_noun_probing-0.5-good",
+            "distractor_agreement_relational_noun_probing-0.5-bad",
+            "distractor_agreement_relational_noun_probing-0.6-good",
+            "distractor_agreement_relational_noun_probing-0.6-bad",
+            "distractor_agreement_relational_noun_probing-0.7-good",
+            "distractor_agreement_relational_noun_probing-0.7-bad",
+            "distractor_agreement_relational_noun_probing-0.8-good",
+            "distractor_agreement_relational_noun_probing-0.9-bad",
+            "distractor_agreement_relational_noun_probing-0.9-good",
+            "distractor_agreement_relational_noun_probing-1.0-bad",
+            "distractor_agreement_relational_noun_probing-1.0-good",
+        ]
+        if task.name in blimp_probing_tasks:
+            _write_glue_preds(task.name, preds_df, pred_dir, split_name, strict_glue_format=False)
+        elif task.name in glue_style_tasks:
             # Strict mode: strict GLUE format (no extra cols)
             strict = strict_glue_format and task.name in tasks_module.ALL_GLUE_TASKS
             _write_glue_preds(task.name, preds_df, pred_dir, split_name, strict_glue_format=strict)
