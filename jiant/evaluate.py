@@ -170,6 +170,17 @@ def write_preds(
             "distractor_agreement_relational_noun_probing-0.9-good",
             "distractor_agreement_relational_noun_probing-1.0-bad",
             "distractor_agreement_relational_noun_probing-1.0-good",
+            "sentential_negation_npi_scope_probing-0.5-good",
+            "sentential_negation_npi_scope_probing-0.5-bad",
+            "sentential_negation_npi_scope_probing-0.6-good",
+            "sentential_negation_npi_scope_probing-0.6-bad",
+            "sentential_negation_npi_scope_probing-0.7-good",
+            "sentential_negation_npi_scope_probing-0.7-bad",
+            "sentential_negation_npi_scope_probing-0.8-good",
+            "sentential_negation_npi_scope_probing-0.9-bad",
+            "sentential_negation_npi_scope_probing-0.9-good",
+            "sentential_negation_npi_scope_probing-1.0-bad",
+            "sentential_negation_npi_scope_probing-1.0-good",
         ]
         if task.name in blimp_probing_tasks:
             _write_glue_preds(task.name, preds_df, pred_dir, split_name, strict_glue_format=False)
