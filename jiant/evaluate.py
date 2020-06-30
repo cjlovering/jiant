@@ -181,6 +181,7 @@ def write_preds(
             "sentential_negation_npi_scope_probing-0.9-good",
             "sentential_negation_npi_scope_probing-1.0-bad",
             "sentential_negation_npi_scope_probing-1.0-good",
+            "blimp-acceptability"
         ]
         if task.name in blimp_probing_tasks:
             _write_glue_preds(task.name, preds_df, pred_dir, split_name, strict_glue_format=False)

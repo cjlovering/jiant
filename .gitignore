@@ -9,6 +9,9 @@ user_config.sh
 perluniprops/
 .DS_Store
 
+data/
+data_proc/
+
 # package/distribution artifacts
 build/
 dist/
