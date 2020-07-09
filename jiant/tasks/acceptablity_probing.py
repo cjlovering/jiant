@@ -924,6 +924,15 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
     rate="0.5",
     target="good",
     rel_path="blimp/probing/",
+    include_other_templates=False,
+)
+@register_task(
+    "distractor_agreement_relational_noun_probing-0.5-good-blimp",
+    linguistic_property="distractor_agreement_relational_noun_probing",
+    rate="0.5",
+    target="good",
+    rel_path="blimp/probing/",
+    include_other_templates=True,
 )
 @register_task(
     "distractor_agreement_relational_noun_probing-0.5-bad",
@@ -931,6 +940,7 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
     rate="0.5",
     target="bad",
     rel_path="blimp/probing/",
+    include_other_templates=False,
 )
 @register_task(
     "distractor_agreement_relational_noun_probing-0.6-good",
@@ -938,6 +948,7 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
     rate="0.6",
     target="good",
     rel_path="blimp/probing/",
+    include_other_templates=False,
 )
 @register_task(
     "distractor_agreement_relational_noun_probing-0.6-bad",
@@ -945,6 +956,7 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
     rate="0.6",
     target="bad",
     rel_path="blimp/probing/",
+    include_other_templates=False,
 )
 @register_task(
     "distractor_agreement_relational_noun_probing-0.7-good",
@@ -952,6 +964,7 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
     rate="0.7",
     target="good",
     rel_path="blimp/probing/",
+    include_other_templates=False,
 )
 @register_task(
     "distractor_agreement_relational_noun_probing-0.7-bad",
@@ -959,6 +972,7 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
     rate="0.7",
     target="bad",
     rel_path="blimp/probing/",
+    include_other_templates=False,
 )
 @register_task(
     "distractor_agreement_relational_noun_probing-0.8-good",
@@ -966,6 +980,7 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
     rate="0.8",
     target="good",
     rel_path="blimp/probing/",
+    include_other_templates=False,
 )
 @register_task(
     "distractor_agreement_relational_noun_probing-0.8-bad",
@@ -973,6 +988,7 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
     rate="0.8",
     target="bad",
     rel_path="blimp/probing/",
+    include_other_templates=False,
 )
 @register_task(
     "distractor_agreement_relational_noun_probing-0.9-good",
@@ -980,6 +996,7 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
     rate="0.9",
     target="good",
     rel_path="blimp/probing/",
+    include_other_templates=False,
 )
 @register_task(
     "distractor_agreement_relational_noun_probing-0.9-bad",
@@ -987,6 +1004,7 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
     rate="0.9",
     target="bad",
     rel_path="blimp/probing/",
+    include_other_templates=False,
 )
 @register_task(
     "distractor_agreement_relational_noun_probing-1.0-good",
@@ -994,6 +1012,15 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
     rate="1.0",
     target="good",
     rel_path="blimp/probing/",
+    include_other_templates=False,
+)
+@register_task(
+    "distractor_agreement_relational_noun_probing-1.0-good-blimp",
+    linguistic_property="distractor_agreement_relational_noun_probing",
+    rate="1.0",
+    target="good",
+    rel_path="blimp/probing/",
+    include_other_templates=True,
 )
 @register_task(
     "distractor_agreement_relational_noun_probing-1.0-bad",
@@ -1001,9 +1028,10 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
     rate="1.0",
     target="bad",
     rel_path="blimp/probing/",
+    include_other_templates=False,
 )
 class BlimpProbeTask(SingleClassificationTask):
-    def __init__(self, path, max_seq_len, name, linguistic_property, rate, target, **kw):
+    def __init__(self, path, max_seq_len, name, linguistic_property, rate, target, include_other_templates, **kw):
         """ """
         super(BlimpProbeTask, self).__init__(name, n_classes=2, **kw)
         self.path = path
@@ -1012,6 +1040,7 @@ class BlimpProbeTask(SingleClassificationTask):
         self.linguistic_property = linguistic_property
         self.rate = rate
         self.target = target
+        self.include_other_templates = include_other_templates
 
         self.train_data_text = None
         self.val_data_text = None
@@ -1081,8 +1110,10 @@ class BlimpProbeTask(SingleClassificationTask):
     def load_data(self):
         """Load the data"""
         self.test_data_text = self.load_split(f"test-{self.linguistic_property}.jsonl")
+
+        blimp_string = "-blimp" if self.include_other_templates else ""
         self.train_data_text = self.load_split(
-            f"train-{self.linguistic_property}-{self.rate}.jsonl"
+            f"train-{self.linguistic_property}-{self.rate}{blimp_string}.jsonl"
         )
         self.val_data_text = self.load_split(f"val-{self.linguistic_property}-{self.rate}.jsonl")
         self.sentences = self.train_data_text[0] + self.val_data_text[0] + self.test_data_text[0]

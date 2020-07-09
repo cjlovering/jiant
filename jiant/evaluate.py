@@ -160,6 +160,7 @@ def write_preds(
         )
         blimp_probing_tasks = [
             "distractor_agreement_relational_noun_probing-0.5-good",
+            "distractor_agreement_relational_noun_probing-0.5-good-blimp",
             "distractor_agreement_relational_noun_probing-0.5-bad",
             "distractor_agreement_relational_noun_probing-0.6-good",
             "distractor_agreement_relational_noun_probing-0.6-bad",
@@ -170,6 +171,7 @@ def write_preds(
             "distractor_agreement_relational_noun_probing-0.9-good",
             "distractor_agreement_relational_noun_probing-1.0-bad",
             "distractor_agreement_relational_noun_probing-1.0-good",
+            "distractor_agreement_relational_noun_probing-1.0-good-blimp",
             "sentential_negation_npi_scope_probing-0.5-good",
             "sentential_negation_npi_scope_probing-0.5-bad",
             "sentential_negation_npi_scope_probing-0.6-good",
