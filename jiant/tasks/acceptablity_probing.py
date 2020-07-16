@@ -1289,10 +1289,40 @@ def common_prefix_length(sent1, sent2):
     rel_path="blimp/probing/npi",
     counter_example_rate=5,
 )
-class BlimpNPI(SingleClassificationTask):
+@register_task(
+    "sva_probing_strong",
+    linguistic_property="sva",
+    rel_path="blimp/probing/sva",
+    counter_example_rate=None,
+)
+@register_task(
+    "sva_probing_weak",
+    linguistic_property="sva",
+    rel_path="blimp/probing/sva",
+    counter_example_rate=None,
+)
+@register_task(
+    "sva_finetune_0",
+    linguistic_property="sva",
+    rel_path="blimp/probing/sva",
+    counter_example_rate=0,
+)
+@register_task(
+    "sva_finetune_1",
+    linguistic_property="sva",
+    rel_path="blimp/probing/sva",
+    counter_example_rate=1,
+)
+@register_task(
+    "sva_finetune_5",
+    linguistic_property="sva",
+    rel_path="blimp/probing/sva",
+    counter_example_rate=5,
+)
+class BlimpProbe(SingleClassificationTask):
     def __init__(self, path, max_seq_len, name, linguistic_property, counter_example_rate, **kw):
         """ """
-        super(BlimpNPI, self).__init__(name, n_classes=2, **kw)
+        super(BlimpProbe, self).__init__(name, n_classes=2, **kw)
         self.path = path
         self.max_seq_len = max_seq_len
 

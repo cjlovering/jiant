@@ -188,7 +188,12 @@ def write_preds(
             "npi_probing_weak",
             "npi_finetune_0",
             "npi_finetune_1",
-            "npi_finetune_5"
+            "npi_finetune_5",
+            "sva_probing_strong",
+            "sva_probing_weak",
+            "sva_finetune_0",
+            "sva_finetune_1",
+            "sva_finetune_5"
         ]
         if task.name in blimp_probing_tasks:
             _write_glue_preds(task.name, preds_df, pred_dir, split_name, strict_glue_format=False)
