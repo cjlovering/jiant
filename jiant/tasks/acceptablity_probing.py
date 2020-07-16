@@ -1258,3 +1258,95 @@ def common_prefix_length(sent1, sent2):
         if x != y:
             return i
     return min_length
+
+@register_task(
+    "npi_probing_strong",
+    linguistic_property="npi",
+    rel_path="blimp/probing/npi",
+    counter_example_rate=None,
+)
+@register_task(
+    "npi_probing_weak",
+    linguistic_property="npi",
+    rel_path="blimp/probing/npi",
+    counter_example_rate=None,
+)
+@register_task(
+    "npi_finetune_0",
+    linguistic_property="npi",
+    rel_path="blimp/probing/npi",
+    counter_example_rate=0,
+)
+@register_task(
+    "npi_finetune_1",
+    linguistic_property="npi",
+    rel_path="blimp/probing/npi",
+    counter_example_rate=1,
+)
+@register_task(
+    "npi_finetune_5",
+    linguistic_property="npi",
+    rel_path="blimp/probing/npi",
+    counter_example_rate=5,
+)
+class BlimpNPI(SingleClassificationTask):
+    def __init__(self, path, max_seq_len, name, linguistic_property, counter_example_rate, **kw):
+        """ """
+        super(BlimpNPI, self).__init__(name, n_classes=2, **kw)
+        self.path = path
+        self.max_seq_len = max_seq_len
+
+        self.linguistic_property = linguistic_property
+        self.counter_example_rate = counter_example_rate
+
+        self.train_data_text = None
+        self.val_data_text = None
+        self.test_data_text = None
+
+        self.val_metric = "%s_mcc" % self.name
+        self.val_metric_decreases = False
+        # self.scorer1 = Average()
+        self.scorer1 = Correlation("matthews")
+        self.scorer2 = CategoricalAccuracy()
+        self.scorers = [self.scorer1, self.scorer2]
+
+    def load_split(self, file_name):
+        data_file = os.path.join(self.path, file_name)
+        data = [json.loads(l) for l in open(data_file, encoding="utf-8").readlines()]
+        labels, tags, pairIDs, UIDs = [], [], [], []
+        sents = []
+        random.shuffle(data)
+        for example in data:
+            sents.append(tokenize_and_truncate(self._tokenizer_name, example["sentence"], self.max_seq_len))
+            labels.append(example["label"])
+
+            # TODO: get the tags working.
+            tags.append([])
+            # if "UID" in example:
+            #     tag_str = "%s__%s" % ("UID", example["UID"])
+            #     tags[-1].append(self.tag_vocab[tag_str])
+            # pairIDs.append(example["pairID"] + "_good")
+            # pairIDs.append(example["pairID"] + "_bad")
+            # UIDs.append(example["UID"] + "_good")
+            # UIDs.append(example["UID"] + "_bad")
+
+        return sents, [], labels  # , tags
+
+    def load_data(self):
+        """Load the data"""
+        self.test_data_text = self.load_split(f"{self.linguistic_property}_test.jsonl")
+        self.train_data_text = self.load_split(f"{self.name}_train.jsonl")
+        self.val_data_text = self.load_split(f"{self.name}_val.jsonl")
+
+        self.sentences = self.train_data_text[0] + self.val_data_text[0] + self.test_data_text[0]
+        log.info("\tFinished loading BlimpAcceptabilityTask.")
+
+    def get_metrics(self, reset=False):
+        return {"mcc": self.scorer1.get_metric(reset), "accuracy": self.scorer2.get_metric(reset)}
+
+    def update_metrics(self, logits, labels, tagmask=None):
+        logits, labels = logits.detach(), labels.detach()
+        _, preds = logits.max(dim=1)
+        self.scorer1(preds, labels)
+        self.scorer2(logits, labels)
+        return
