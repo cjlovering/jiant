@@ -1,0 +1,1501 @@
+index	prediction	sentence_1	sentence_2	true_label
+0	0	some scientist who some assistant who some professor who a president thanked who ever slept hugged hugged succeeded .		0
+1	1	no president who no judge believed ever slept and some child who some senator who the boy who was not sad helped met smiled .		1
+2	0	the student who resigned ever shouted .		0
+3	0	some professor who some officer trick ##ed who was ever wrong traveled .		0
+4	1	no scientist who was not ever smart ever smiled .		1
+5	1	the man who no scientist ever hit ever traveled and a professor who a lawyer who no judge who the girl hated ever called helped failed .		0
+6	0	the boy who ever failed slept .		0
+7	1	a girl who no judge ever hit slept and some lawyer who no president who was not right supported smiled .		1
+8	1	the president who no assistant who ever traveled loved ever ran .		0
+9	0	some boy who a student observed who ever slept smiled .		0
+10	1	some senator who no scientist who was ever happy ever hit shouted .		1
+11	1	some secretary who no officer who ever traveled ever thanked succeeded and some assistant who failed ever failed .		0
+12	0	a assistant who the doctor pushed who ever traveled shouted .		0
+13	0	a senator who some student who some professor who some senator who was wrong watched trick ##ed helped ever ran and a officer who no secretary who was ever smart recommended traveled .		0
+14	1	a assistant who the senator who no president who was ever sad ever believed trick ##ed ran .		1
+15	1	the officer who no judge trick ##ed ever failed .		0
+16	0	the woman who some senator hit smiled and a professor who the doctor met who ever shouted danced .		0
+17	1	no woman who no man met ever shouted and no woman who was ever happy ever failed .		1
+18	0	some man who was ever funny resigned .		0
+19	1	no senator who ever shouted ever ran and no senator who was ever funny ever resigned .		1
+20	0	a student who was happy who was ever right succeeded .		0
+21	0	some child who was right who was ever smart slept and the assistant who no judge observed succeeded .		0
+22	0	some boy who shouted who ever failed resigned .		0
+23	0	some lawyer who a child who a senator who shouted trick ##ed contacted ever slept .		0
+24	1	some president who no senator who some girl pushed ever thanked shouted and no officer who ever slept ever traveled .		1
+25	1	no boy who no secretary ever trick ##ed ever failed and some assistant who the senator who the woman who the secretary who the assistant who no officer who was ever smart hated hated hated watched thanked shouted		1
+26	0	the man who ever ran traveled .		0
+27	1	the man who no senator who was not ever right recommended shouted .		1
+28	0	a judge who some doctor followed ever failed and the judge who was sad danced .		0
+29	1	a student who a doctor who some lawyer who was not funny who ever danced loved trick ##ed ran .		0
+30	1	the judge who no senator who was ever wrong ever called failed .		1
+31	0	the banker ever ran and a senator who no doctor ever supported shouted .		0
+32	1	a scientist who no secretary who ever shouted met traveled and a scientist who no child thanked who ever slept failed .		0
+33	1	no man who was ever smart ever shouted and no child who ever slept ever danced .		1
+34	1	some secretary who some doctor who a man supported who was ever sad hit resigned and no scientist who no woman ever called ever ran .		0
+35	0	a assistant who a child who was wrong who ever traveled pushed smiled .		0
+36	1	some senator who ever ran failed and no assistant who was ever wrong ever succeeded .		0
+37	0	some woman who smiled who ever ran shouted .		0
+38	1	some secretary who some boy who no doctor who was ever sad advised observed resigned .		1
+39	1	no judge who ran ever danced .		1
+40	1	no doctor who a boy hugged ever resigned .		1
+41	0	the woman who some secretary who was not right loved ever slept .		0
+42	0	the officer who the scientist watched who was ever happy smiled .		0
+43	1	the boy who the assistant who no assistant ever hit watched traveled .		1
+44	1	a man who no senator ever liked traveled and some woman who no man who ever smiled ever thanked ever shouted .		0
+45	1	a president who was wrong who was ever right failed and no child who was right ever smiled .		0
+46	0	a man who the scientist who traveled who ever traveled called danced .		0
+47	1	no woman who was ever sad ever shouted and no girl who ever smiled ever danced .		1
+48	1	the student who some student who no lawyer ever recommended who ever resigned contacted failed and the student who a president who was not ever funny pushed failed .		0
+49	1	no banker who was ever sad ever smiled and no woman who no man called ever smiled .		1
+50	0	the boy who was ever funny failed .		0
+51	0	a woman who the scientist observed who was ever sad traveled .		0
+52	1	a doctor who no scientist ever loved who was ever sad failed and no woman who no banker ever called ever shouted .		0
+53	1	some woman who no student who ever resigned avoided succeeded .		1
+54	1	no boy who was not ever smart ever traveled and the professor who some senator who the child who no lawyer who ever danced ever helped followed avoided ran .		1
+55	1	some banker who a girl who no assistant who ever ran called loved ever traveled .		0
+56	0	a boy who failed succeeded and the scientist who was happy who was ever sad resigned .		0
+57	1	no professor who the assistant hugged ever danced and some scientist who no scientist who was ever sad ever observed traveled .		1
+58	1	some boy who was happy ever shouted and no lawyer who ever shouted ever resigned .		0
+59	1	some president who the assistant who the man who was not ever funny liked liked traveled and a boy who no judge who was ever happy called ever danced .		0
+60	0	a senator who was funny who ever shouted ran .		0
+61	1	no president who was ever smart ever traveled and the secretary who was right who ever resigned failed .		0
+62	0	some judge who the student who was ever sad pushed resigned .		0
+63	0	a child who a lawyer watched who was ever funny danced .		0
+64	1	no officer who was ever funny ever traveled and some scientist who no officer who the banker called followed shouted .		1
+65	0	the secretary who the boy who no man who was ever funny pushed helped ever danced and a officer who some secretary who was funny helped traveled .		0
+66	1	the secretary who no boy ever pushed ran .		1
+67	1	some president who a man who was not ever sad who ever failed met danced .		0
+68	1	a woman who a assistant who no senator who was ever sad watched advised ever shouted and no man who ever failed ever danced .		0
+69	0	a judge who a judge avoided slept and some president who a banker recommended who was ever sad succeeded .		0
+70	1	a banker who no president supported who ever ran smiled .		0
+71	1	the senator who some girl who a student who the scientist who no man who was ever smart ever hugged hugged believed advised ran and no girl who some president observed ever resigned .		1
+72	1	a senator who the man who no child who ever smiled ever loved supported slept and a woman who some president who no woman thanked who ever smiled helped smiled .		0
+73	1	some boy who no secretary who ever danced ever avoided smiled and the woman who was not happy who ever traveled shouted .		0
+74	1	some senator who some senator who a banker who no judge who ever danced ever hated hugged recommended slept and the student ever failed .		0
+75	1	a child who no officer who ever resigned followed traveled .		1
+76	1	a doctor who a scientist who some professor who some boy who some girl who no doctor who ever resigned pushed loved hated avoided followed ever failed and no man who was ever right ever failed .		0
+77	1	no boy who ever ran ever traveled and no man who ever slept ever shouted .		1
+78	0	a scientist who was ever right slept .		0
+79	1	the senator who the secretary who some man who a man who no secretary who was ever wrong ever advised followed pushed contacted ran and no officer who was ever smart ever danced .		1
+80	1	no judge who no assistant ever hit ever ran .		1
+81	1	no assistant who was ever happy ever resigned and a judge who was smart who ever ran succeeded .		0
+82	1	some doctor who no senator who ever failed hit ever shouted .		0
+83	0	the secretary who a woman who some senator who ever resigned called met failed .		0
+84	1	some girl who some student who the banker who a girl who no woman who ever danced ever recommended pushed avoided watched ever shouted and no girl who ever slept ever succeeded .		0
+85	0	some assistant who no president pushed who was ever smart smiled .		0
+86	1	a scientist who no officer who some professor recommended ever believed shouted .		1
+87	0	the man who a boy who some secretary called who was ever happy helped failed .		0
+88	1	no girl who was ever wrong ever smiled and a officer who some girl who no president hit followed resigned .		1
+89	1	a officer who was not ever wrong resigned and a doctor who was not happy who was ever wrong traveled .		0
+90	0	the man who a professor believed ever smiled .		0
+91	0	a senator who the officer who no president ever called met succeeded and the lawyer who no doctor ever followed who was ever smart slept .		0
+92	0	a judge who a lawyer pushed who ever traveled danced .		0
+93	1	no officer who no lawyer ever recommended ever smiled and the woman who no senator who no judge ever contacted ever believed ever danced .		0
+94	0	the officer who smiled who was ever smart danced .		0
+95	1	a scientist who no officer who ever shouted ever called traveled and the banker who was not ever funny ever shouted .		0
+96	1	a officer who a student who a student who was not ever sad met hugged failed .		1
+97	1	some professor who the man who a secretary who ever traveled hugged hit ran and no senator who was right ever traveled .		0
+98	1	the assistant who a secretary who a professor who was not ever funny helped recommended failed .		1
+99	1	no banker who ever danced ever traveled and no woman who was not ever wrong ever smiled .		1
+100	1	no senator ever danced and the secretary who the secretary who a woman who the banker who shouted trick ##ed met avoided traveled .		1
+101	1	the banker who no banker who was ever happy watched shouted .		1
+102	1	a girl who the boy who was not ever sad who was ever happy hated traveled .		0
+103	1	the judge who no student who the scientist followed loved ever smiled .		0
+104	1	some child who no child who ever failed ever called resigned and no child who ever smiled ever traveled .		1
+105	1	no secretary who some woman supported ever ran .		1
+106	0	a senator who a officer who resigned who ever resigned advised failed .		0
+107	1	no child who ever traveled ever danced and no man who ever failed ever ran .		1
+108	0	some lawyer who the banker who a lawyer who the man who resigned pushed hugged called ever slept .		0
+109	1	some child who no child who no woman ever observed liked succeeded and a student who no secretary who was ever right ever met ever traveled .		0
+110	1	some officer who some doctor who smiled thanked shouted and the child who a doctor who no secretary who was not ever smart followed called failed .		1
+111	1	no woman who no girl thanked ever traveled and no lawyer who ever ran ever traveled .		1
+112	1	a banker who some senator who some president who no judge who ever shouted observed thanked recommended failed .		1
+113	0	the man who some judge who the secretary who some judge who was ever smart pushed advised thanked resigned .		0
+114	1	a assistant who no officer who no girl ever hugged met ever danced .		0
+115	1	a officer who no assistant who no lawyer contacted ever avoided resigned .		1
+116	1	a president who no student who was ever happy supported ever shouted and a assistant who no student who no girl met supported slept .		0
+117	1	no banker who was ever happy ever smiled and some child who the man who no scientist who a woman liked ever loved met ever smiled .		0
+118	1	some woman who a scientist who no scientist ever helped called shouted .		1
+119	0	the officer who the girl believed who ever succeeded traveled .		0
+120	0	some banker who the professor who a banker who was smart who ever failed met observed succeeded .		0
+121	0	a professor who some girl watched who ever succeeded danced .		0
+122	1	no man who was wrong ever failed and the officer who the lawyer who a child who a man who was wrong avoided helped pushed slept .		1
+123	0	some boy who smiled slept and some man who was happy ever traveled .		0
+124	0	the woman who a assistant who the assistant who no scientist who ever ran ever contacted helped contacted ever smiled and a woman who a professor who a man who some professor loved supported recommended danced .		0
+125	0	some secretary who a senator who was wrong who ever ran contacted shouted .		0
+126	1	a professor who a officer who the secretary who no woman who ever traveled ever hated supported observed ever ran .		0
+127	0	some child who was funny who was ever right ran .		0
+128	1	some professor who some senator who no judge who ever traveled avoided liked traveled and no man who was wrong ever succeeded .		1
+129	1	some child who no president who was ever happy contacted resigned .		1
+130	0	some officer who smiled ever danced .		0
+131	0	a banker who a scientist helped who was ever sad slept .		0
+132	0	some professor who the scientist advised who was ever smart failed .		0
+133	0	some woman who some president supported who ever failed resigned .		0
+134	1	no banker who was ever wrong ever failed and a banker who ever shouted shouted .		0
+135	0	a banker who the assistant who the banker who was smart who was ever smart loved believed traveled .		0
+136	1	no banker who was ever wrong ever failed and no scientist who ever ran ever shouted .		1
+137	0	a senator who was smart ever traveled .		0
+138	1	a senator who no scientist who was ever sad ever trick ##ed smiled .		1
+139	0	some professor who succeeded shouted and a child who was ever smart traveled .		0
+140	0	the man who a lawyer contacted who ever danced failed .		0
+141	0	a child who was right who was ever wrong failed and some man resigned .		0
+142	1	no doctor who the judge thanked ever resigned and the scientist who slept who ever smiled slept .		0
+143	1	the senator who the student who a student who the president who no scientist who ever smiled ever watched recommended followed observed ran .		1
+144	0	a judge who a president liked ever failed .		0
+145	1	some judge who no senator who was ever right recommended ever ran and a man who no man who was funny ever hugged failed .		0
+146	1	no judge who was ever funny ever failed and some student who no girl who was ever funny avoided ever smiled .		0
+147	1	no student who a judge watched ever traveled and the judge who the assistant who no boy who ever slept ever called avoided ever ran .		0
+148	1	no lawyer who was ever funny ever danced and some secretary who no scientist contacted shouted .		1
+149	0	a judge who was ever happy shouted .		0
+150	1	some man who no student who danced pushed slept and a student who a banker who no woman ever loved who ever succeeded supported resigned .		0
+151	1	the scientist who no president who was not ever funny met ever ran .		0
+152	0	some girl who was happy who ever succeeded succeeded .		0
+153	1	no assistant who was ever funny ever traveled and a officer who no child who was ever happy believed slept .		1
+154	0	the president who some president who the banker who some president who the girl who the scientist hit trick ##ed advised met hit ever danced .		0
+155	0	the secretary who some boy who was funny who was ever funny met resigned .		0
+156	1	no secretary who was not ever right ever danced and the child who the boy hit slept .		1
+157	1	no scientist who some assistant thanked ever danced and a president who no assistant who was ever happy ever watched resigned .		1
+158	0	some officer who succeeded who ever shouted danced .		0
+159	0	the assistant who the assistant pushed ever ran .		0
+160	0	the girl who failed who ever slept danced .		0
+161	1	a woman who was not right who ever danced smiled .		0
+162	1	some girl who no lawyer who ever shouted ever recommended shouted and some senator who succeeded ever traveled .		0
+163	1	no banker who some secretary advised ever traveled and the officer who the scientist who was not funny who was ever right observed succeeded .		0
+164	1	a professor who no assistant who was ever funny met traveled and a lawyer who no judge who ever danced loved danced .		1
+165	0	a secretary who the man thanked who was ever funny succeeded .		0
+166	0	some scientist who a secretary who a man who the doctor hated who ever ran loved hated traveled .		0
+167	0	a lawyer who failed ever smiled .		0
+168	0	the boy who a officer who some senator who a president liked advised thanked ever failed .		0
+169	1	a lawyer who no student who was smart ever hugged resigned .		1
+170	1	a doctor who no scientist who ever smiled ever hated resigned and some president who no child who ever smiled thanked resigned .		1
+171	0	some woman who failed who was ever smart slept .		0
+172	1	a student who some assistant who no secretary who was ever funny thanked advised succeeded .		1
+173	0	the officer who a senator who a president who the banker called who was ever wrong advised called smiled .		0
+174	1	a secretary ever shouted and some scientist who was not ever right ran .		0
+175	1	some child who no boy who ever shouted ever trick ##ed slept .		1
+176	0	the girl who the girl who the girl loved who ever ran watched succeeded .		0
+177	1	some senator who was not ever funny who was ever right danced .		0
+178	1	a senator who no scientist who was ever smart ever called ever smiled and some boy who a lawyer who no senator who was not happy followed recommended succeeded .		0
+179	1	no officer who was ever wrong ever danced and a professor who no professor who some president loved ever observed danced .		1
+180	1	a senator who some senator who the child who no scientist who a child loved supported followed advised ever resigned and no professor who ever failed ever traveled .		0
+181	0	some secretary who the judge who a judge thanked who was ever funny pushed shouted .		0
+182	0	some lawyer who some man who was ever smart pushed ran .		0
+183	1	no woman who ever ran ever slept and the judge who was not wrong resigned .		1
+184	0	the child who the woman thanked who was ever wrong traveled .		0
+185	0	the secretary who the secretary who was funny who ever traveled hugged danced .		0
+186	1	some professor who was not ever happy shouted and no officer who was ever wrong ever resigned .		1
+187	1	some president who no student ever supported who ever resigned shouted and some child who no judge who was not ever wrong watched succeeded .		0
+188	0	a student who a woman who a child hit met ever shouted .		0
+189	0	a boy who the president advised ever traveled .		0
+190	0	some scientist who a assistant hit who was ever happy traveled .		0
+191	0	some lawyer who ran who was ever right ran .		0
+192	0	the professor who smiled ever ran .		0
+193	1	a doctor who no senator hated who ever resigned danced and no professor who was ever wrong ever traveled .		0
+194	1	a child who no banker who was smart ever avoided ever resigned .		0
+195	1	the child who no president who was ever right ever trick ##ed shouted .		1
+196	0	the lawyer who some scientist hated slept and some girl who succeeded who ever danced ran .		0
+197	1	some student who no girl who ever slept ever helped resigned and no scientist who ever shouted ever resigned .		1
+198	1	some judge who a senator who was not funny who ever danced recommended slept and no boy ever failed .		0
+199	1	no scientist who a secretary believed ever shouted and no scientist who no judge hated ever danced .		1
+200	1	some lawyer who the lawyer who a lawyer who no doctor who was ever right supported met thanked slept and no senator who ever smiled ever ran .		1
+201	1	the professor who a child recommended ever smiled and no student who was ever right ever succeeded .		0
+202	1	no professor who was ever wrong ever traveled and some woman who no man who ever slept met ever slept .		0
+203	1	no judge who failed ever resigned and a officer who the officer who was smart followed slept .		1
+204	0	a banker who slept who ever smiled slept .		0
+205	1	some secretary who the secretary who no professor who was not ever right hit hated smiled and no president who was ever happy ever traveled .		1
+206	0	some child who the boy who ever traveled trick ##ed resigned .		0
+207	1	some woman who the woman hated ran and the senator who no president ever hit slept .		1
+208	0	the student who a judge recommended who was ever happy resigned .		0
+209	1	some officer who some banker who a lawyer who no judge who was ever funny ever recommended hated hit succeeded and the banker who some banker liked who was ever funny smiled .		0
+210	0	a child who a student who was sad who ever resigned believed danced .		0
+211	1	a secretary who a doctor who a assistant who no boy who the man observed met hit hit ever danced and no officer who ever succeeded ever slept .		0
+212	1	some banker who ever traveled slept and no assistant who ever failed ever traveled .		0
+213	1	no child who ever traveled ever failed and no senator who failed ever ran .		1
+214	1	the doctor who some senator who no boy who ever danced helped supported ever slept and the man who the judge who no banker who ever succeeded ever helped met slept .		0
+215	1	some banker who the judge who no child ever met who ever danced avoided failed .		0
+216	1	a banker who a senator who some officer who a woman who no student who was ever sad ever trick ##ed believed advised hugged failed .		1
+217	0	a boy who a assistant who a man helped believed succeeded and a president who a secretary trick ##ed who was ever right resigned .		0
+218	0	a judge who a student followed who ever slept failed and a boy who a man who a boy who was funny helped supported danced .		0
+219	0	the doctor who some banker believed who ever slept failed .		0
+220	1	the boy who was not right ever danced and the judge who no officer who the woman hugged loved smiled .		0
+221	1	a professor who the lawyer who no girl who ever slept ever thanked called resigned and some professor who no officer ever contacted who was ever wrong succeeded .		0
+222	0	a student who a girl who the scientist who a woman who a judge helped who ever failed thanked pushed hit slept and a president who smiled shouted .		0
+223	1	some officer who was not ever smart who ever smiled ran and some woman who some lawyer advised resigned .		0
+224	0	some professor who the man who the student who was funny who was ever smart met met resigned .		0
+225	1	some president who no banker who was ever sad thanked danced .		1
+226	1	the professor who some banker who no banker who ever succeeded ever believed liked ever slept and some student who no lawyer who ever smiled ever followed traveled .		0
+227	1	some doctor who no senator supported who was ever wrong danced and some banker who the child who some doctor who some student who no lawyer who ever resigned ever advised followed recommended liked danced .		0
+228	1	the assistant who a child who no professor who was ever wrong observed watched danced and the student who no secretary who ever slept ever pushed shouted .		1
+229	0	the judge who the officer who a professor who the professor recommended who ever danced loved liked failed .		0
+230	1	no doctor who ever slept ever failed and no judge who ever shouted ever traveled .		1
+231	1	no child who ever failed ever failed and no professor who was smart ever danced .		1
+232	0	a lawyer who a woman who a officer who a banker who the lawyer believed who was ever funny thanked liked thanked shouted .		0
+233	1	the doctor who no professor who ever slept ever pushed smiled and the officer who no scientist who the president contacted avoided ever smiled .		0
+234	0	the doctor who ran who was ever smart succeeded .		0
+235	1	no officer who ever resigned ever resigned .		1
+236	1	the man who a child who no professor who no officer ever helped ever watched called failed .		1
+237	1	the man who the president who the girl who the child who some girl who a senator who no woman who was ever right ever trick ##ed advised pushed watched recommended contacted danced and some professor who a		0
+238	0	a secretary who shouted ever traveled and some officer who no child who was ever smart ever pushed traveled .		0
+239	1	some officer who the lawyer who was not right called ever traveled and the assistant who some president who no judge who was not sad advised hugged danced .		0
+240	0	some child who a girl watched ever traveled .		0
+241	0	some boy who some girl who some man who failed pushed trick ##ed ever traveled .		0
+242	1	a professor who no doctor who was ever funny ever liked danced and no scientist who ran ever danced .		1
+243	1	a officer who no boy who was not wrong watched ever failed and no officer who was sad ever resigned .		0
+244	1	no professor who was ever right ever succeeded and the doctor who the judge who no scientist hit who ever smiled hugged slept .		0
+245	1	no doctor who was not right ever shouted and no senator who no president ever believed ever failed .		1
+246	1	no secretary who ever smiled ever succeeded and a lawyer who no secretary contacted who ever failed smiled .		0
+247	1	some officer who no boy who was ever wrong ever hugged failed and a senator who a president who no lawyer followed believed ever succeeded .		0
+248	1	a girl who some boy who a doctor who a man who no girl who ever ran hated watched called observed smiled and a lawyer who was not ever happy ever smiled .		0
+249	1	the child who no lawyer who ever resigned trick ##ed slept and a child who no senator who a child observed hit traveled .		1
+250	0	a scientist who traveled who ever traveled shouted .		0
+251	0	the child who a child who no president who was ever funny helped thanked ever failed and a child who was sad ran .		0
+252	1	the judge who succeeded who was ever wrong smiled and no man who ever traveled ever resigned .		0
+253	1	some student who no student who was ever smart advised smiled and some man who the student liked succeeded .		1
+254	1	some professor who was not ever sad who was ever wrong failed and the scientist who the senator who no boy who was happy ever watched helped danced .		0
+255	0	some student who the girl helped who was ever smart shouted and the student who no boy who was ever funny followed shouted .		0
+256	0	some president who succeeded who was ever sad smiled .		0
+257	1	the doctor who was not ever sad ever resigned and a doctor who no doctor who slept ever liked traveled .		0
+258	1	a girl who no girl who was ever right ever avoided ever smiled and the secretary who no child who ever traveled ever observed ran .		0
+259	1	the girl who the student hated succeeded and the officer who some officer who some lawyer who no boy who ever failed called called recommended failed .		1
+260	0	some doctor who the girl who traveled who ever slept pushed ran .		0
+261	0	some child who a judge recommended ever shouted .		0
+262	1	no doctor who was ever sad ever resigned and some secretary who no president who was not ever funny ever believed succeeded .		1
+263	1	a president who no president who a doctor pushed ever met traveled .		1
+264	1	some secretary who no scientist who was ever sad watched shouted and some scientist who a secretary who some scientist who no doctor ever contacted who ever succeeded called contacted smiled .		0
+265	1	the secretary who no banker who was not wrong ever hated ever traveled .		0
+266	1	no president who was ever wrong ever ran and no secretary who ever resigned ever failed .		1
+267	1	the banker who a woman who a man who no judge who the doctor liked liked believed avoided danced and no boy who ever shouted ever ran .		1
+268	0	a child who some lawyer who some boy who a lawyer who some banker loved supported hugged watched ever succeeded .		0
+269	1	no woman who was ever happy ever traveled and the officer who the boy who a woman liked who ever succeeded met succeeded .		0
+270	1	no judge who ever succeeded ever shouted and no student who was ever right ever resigned .		1
+271	0	the doctor who the man who ran who ever resigned observed slept .		0
+272	1	a scientist who a man followed shouted and no banker who ever traveled ever traveled .		1
+273	1	a assistant who no professor who ever traveled followed ever smiled .		0
+274	1	a child who no senator who no lawyer thanked loved ran and a scientist who no child who was not sad ever hit resigned .		1
+275	0	a boy who was sad who ever shouted slept .		0
+276	1	some woman who no woman who ran ever hugged ever slept .		0
+277	1	no man who was ever funny ever smiled and no professor who was not wrong ever ran .		1
+278	0	some judge who some officer who was funny watched failed and the assistant who the child who ever succeeded avoided ran .		0
+279	1	the woman who a banker liked who ever slept smiled and no lawyer who was ever funny ever smiled .		0
+280	1	the woman who no secretary who ever ran called failed and some man who no professor who was ever funny ever avoided ran .		1
+281	1	no woman who ever ran ever succeeded and some student who some judge who no man who was ever happy hit hugged ever smiled .		0
+282	1	the judge who no lawyer loved slept and some boy who no scientist who was ever happy ever recommended ever traveled .		0
+283	1	no child who a child supported ever succeeded .		1
+284	1	no officer who no student hit ever ran and some man who the president who the officer who no student who was ever happy ever followed met believed slept .		1
+285	0	the assistant who some president thanked who ever succeeded traveled .		0
+286	1	a banker who some judge who some secretary who the secretary who the president who no judge who was funny ever liked helped hated thanked called slept and a secretary who slept resigned .		1
+287	1	some secretary who no officer who ever smiled helped ever slept and no professor who was ever happy ever shouted .		0
+288	0	the doctor who ever slept resigned .		0
+289	1	a lawyer who some assistant who a doctor who some student who the boy hit recommended contacted avoided traveled and no doctor who no judge ever advised ever ran .		1
+290	1	some president who a man who some senator hated who ever shouted recommended danced and no professor who shouted ever traveled .		0
+291	0	a doctor ever resigned .		0
+292	0	some lawyer who a judge loved who ever slept shouted .		0
+293	1	a lawyer who no boy who was ever happy recommended shouted and a scientist who some professor hated who ever danced danced .		0
+294	1	no student who was ever right ever failed and the man who was smart who ever slept traveled .		0
+295	0	some senator who the boy who smiled who ever traveled believed smiled .		0
+296	0	the student who smiled who was ever wrong shouted .		0
+297	1	the girl who no judge who a lawyer watched ever helped ran .		1
+298	1	the assistant who was not ever smart who was ever smart failed and no child who was ever sad ever succeeded .		0
+299	1	some scientist who no officer ever thanked who ever smiled succeeded and a assistant who a officer who no woman who ever failed recommended loved slept .		0
+300	0	the doctor who ever succeeded resigned .		0
+301	0	the senator who a judge who a assistant who a secretary who some banker who some man advised liked recommended loved liked ever resigned and the boy who the judge followed shouted .		0
+302	1	the man who a banker who no officer who no banker ever avoided ever trick ##ed observed ever smiled .		0
+303	1	a child who no student who was ever wrong believed failed and a secretary shouted .		1
+304	1	the professor who the lawyer contacted slept and no doctor who the officer watched ever smiled .		1
+305	1	no girl who the lawyer advised ever shouted and the president who no judge who was not ever wrong hugged ever failed .		0
+306	0	the child who a lawyer pushed ever ran .		0
+307	1	a woman who no woman who ever danced helped ever smiled .		0
+308	1	the judge who some lawyer who was not ever happy called danced and no professor who ever shouted ever ran .		1
+309	1	the boy who was not ever smart traveled and no doctor who ever failed ever failed .		1
+310	1	some assistant who no boy who was right thanked smiled and the secretary who some boy who no judge who was not ever funny ever hit watched ever succeeded .		0
+311	0	no judge who a man observed ever resigned and a president who some secretary who no secretary who ever succeeded ever avoided contacted ever slept .		0
+312	1	the senator who no officer who ever traveled ever helped failed and no man who no banker avoided ever smiled .		1
+313	1	some president who the child hugged danced and no girl who was ever funny ever traveled .		1
+314	1	no officer who was ever sad ever ran and the officer who no senator who was ever wrong believed resigned .		1
+315	0	the child who failed who ever danced ran .		0
+316	1	no secretary who was ever smart ever slept and the scientist who the lawyer who no child who was ever right ever watched advised ran .		1
+317	0	a child who smiled who was ever right resigned .		0
+318	1	the president who no assistant who was ever wrong supported ran and no child who ever succeeded ever succeeded .		1
+319	0	a professor who the man who a scientist who the assistant who the banker supported who was ever wrong liked advised watched traveled .		0
+320	0	a banker who a officer who a assistant helped who ever ran avoided succeeded .		0
+321	1	some banker who no girl who was ever sad ever recommended failed and no assistant who was ever sad ever smiled .		1
+322	0	some boy who the girl contacted who ever danced ran .		0
+323	0	the girl who was funny who was ever smart smiled .		0
+324	1	no doctor who was not ever sad ever slept and no judge who ever failed ever danced .		1
+325	0	the doctor who slept who was ever sad smiled .		0
+326	1	no doctor who a student supported ever danced .		1
+327	0	some scientist who a lawyer hit who was ever wrong traveled .		0
+328	0	some boy who some banker believed who was ever right succeeded .		0
+329	1	a girl who some lawyer who some judge who no boy who ever slept ever supported liked contacted failed and the professor who the woman who no secretary ever believed who ever failed followed ran .		0
+330	0	a professor who some child supported who was ever happy failed .		0
+331	1	the banker who the assistant who the judge who no judge who was not ever smart ever hugged supported met shouted .		1
+332	1	the girl who some officer who no officer ever believed who was ever sad hugged succeeded and a president who a boy who no child who ever succeeded hated contacted failed .		0
+333	1	no man who was ever right ever ran and no student who ran ever succeeded .		1
+334	0	a secretary who a officer who a assistant who some scientist helped who ever slept liked advised failed .		0
+335	0	some boy who danced ever shouted .		0
+336	1	the girl who a woman who was not smart who was ever happy thanked resigned and a assistant who the doctor who no girl who was ever wrong met watched succeeded .		0
+337	1	some professor who no girl who was not smart ever pushed slept .		1
+338	1	no girl who was ever right ever traveled and a lawyer who no lawyer who danced ever met resigned .		1
+339	1	some doctor who no officer who ran ever watched traveled and the woman who was not funny smiled .		1
+340	1	some man who a student who no man ever loved contacted succeeded .		1
+341	1	a banker who no doctor who ever failed ever helped ever slept and no scientist who was not right ever smiled .		0
+342	1	no president who ever shouted ever resigned and no girl who a professor hugged ever shouted .		1
+343	1	the child who some man who a assistant who a student who a secretary who some doctor who the doctor who a man who no boy who was ever sad supported recommended advised contacted loved recommended advised hit		0
+344	1	no officer who ever traveled ever succeeded and a man who some child who smiled believed traveled .		1
+345	1	the scientist who the senator who a professor who was not ever smart supported believed slept .		1
+346	1	some secretary who some man who a boy who no doctor ever helped who was ever right advised helped smiled and a doctor who the doctor advised succeeded .		0
+347	1	no professor who some man hated ever danced and no doctor who was not smart ever smiled .		1
+348	0	the woman who was ever wrong succeeded .		0
+349	0	some scientist who was happy ever smiled .		0
+350	1	a senator who the man who a judge who no banker who ever failed ever contacted supported loved slept .		1
+351	0	a child who the president who some doctor hugged loved shouted and a officer who the man who some president who the professor hugged hugged trick ##ed ever danced .		0
+352	0	a man who some boy who a secretary who traveled who ever failed advised hit ran .		0
+353	1	no president who was ever smart ever shouted and a senator who no president who was ever funny ever contacted ever shouted .		0
+354	1	some girl who a judge who no scientist who ever danced called loved ever smiled .		0
+355	1	some senator who was not happy who was ever smart succeeded and the boy who the scientist who no girl who was ever wrong ever hugged followed shouted .		0
+356	1	no professor who was not right ever resigned and some woman who some officer who was not wrong thanked traveled .		1
+357	1	a lawyer who no doctor who was not sad ever pushed shouted and the secretary who no judge who ever slept ever followed ever succeeded .		0
+358	1	no man who ever succeeded ever failed and the woman who a boy who the assistant who a girl who no girl ever hated believed advised hated ever traveled .		0
+359	0	the man who shouted who was ever sad smiled and no child who was ever funny ever shouted .		0
+360	1	no senator who no judge ever believed ever smiled and the child who no secretary who ever shouted thanked ever shouted .		0
+361	1	the boy who the senator who a boy who some woman who the woman who the assistant hugged who was ever funny thanked hugged followed observed traveled and no lawyer who ever shouted ever slept .		0
+362	0	a scientist who some doctor who ever slept hugged ran .		0
+363	1	no doctor who a woman hit ever shouted .		1
+364	1	a student who a judge who no boy who ever succeeded avoided hated ran .		1
+365	1	some secretary who no woman who was smart supported ever failed and some judge who smiled traveled .		0
+366	1	no banker who was ever happy ever succeeded and no doctor who ever traveled ever shouted .		1
+367	0	a woman who ever shouted slept .		0
+368	1	the judge who a president who no officer who was not right ever supported hated traveled .		1
+369	1	some child who no doctor who was ever wrong ever hated shouted .		1
+370	1	no senator who ever shouted ever shouted and no officer who ever ran ever smiled .		1
+371	0	some student who a judge advised ever smiled .		0
+372	1	some assistant who a assistant who no judge who was not sad ever pushed pushed ever succeeded and some senator who the senator who a senator who the judge who some senator who a assistant who no senator		0
+373	1	the doctor who a doctor called who was ever right smiled and some assistant who a doctor who no lawyer who ever succeeded advised contacted slept .		0
+374	1	no secretary who some judge believed ever traveled and a student who no senator ever met who ever traveled resigned .		0
+375	1	no scientist who was ever smart ever smiled and a boy who no president who ever traveled observed danced .		1
+376	0	a senator who a student trick ##ed who was ever wrong smiled .		0
+377	1	some professor ever ran and no professor who was ever right ever shouted .		0
+378	0	some senator who ever danced succeeded .		0
+379	1	no president who a girl loved ever danced and no president who was ever smart ever slept .		1
+380	0	some professor who was right who was ever right slept and the doctor who traveled danced .		0
+381	1	no student who was ever happy ever failed .		1
+382	1	a banker who no professor believed who was ever smart shouted .		0
+383	0	some child who the girl who was sad who was ever funny trick ##ed failed .		0
+384	1	no student who was ever funny ever succeeded and the scientist who some senator avoided ran .		1
+385	1	some judge who was not ever funny slept and no student who no doctor ever hugged ever traveled .		1
+386	1	some judge who no lawyer who the man hated ever believed smiled .		1
+387	1	the man who no girl who was ever sad contacted ever ran .		0
+388	1	the assistant who some senator who was right loved slept and no man who ever shouted ever ran .		1
+389	0	the lawyer who the girl who ran who ever resigned thanked traveled .		0
+390	1	a secretary who no doctor who was not ever smart ever pushed failed and no woman who was ever wrong ever succeeded .		1
+391	0	some professor who shouted who was ever funny resigned and some president who danced slept .		0
+392	1	no student who ever succeeded ever failed and a judge who no boy who ever resigned ever trick ##ed succeeded .		1
+393	1	no president who no scientist avoided ever resigned .		1
+394	0	a judge who some woman contacted who was ever funny smiled .		0
+395	1	the boy who no banker who ever shouted ever hated ever shouted and no woman who ever smiled ever shouted .		0
+396	0	the secretary who some girl trick ##ed who ever danced succeeded and a scientist who some officer who a woman helped observed traveled .		0
+397	1	some man who the child who no scientist who was not ever sad watched advised resigned and the student who no man who was ever wrong supported smiled .		1
+398	1	no child who some officer recommended ever ran .		1
+399	1	no assistant who ever resigned ever traveled .		1
+400	1	no banker who was ever wrong ever traveled and some doctor who ever succeeded succeeded .		0
+401	1	some child who the girl who no judge who was ever right recommended contacted ran and no assistant who was ever wrong ever danced .		1
+402	1	a judge who a scientist who no banker ever hugged called ever resigned and a woman who the man who no woman who ever ran avoided observed failed .		0
+403	0	a secretary who a scientist who the assistant contacted who was ever smart contacted smiled .		0
+404	0	a president who a man who a professor avoided followed ever ran and some woman danced .		0
+405	1	some officer who a woman who a banker who was not ever happy who ever slept trick ##ed hit smiled and the lawyer who the president who no president met observed slept .		0
+406	0	a lawyer resigned and the child who was right who ever danced slept .		0
+407	1	some assistant who smiled who was ever wrong failed and no assistant who the doctor liked ever slept .		0
+408	0	a scientist who a child who a professor who a assistant who some banker who a assistant hugged thanked thanked avoided trick ##ed failed and the scientist ever shouted .		0
+409	1	no professor who a boy thanked ever slept .		1
+410	0	a man who was smart who ever slept succeeded .		0
+411	1	the girl who a woman who no boy who ever ran ever followed called resigned and some lawyer who no man who ever failed loved ever resigned .		0
+412	1	the student who no banker who ever smiled helped ever resigned and no doctor who was not wrong ever succeeded .		0
+413	0	a banker who some scientist who the president who no scientist who ever ran ever contacted pushed helped ever traveled and some secretary who some scientist who no banker who the officer hit watched liked danced .		0
+414	1	a officer who a officer who no doctor who was ever smart hugged trick ##ed failed and some professor who no man contacted resigned .		1
+415	1	the senator who a officer who was not funny met smiled and a student who no senator who was not ever wrong hit ever ran .		0
+416	1	the banker who no man ever hit smiled .		1
+417	1	no president who was ever funny ever ran and no scientist who was ever funny ever traveled .		1
+418	1	some judge who a boy who the girl who the professor who the senator who no officer who was ever smart believed watched avoided hit liked failed .		1
+419	1	no man who was ever sad ever ran and some assistant who no boy who ever shouted ever watched failed .		1
+420	1	some boy who some senator who some assistant who a president who some professor who no officer who was not ever funny hated avoided hugged met advised ever shouted .		0
+421	1	the lawyer who no president who was wrong ever recommended ran .		1
+422	1	a man who no student who was ever right liked traveled .		1
+423	1	some scientist who no child who ever slept followed resigned and the student who no boy who ever succeeded ever advised ever failed .		0
+424	1	no lawyer who ever failed ever smiled .		1
+425	1	a officer who some child who the professor who no lawyer ever loved who ever succeeded recommended thanked ran and no scientist who was ever sad ever smiled .		0
+426	1	no president who was smart ever slept and a secretary who the man watched who was ever wrong shouted .		0
+427	0	a banker who was ever sad traveled .		0
+428	0	a secretary who some judge who ever smiled met shouted .		0
+429	1	a banker who no president who was ever smart hated shouted and no girl who ever danced ever slept .		1
+430	1	a lawyer who some officer who some secretary who the judge who no man who ever ran liked followed advised hit succeeded and the judge who the assistant who was not ever right who ever danced pushed succeeded		0
+431	0	some assistant who some secretary thanked who ever succeeded danced .		0
+432	1	no assistant who ever smiled ever shouted and some man who some student who the student who some child met called recommended shouted .		1
+433	0	a secretary who the secretary watched ever resigned .		0
+434	1	the professor who no woman who ever danced met resigned .		1
+435	0	some doctor who was wrong smiled and a banker who succeeded ever shouted .		0
+436	1	no senator who ever succeeded ever shouted and the man who no professor who was ever smart ever pushed ever resigned .		0
+437	1	some girl who no senator who was not wrong ever believed ran .		1
+438	1	a secretary who the student believed ever smiled and the doctor who a boy who no secretary who ever smiled recommended avoided danced .		0
+439	1	no doctor who no assistant ever loved ever smiled .		1
+440	0	some senator who some senator who was ever right called failed .		0
+441	1	a man who no girl who ever ran avoided ever failed .		0
+442	1	the senator who no child ever pushed who was ever wrong succeeded and a student who a judge who the man who no senator who was ever sad advised met advised resigned .		0
+443	1	the girl who no woman ever hugged who ever failed ran .		0
+444	0	the officer who the woman who the girl hit who ever traveled followed resigned .		0
+445	1	the doctor who no student ever met shouted and no man who was smart ever danced .		1
+446	0	the secretary who ever ran danced .		0
+447	0	the student who the lawyer who the woman recommended loved smiled and a assistant who a president who a boy who a banker who a woman met who was ever sad believed avoided met failed .		0
+448	1	no woman who ever danced ever succeeded and the assistant who ever slept ran .		0
+449	0	some assistant who smiled who ever traveled resigned .		0
+450	1	a professor who the scientist who no judge who ever shouted helped advised ever slept .		0
+451	0	a senator who some student who ever failed supported slept .		0
+452	0	a president who the woman followed ever traveled .		0
+453	1	a girl who some child watched succeeded and the judge who the scientist who no lawyer who no secretary ever thanked recommended recommended ever danced .		0
+454	1	some senator who no president who ever slept ever pushed traveled and no girl who ever failed ever shouted .		1
+455	0	a child who was not funny slept and a banker who some secretary followed who ever resigned traveled .		0
+456	1	no lawyer who was ever wrong ever resigned and some boy who a senator who was not happy who ever traveled pushed shouted .		0
+457	1	the senator who no assistant who was ever smart liked succeeded and no officer who some lawyer met ever ran .		1
+458	0	the president resigned and a man who traveled who was ever funny failed .		0
+459	1	the child who the woman who some man who no man met followed hit smiled and a judge who a child who some officer who some doctor who the professor who no president who ever shouted recommended hit		1
+460	1	no banker who was ever right ever traveled and no child who was ever smart ever danced .		1
+461	0	some professor who the boy who slept who ever resigned thanked slept .		0
+462	1	no president who was ever wrong ever traveled and the man who the woman who no lawyer who was ever right ever avoided thanked ever danced .		0
+463	1	the boy who a banker who a judge who no senator who ever danced ever believed trick ##ed followed ran and no judge who was ever funny ever succeeded .		1
+464	0	some student who was ever smart resigned and some president who some woman who no man who ran followed hugged failed .		0
+465	0	some boy who the secretary who some judge who the student hated who was ever happy supported watched failed and the president who no girl who the professor contacted liked traveled .		0
+466	1	no president who ever traveled ever traveled and some lawyer who a judge who a lawyer who no judge who was not ever wrong liked advised loved resigned .		1
+467	0	a doctor who some scientist who the doctor loved who ever danced contacted ran and the doctor who resigned ran .		0
+468	1	no assistant who traveled ever ran and the doctor who shouted traveled .		1
+469	1	the senator who a doctor who a professor who some president who no doctor who was ever funny believed loved thanked called shouted .		1
+470	1	some man who was not ever sad smiled and some lawyer who the lawyer who some girl who the senator who shouted hit hugged thanked traveled .		1
+471	1	a man who a scientist called who was ever sad slept and no man who no doctor hugged ever ran .		0
+472	0	the assistant who was not ever happy who ever failed smiled .		0
+473	0	the professor who some man who was ever happy hated traveled .		0
+474	1	a judge who the senator who a president who the doctor who some girl who some secretary who no assistant who ever traveled watched loved hit trick ##ed trick ##ed trick ##ed smiled .		1
+475	0	a child who was right who was ever happy smiled and some child who a president who a lawyer liked hated traveled .		0
+476	0	a banker who smiled failed and a student who ever smiled slept .		0
+477	1	a boy who no girl who was ever sad ever supported traveled .		1
+478	0	some president who some judge trick ##ed ever danced .		0
+479	0	some child who was ever right danced .		0
+480	1	a scientist who no secretary who ever shouted met ran and no assistant who ever smiled ever ran .		1
+481	0	a president failed and a scientist who ever danced resigned .		0
+482	1	some student who resigned who ever ran ran and the doctor who a boy who a girl who no student who ever resigned ever watched hated hated smiled .		0
+483	1	a scientist who no man who a student supported hugged slept and no boy who ever succeeded ever traveled .		1
+484	0	a officer who some judge supported who was ever smart failed .		0
+485	1	the woman who no judge who was ever sad ever followed smiled and no secretary who ever failed ever smiled .		1
+486	1	the man who no boy who was happy watched ever failed .		0
+487	1	the student who no lawyer who ever danced trick ##ed shouted and some boy who some officer who the doctor who was not sad who ever slept recommended called traveled .		0
+488	1	the lawyer who no senator who ever smiled contacted ran and the judge who resigned who was ever funny ran .		0
+489	1	no boy who ever traveled ever shouted and some president who the woman who was wrong observed failed .		1
+490	1	no man who was ever smart ever failed and some lawyer who a girl hit smiled .		1
+491	1	some girl who no judge who a secretary hugged believed resigned and no officer who ever resigned ever resigned .		1
+492	1	no professor who ever ran ever slept and some boy who no secretary ever contacted who ever ran shouted .		0
+493	1	some judge who no judge who ever slept advised succeeded .		1
+494	0	the child who a student who some banker who some secretary called who ever danced recommended trick ##ed traveled .		0
+495	0	some child who was happy who ever resigned succeeded .		0
+496	1	some scientist who some officer who no judge who was ever right ever trick ##ed avoided slept and some officer who no woman who ever slept ever contacted smiled .		1
+497	1	the judge who no senator followed ever danced .		0
+498	1	no professor who a child hugged ever succeeded .		1
+499	1	some senator who a officer who no banker pushed who ever slept thanked failed .		0
+500	1	the man who no senator ever watched smiled .		1
+501	1	no lawyer who was smart ever traveled and the scientist who no doctor who was wrong watched succeeded .		1
+502	1	some doctor who no doctor who ever smiled avoided shouted and some boy who the doctor who the senator who the president who no boy called recommended loved hugged shouted .		1
+503	1	a judge who traveled who ever traveled shouted and no man who was ever sad ever smiled .		0
+504	1	no banker who no assistant hated ever danced and no boy who ever ran ever danced .		1
+505	1	a assistant who no lawyer who ever traveled ever observed danced and no child who was ever funny ever failed .		1
+506	1	some banker who the lawyer who a woman who was not ever wrong believed hugged ever resigned and the woman who no assistant who ever succeeded ever advised smiled .		0
+507	1	the boy who no secretary who was ever sad ever liked ever shouted and the judge who no banker who was ever funny ever trick ##ed ran .		0
+508	1	a student who the president who a doctor who no student observed who ever succeeded contacted hated ran .		0
+509	0	the secretary who a lawyer who some woman who the child who no professor who a assistant watched pushed liked thanked avoided ever smiled .		0
+510	0	a professor who some boy who ever smiled observed resigned .		0
+511	0	some scientist who the president liked who ever failed smiled .		0
+512	1	a woman who some professor followed ever danced and no student who some child recommended ever smiled .		0
+513	1	no senator who was ever wrong ever traveled and no assistant who was ever right ever traveled .		1
+514	1	the professor who no boy who no scientist watched ever supported slept and some senator who was happy resigned .		1
+515	1	no student who the man contacted ever shouted and no banker who ever danced ever succeeded .		1
+516	0	the assistant who a assistant who some judge who the officer who was happy who ever traveled loved contacted helped succeeded .		0
+517	1	the child who no woman who ever shouted liked traveled .		1
+518	1	some student who was not sad who ever danced shouted and no doctor who some professor liked ever smiled .		0
+519	1	some woman who a banker who some boy watched hugged resigned and a girl who no professor who was ever right observed ever danced .		0
+520	1	no banker who was happy ever smiled and a boy who a man who a child who a senator who no woman helped avoided observed thanked shouted .		1
+521	1	some secretary who slept who ever succeeded ran and no banker who no boy pushed ever ran .		0
+522	1	the woman who no banker who no scientist liked ever met ever failed and a student who a child who some officer trick ##ed avoided failed .		0
+523	1	no girl who was ever right ever shouted and a doctor who some boy who some girl who failed pushed met smiled .		1
+524	0	some child who was not wrong who was ever smart smiled and a woman who some girl who the lawyer who slept trick ##ed hated ran .		0
+525	0	some professor who a senator who a child who was right who ever slept liked watched shouted .		0
+526	1	no banker who some child pushed ever succeeded and some senator who was not ever happy who ever slept slept .		0
+527	0	a doctor who a professor who some girl believed thanked ever danced .		0
+528	1	a judge who was not ever sad ran and the doctor who no boy who was not happy helped succeeded .		1
+529	0	the officer who a boy who traveled who was ever sad advised traveled .		0
+530	1	a judge who was ever funny shouted and a lawyer who some professor who no president who was ever sad ever called followed failed .		0
+531	1	no banker ever shouted and no senator who was not ever funny ever failed .		1
+532	1	a judge who a child who was not ever wrong who ever smiled loved shouted and some secretary who the man who no scientist who was ever funny ever recommended believed succeeded .		0
+533	0	a doctor who some boy who ever shouted hugged ran .		0
+534	1	no doctor who a man trick ##ed ever danced and some professor who no professor who the assistant hugged ever met ran .		1
+535	1	some man who was funny failed and a professor who was not ever happy resigned .		1
+536	1	some banker who no girl who no student ever pushed thanked traveled and some senator who a professor who was ever wrong hit succeeded .		0
+537	1	a woman who no professor who ever failed called slept and some lawyer who the professor who no lawyer liked advised ever traveled .		0
+538	1	a boy who the secretary who no man who was not ever sad met trick ##ed succeeded and a professor who some senator who no boy who was ever funny pushed observed traveled .		1
+539	1	some banker who no doctor who ever resigned met danced .		1
+540	0	a professor who a student hated who ever resigned ran .		0
+541	1	no student who ever slept ever traveled and a banker who some judge who no child who ever resigned observed liked traveled .		1
+542	1	some man who no doctor who was not ever right ever watched slept and no woman ever slept .		1
+543	0	a scientist who the judge observed who ever resigned danced .		0
+544	0	some lawyer who some doctor who the student avoided who ever ran loved traveled .		0
+545	1	the lawyer who some banker who no student ever recommended avoided succeeded and the president who was ever wrong resigned .		0
+546	0	the president who a lawyer contacted who was ever right slept .		0
+547	1	the judge who no professor who was ever right observed shouted and no senator who was ever smart ever danced .		1
+548	1	no secretary who was ever smart ever ran and no president who ever failed ever ran .		1
+549	1	some doctor who no man hit ever slept and no secretary who no girl ever watched ever shouted .		0
+550	1	some child who failed who was ever right resigned and the girl who no assistant who ever danced ever called shouted .		0
+551	1	a child who no girl who ever smiled ever recommended ever smiled .		0
+552	1	a child who no professor who was ever funny liked failed .		1
+553	1	the man who some banker who the child who ever resigned hugged hit danced and no scientist who a judge recommended ever traveled .		0
+554	0	the scientist who the assistant who a student contacted who ever traveled watched failed .		0
+555	1	the secretary who no child ever hit ever resigned .		0
+556	1	no child who ever traveled ever traveled and some woman who the professor who was ever sad believed shouted .		0
+557	1	the judge who no president who was wrong ever hated ran and a lawyer who no scientist ever advised shouted .		1
+558	1	a judge who no officer ever hit who ever failed ran .		0
+559	0	some secretary who some doctor who shouted who ever succeeded recommended traveled .		0
+560	0	some officer who ran ever traveled .		0
+561	1	some senator who no man ever followed ever danced .		0
+562	1	some secretary who was not ever smart shouted and no man ever shouted .		1
+563	1	no student who was not ever right ever slept and the child who the secretary who the woman who no assistant who was ever sad helped hit watched succeeded .		1
+564	1	no lawyer who a scientist trick ##ed ever slept and the boy who a child hated who was ever sad danced .		0
+565	1	the man who some president who no child who was ever wrong helped hugged ever ran .		0
+566	1	some senator who no man who was ever smart ever liked failed and a officer who no president who was ever wrong ever pushed slept .		1
+567	1	no doctor who was right ever failed and the senator who no secretary who was wrong recommended ever ran .		0
+568	0	a girl who the judge supported who ever resigned resigned and no child who was right ever danced .		0
+569	1	no man who was not happy ever resigned and the senator who some woman watched who ever ran traveled .		0
+570	1	the banker who the student who no doctor who ever resigned thanked liked resigned and the secretary who was sad ran .		1
+571	0	the secretary who the boy who a girl watched who ever failed believed danced .		0
+572	1	no scientist who ever slept ever smiled .		1
+573	1	the woman who no secretary who ever traveled called traveled .		1
+574	1	some woman ever traveled and no lawyer who was ever wrong ever ran .		0
+575	0	some officer who a professor believed ever succeeded .		0
+576	1	the judge who no man who ever failed contacted slept .		1
+577	1	some judge who no professor who was ever right ever pushed succeeded and a student who a boy who some officer who was not wrong watched recommended danced .		1
+578	1	a scientist who no judge who no doctor recommended recommended ever resigned and a officer who some scientist who the girl who no judge who ever danced ever advised liked watched failed .		0
+579	1	a woman who no secretary who was not right ever hit ever slept .		0
+580	1	some woman who no girl ever liked ever traveled .		0
+581	0	some woman who a woman who some girl who shouted trick ##ed helped ran and a child who was wrong who ever traveled resigned .		0
+582	1	a girl who a judge who no doctor who ever traveled hated recommended ran and some officer who some senator who a girl who no president who ever smiled ever thanked hated hit succeeded .		1
+583	1	no secretary who ever ran ever failed and no girl who was smart ever failed .		1
+584	1	no girl who was not ever smart ever danced and no assistant who no student ever liked ever danced .		1
+585	1	the lawyer who no banker who was ever right ever hugged failed and the assistant who was sad who was ever right succeeded .		0
+586	0	some officer who was not ever sad who was ever smart resigned .		0
+587	1	no boy ever shouted and the man who no student who ever slept ever loved ever resigned .		0
+588	0	the professor who the boy who some student loved who was ever sad avoided succeeded .		0
+589	0	a doctor who a officer who some girl who was happy who was ever funny contacted helped shouted and no president who ever resigned ever resigned .		0
+590	1	a boy who no doctor helped who was ever funny ran and no assistant who was ever happy ever resigned .		0
+591	0	the child who was not funny who was ever funny slept .		0
+592	1	no girl ever resigned and the doctor who no child believed smiled .		1
+593	0	a girl who was funny who ever ran traveled .		0
+594	0	the woman who a assistant contacted who was ever sad resigned and a senator who was sad danced .		0
+595	1	some child who no student who was ever happy hated succeeded and a president who the banker who some student who the child trick ##ed pushed thanked danced .		1
+596	0	a woman who the student trick ##ed who ever danced shouted .		0
+597	1	a banker who some man who no professor who smiled ever believed helped shouted .		1
+598	0	the boy who was sad who ever smiled traveled .		0
+599	0	the professor who was ever sad slept .		0
+600	0	some lawyer who a senator who the judge hit who ever resigned recommended slept .		0
+601	1	a scientist who no officer who was ever sad met resigned .		1
+602	1	the banker who no professor who was ever right ever met smiled and some banker who no woman who was ever sad hugged ever succeeded .		0
+603	0	some doctor who ever smiled smiled and the lawyer who some man who a student liked pushed failed .		0
+604	1	no student who ever shouted ever shouted and some student who was smart failed .		1
+605	0	some president who some child called ever succeeded .		0
+606	1	a child who no senator who was ever happy ever loved ever danced .		0
+607	1	the professor who traveled failed and no judge who was ever wrong ever failed .		1
+608	1	the man who no president who was ever sad ever observed slept .		1
+609	1	no scientist ever shouted and no president who was ever right ever smiled .		1
+610	1	no girl who was not ever sad ever danced .		1
+611	1	the professor who was ever smart danced and some lawyer who no lawyer who ever slept ever hated ran .		0
+612	1	a lawyer who some lawyer who some child who some officer who some girl called who ever slept liked avoided thanked danced and no child who was ever sad ever ran .		0
+613	0	the lawyer who the student avoided who was ever right danced and the banker who no professor watched resigned .		0
+614	1	a lawyer who no student who ever traveled loved slept and some lawyer who no judge who was ever right contacted smiled .		1
+615	0	the senator who the woman hated ever danced .		0
+616	0	some scientist who a judge who the assistant hated supported ever danced and the president who the secretary advised succeeded .		0
+617	1	the judge who no student who was not ever sad hugged smiled .		1
+618	0	the doctor who some professor observed smiled and the woman who the senator who the professor who shouted who ever failed loved called smiled .		0
+619	1	some judge who no lawyer who no secretary observed watched traveled and a professor who no child who ever shouted ever met succeeded .		1
+620	0	some judge who a banker who a lawyer who the judge followed called contacted ever danced and a secretary who was wrong traveled .		0
+621	0	the officer who was ever happy danced .		0
+622	1	no secretary who a assistant avoided ever danced .		1
+623	0	a assistant who some professor who some man who a student who some scientist recommended who was ever smart pushed met believed failed and the judge who the boy who some president who no doctor who was ever		0
+624	1	the doctor who no secretary who was ever wrong thanked slept .		1
+625	0	some secretary who was not happy who ever resigned resigned .		0
+626	1	no banker who no judge recommended ever ran and no child who no secretary ever observed ever slept .		1
+627	1	a woman who was not ever sad who ever slept resigned and no judge who was ever happy ever ran .		0
+628	1	some professor who no girl who ever traveled ever avoided ever shouted .		0
+629	1	some man who the judge who was not ever happy who was ever right hit failed and no judge who ever failed ever slept .		0
+630	0	a president who was happy who was ever sad slept .		0
+631	1	the man who a banker who some assistant who was not ever funny contacted loved danced .		1
+632	1	no secretary who was ever happy ever slept and the professor who the doctor who no girl helped who was ever happy avoided succeeded .		0
+633	1	no banker who was not wrong ever danced and some assistant who no banker who no boy ever observed ever believed ran .		1
+634	1	no professor who no officer ever hit ever danced and some president who no boy who ever failed contacted ever failed .		0
+635	1	the scientist who no officer who was ever happy thanked succeeded .		1
+636	0	a assistant who ever ran danced .		0
+637	0	some man who a president who ever shouted followed slept .		0
+638	1	a scientist ever shouted and no lawyer who danced ever ran .		0
+639	0	a scientist who some judge watched succeeded and a officer who the secretary who the judge called who ever danced thanked slept .		0
+640	1	some lawyer who some professor who ever slept hit ran and no senator who was ever sad ever failed .		0
+641	0	the judge who was smart slept and some senator who failed who was ever right smiled .		0
+642	0	a girl who ever resigned shouted .		0
+643	0	a scientist who a student who was smart who was ever wrong trick ##ed shouted .		0
+644	0	a professor who succeeded ever smiled .		0
+645	1	no president who ever danced ever smiled and some girl who failed ever shouted .		0
+646	1	the scientist who a president who no boy who no boy ever hated watched followed ran and no officer who ever traveled ever slept .		1
+647	0	some child who was wrong who ever ran shouted .		0
+648	1	a senator who some president who no judge who was ever smart followed hated danced and the doctor who a doctor who no president who a doctor hit supported contacted shouted .		1
+649	0	some officer who a professor trick ##ed who was ever happy failed .		0
+650	1	the girl who a child who no child helped who ever danced supported traveled .		0
+651	0	some secretary who the senator who the woman avoided observed ever traveled .		0
+652	1	a senator who some secretary who no secretary who was ever wrong recommended met failed and some student who no judge recommended failed .		1
+653	0	the president who some judge trick ##ed who ever slept failed .		0
+654	0	the banker who a scientist trick ##ed failed and some scientist who the girl who was sad trick ##ed ever danced .		0
+655	1	some child who a secretary who no banker who was ever wrong ever trick ##ed thanked failed and some man who some lawyer who was not ever wrong trick ##ed ever succeeded .		0
+656	1	the student who the scientist who was not right who was ever right observed danced .		0
+657	1	the doctor who no officer who no assistant ever contacted ever supported resigned and a president who no girl who no president trick ##ed helped ever failed .		0
+658	0	the judge who some professor hated who ever ran shouted and the lawyer who no man who a scientist helped helped traveled .		0
+659	1	no scientist who was smart ever traveled and the president who no scientist who was not ever wrong thanked ever failed .		0
+660	0	a doctor who a senator believed who was ever wrong smiled .		0
+661	1	a girl who was not ever smart who ever failed shouted and no student who no banker ever believed ever ran .		0
+662	1	some student who no doctor who was ever sad hugged ever smiled .		0
+663	1	some president who succeeded smiled and no professor who ever slept ever slept .		1
+664	0	the professor who a banker met who ever succeeded succeeded .		0
+665	0	the scientist who was happy who ever smiled ran .		0
+666	0	the lawyer who a man who a girl who a officer who some banker who some boy who the lawyer who danced who was ever funny hit hated observed hit avoided advised danced and no man who ever		0
+667	1	no doctor who was ever sad ever smiled and no senator who was not ever funny ever danced .		1
+668	0	the lawyer who ever traveled shouted .		0
+669	0	the child who was happy ever smiled .		0
+670	0	the student who was wrong who ever resigned failed .		0
+671	0	some girl ever danced .		0
+672	0	a banker who was funny who was ever happy failed .		0
+673	0	some officer who was funny ever failed .		0
+674	1	some lawyer who no girl who was ever happy ever avoided ever traveled .		0
+675	0	a scientist who ever resigned slept and a president who a judge who was sad believed danced .		0
+676	1	some president who no boy contacted who ever smiled succeeded and the president who no boy who the student hit ever helped shouted .		0
+677	1	the lawyer who a president who some lawyer who was not ever sad avoided helped danced .		1
+678	1	no president who the man hit ever traveled and some professor who no banker who was ever smart hated danced .		1
+679	1	some professor who some lawyer who no banker who was ever wrong called supported resigned and no officer who was ever right ever failed .		1
+680	0	a judge who some judge recommended who was ever happy traveled .		0
+681	1	no woman who ever ran ever shouted and no officer who the president recommended ever traveled .		1
+682	1	no secretary who was ever sad ever succeeded and no student who ever danced ever danced .		1
+683	0	a lawyer who a officer thanked who was ever right resigned .		0
+684	0	the assistant who was ever smart slept .		0
+685	1	some professor who the assistant avoided smiled and some man who the professor who the secretary who no assistant who was ever wrong advised believed observed smiled .		1
+686	1	no banker who ever failed ever traveled and some woman who no president who was ever right trick ##ed ever danced .		0
+687	0	some judge who a professor who some officer believed hit ever resigned .		0
+688	0	a secretary who the boy met who ever shouted danced .		0
+689	1	the man who no student who was ever funny called failed and the doctor who the girl who no woman who ever slept liked recommended ran .		1
+690	0	some president who was wrong ever succeeded .		0
+691	1	the judge who a man pushed ever ran and a secretary who was not ever happy slept .		0
+692	1	a professor who no president who was not wrong hugged ever resigned and the girl who no banker who was not ever right ever avoided slept .		0
+693	0	a scientist who the senator who the girl watched who ever ran helped slept .		0
+694	0	the secretary who ran who ever ran ran .		0
+695	0	some student who was not smart who was ever right resigned and some doctor who succeeded resigned .		0
+696	0	some judge who a banker who the judge who no secretary who ever resigned ever helped recommended recommended ever traveled .		0
+697	0	the student who some officer who the president who no professor who was ever right ever trick ##ed advised contacted ever ran .		0
+698	1	some student who some banker watched who was ever happy traveled and the officer who no woman who ever resigned pushed danced .		0
+699	0	the assistant who a woman hated ever succeeded .		0
+700	0	some boy who was ever wrong resigned and some scientist who traveled succeeded .		0
+701	0	the officer who was happy who ever slept resigned and some banker who the professor who no woman who was ever sad ever observed contacted slept .		0
+702	1	no doctor who was not ever smart ever slept and a president who a child pushed danced .		1
+703	0	the child who some student who was smart who was ever sad thanked failed .		0
+704	1	a officer who no woman who no scientist ever followed ever supported danced .		1
+705	0	a lawyer who a doctor called who ever smiled danced .		0
+706	0	a doctor who some officer who some banker who ran who was ever sad recommended hated shouted .		0
+707	0	a banker who some woman avoided who was ever wrong danced .		0
+708	1	some student who the man who a child who the woman who no child who ever slept believed thanked liked believed resigned and the scientist who succeeded who was ever wrong ran .		0
+709	0	some officer who succeeded who ever succeeded resigned and the secretary who a lawyer who the girl who a judge who some man who no secretary who some girl followed hit recommended contacted called hugged resigned .		0
+710	1	a secretary who no girl who ever resigned hugged ever succeeded and no girl who was ever wrong ever traveled .		0
+711	0	a student who failed ever shouted .		0
+712	1	some girl who some lawyer who some secretary who no doctor ever supported recommended helped ever resigned .		0
+713	1	the officer who no assistant who ever succeeded ever met ever ran .		0
+714	1	no senator who no senator ever recommended ever shouted .		1
+715	1	a scientist who a girl who a assistant observed trick ##ed failed and a officer who a doctor who no man ever loved who was ever funny met resigned .		0
+716	1	the man who a boy who no lawyer who ever failed observed helped danced and no child who ever traveled ever succeeded .		1
+717	0	some judge who some banker hit who was ever happy resigned and the man who a banker who the officer helped observed ran .		0
+718	0	the professor who was ever right ran .		0
+719	1	no student ever failed and no man who ever shouted ever slept .		1
+720	1	no banker who ever failed ever danced and some assistant who was not ever wrong who ever slept slept .		0
+721	1	no man who no assistant avoided ever failed .		1
+722	0	the child who was funny resigned and a boy who was funny who was ever funny slept .		0
+723	1	the judge who a banker who ever traveled hit traveled and the child who no girl who was ever smart ever called smiled .		0
+724	0	a senator who ever traveled danced .		0
+725	1	a child who no man who was ever smart ever watched failed and a judge who was not ever right who ever shouted traveled .		0
+726	1	no secretary who was ever sad ever resigned and the lawyer who a scientist observed who was ever sad traveled .		0
+727	0	some lawyer who some woman advised who was ever smart failed .		0
+728	1	some professor who a president who some senator who a child who a doctor who no scientist who was ever sad hit recommended helped loved supported resigned and a officer who the assistant who the officer who some		1
+729	0	some student who was funny who was ever smart slept .		0
+730	1	some secretary who no doctor who was not ever sad ever met shouted and a judge who some senator who no senator recommended thanked ever smiled .		0
+731	1	no banker who was ever right ever succeeded and no assistant who resigned ever slept .		1
+732	0	the banker who was not ever funny who ever slept succeeded .		0
+733	1	the girl who was not right ever succeeded and no officer who was ever happy ever ran .		0
+734	1	no boy who was not happy ever danced .		1
+735	1	some doctor who failed who ever traveled danced and no professor who was ever smart ever traveled .		0
+736	0	a boy who a banker who some scientist hated who ever traveled observed shouted .		0
+737	1	some man who no man who ever resigned ever followed danced .		1
+738	0	a senator who was happy who ever ran smiled and a assistant succeeded .		0
+739	0	a boy who traveled who ever ran failed and the scientist who was right traveled .		0
+740	1	no banker who was not smart ever failed and a student who no woman who was ever wrong ever thanked ever failed .		0
+741	0	the assistant who some boy observed who was ever right danced .		0
+742	0	some scientist who the scientist who ever failed advised succeeded .		0
+743	0	some scientist who failed who was ever smart failed .		0
+744	0	some banker who ever shouted failed .		0
+745	1	some judge who no secretary who a officer advised pushed smiled and no lawyer who traveled ever failed .		1
+746	1	a doctor who no doctor who the scientist hugged avoided smiled and some assistant who no scientist who ever succeeded ever followed smiled .		1
+747	1	no officer who was not ever wrong ever failed and the senator who no president who ever slept believed smiled .		1
+748	0	the student who ever failed traveled .		0
+749	0	a lawyer who the assistant pushed who ever traveled slept .		0
+750	1	some officer who no professor who was ever smart advised ran .		1
+751	0	a secretary who a doctor who the doctor who the banker who the girl who a student hit recommended observed loved called ever danced .		0
+752	1	some woman who no man who ever smiled helped ran .		1
+753	0	the student who the lawyer avoided ever danced .		0
+754	0	a professor who a banker who the child who smiled who ever slept met liked slept .		0
+755	0	some judge who failed who ever shouted resigned .		0
+756	0	the secretary who resigned who was ever funny resigned .		0
+757	0	the student who a secretary who resigned who ever danced liked smiled .		0
+758	0	a doctor who ever traveled shouted .		0
+759	0	a professor who a secretary who a child who a scientist who was happy trick ##ed observed contacted ever succeeded .		0
+760	0	the boy who a child who the lawyer recommended advised slept and some student who some scientist who a boy who some senator who the child who the president met who was ever right called believed thanked met		0
+761	1	some president who no lawyer who ever resigned watched resigned and the student who no banker who ever smiled ever hated ever danced .		0
+762	1	the assistant who no student who ever smiled ever thanked ever slept .		0
+763	1	no student who was ever right ever shouted and some boy who no president met ever failed .		0
+764	0	the assistant who ever slept smiled .		0
+765	1	a woman who was sad smiled and no officer who some scientist followed ever slept .		1
+766	1	a lawyer who no banker advised ever shouted .		0
+767	1	no student who was ever happy ever shouted and no scientist who ever shouted ever traveled .		1
+768	1	a girl who the boy who no professor who a woman pushed ever hit helped danced .		1
+769	1	the doctor who no judge who ever slept ever observed ever succeeded .		0
+770	1	a banker who was not ever funny who was ever wrong smiled and a president who no boy who was smart trick ##ed traveled .		0
+771	0	the child who some lawyer who a secretary who was smart who ever danced helped watched failed and no student who was ever wrong ever slept .		0
+772	0	a student who a boy supported ever failed .		0
+773	1	some assistant who a girl who was not sad who ever ran observed ran .		0
+774	0	a doctor who the boy who a secretary helped who ever slept helped traveled .		0
+775	1	some assistant who was not ever smart succeeded and no child who was sad ever ran .		1
+776	1	the president who no scientist who was ever happy ever trick ##ed ever resigned .		0
+777	0	the woman who some professor trick ##ed who ever smiled ran .		0
+778	0	the president who a judge who the lawyer observed who was ever wrong contacted danced .		0
+779	1	the doctor who no professor who ever slept contacted failed .		1
+780	1	no officer who was ever right ever slept and some boy who some lawyer who no secretary ever supported who ever resigned called danced .		0
+781	1	no doctor who ever succeeded ever resigned and the professor who some officer who the judge who was funny who was ever funny believed called danced .		0
+782	0	the doctor who the man who succeeded hugged ever danced and no professor who was ever right ever smiled .		0
+783	1	the student who no man who was ever right ever trick ##ed traveled and no man who was ever right ever shouted .		1
+784	0	a doctor who was smart who was ever funny ran .		0
+785	0	some child ever failed .		0
+786	1	no secretary who was not wrong ever danced and the girl who no assistant who was ever funny helped danced .		1
+787	1	no lawyer who was not ever wrong ever succeeded and some senator who some student helped who ever traveled slept .		0
+788	1	a child who a student who no man supported loved ever resigned and the child who no student who ever shouted followed failed .		0
+789	0	the assistant who some secretary helped who was ever wrong failed .		0
+790	1	the man who no student who was ever funny believed ever shouted and no assistant who was not funny ever succeeded .		0
+791	1	a boy who no lawyer who no boy watched ever recommended ever resigned and a scientist who the boy who a officer who no woman who ever ran avoided believed pushed ran .		0
+792	1	no senator who was not ever funny ever failed and a doctor who the president who no scientist who was ever right recommended liked smiled .		1
+793	1	no secretary who some officer hit ever smiled and no banker who danced ever resigned .		1
+794	1	some lawyer who no doctor who was ever smart observed ever succeeded and a girl who some lawyer who was funny trick ##ed shouted .		0
+795	1	no boy who ever ran ever resigned and some judge who no senator who the professor met helped shouted .		1
+796	1	no president who some secretary supported ever traveled .		1
+797	1	no assistant who was ever smart ever ran and no doctor who ever danced ever smiled .		1
+798	1	a secretary who no assistant who was not ever sad ever watched ran and no assistant who was not ever wrong ever smiled .		1
+799	1	no senator who was ever right ever ran and a judge who resigned who ever ran slept .		0
+800	0	some boy who the child who some man who the lawyer who was smart hit recommended liked ever danced .		0
+801	0	a child who some president who some man who a officer who the assistant who a senator who a man followed recommended advised watched followed hugged failed and some scientist who was funny who was ever sad smiled		0
+802	0	the boy who some secretary who some boy who some lawyer who some girl helped who ever resigned hugged met recommended danced and some banker who was smart traveled .		0
+803	1	a scientist who no boy who ever smiled hit succeeded and no scientist who ever failed ever traveled .		1
+804	0	the assistant who the girl who the officer who was not ever sad hit believed slept and a assistant who a child observed ever smiled .		0
+805	1	no student who ever ran ever resigned and some senator who the child who the secretary who no woman who was ever right recommended advised hit ever ran .		0
+806	0	a scientist who the officer who the doctor who the senator who a banker hugged who ever succeeded pushed contacted helped slept .		0
+807	1	a boy who no child met who ever shouted smiled and a man who no assistant who was happy ever pushed failed .		0
+808	1	no child who ever ran ever danced and no senator who was not ever happy ever shouted .		1
+809	1	no scientist who ever slept ever failed and no student who was ever funny ever resigned .		1
+810	1	no boy who was ever smart ever smiled .		1
+811	1	the boy who a secretary who some president who no student who was ever funny avoided recommended followed succeeded and no lawyer who no student ever helped ever ran .		1
+812	1	a boy who no officer ever observed who ever smiled failed and a professor who some scientist who some woman who no assistant ever avoided liked recommended succeeded .		0
+813	0	some assistant who a doctor trick ##ed who was ever smart shouted and a secretary who the secretary helped slept .		0
+814	0	a officer who was wrong who was ever wrong traveled .		0
+815	1	no senator who was ever happy ever smiled and some boy who no girl who ever shouted loved succeeded .		1
+816	1	a secretary who a senator who was not right trick ##ed ever resigned and a professor who no assistant who ever ran ever supported ran .		0
+817	0	the professor who a child who was sad who ever succeeded hit ran .		0
+818	0	a boy who was not happy who ever smiled succeeded .		0
+819	1	the professor who no assistant ever loved ever succeeded and the boy resigned .		0
+820	1	a child who no child supported danced and a student who was not smart ever resigned .		0
+821	0	the senator who was funny who ever ran failed .		0
+822	1	some officer who no banker who ever slept called succeeded .		1
+823	1	the officer who a secretary who was not ever wrong avoided succeeded and the student who a senator who some student who no professor who was not ever sad hated contacted avoided traveled .		1
+824	1	a president who no child who ever failed called traveled and no secretary who shouted ever resigned .		1
+825	1	some president who no woman who ever ran ever recommended shouted and a girl who some president who no officer who ever shouted believed met resigned .		1
+826	1	a judge who no judge who the boy called ever supported ever traveled .		0
+827	0	the assistant who a woman watched ever danced .		0
+828	1	no student who ever failed ever slept and a judge who a judge who no president who was ever funny hugged watched ever danced .		0
+829	0	a girl who succeeded who was ever wrong ran .		0
+830	0	a officer who slept succeeded and a assistant who a boy met who ever slept smiled .		0
+831	0	some girl who smiled who ever succeeded ran .		0
+832	1	no banker who ever danced ever slept and no boy who ever succeeded ever resigned .		1
+833	1	a officer who no girl who ever danced liked ever ran .		0
+834	1	no lawyer who no secretary hugged ever succeeded .		1
+835	0	the scientist who some professor hit ever failed .		0
+836	0	a scientist who the woman advised ever smiled .		0
+837	1	some boy who no student who was ever sad ever observed traveled and a judge who no boy who no student ever helped hugged failed .		1
+838	1	the doctor who no child hugged ever shouted and no student who was ever happy ever traveled .		0
+839	1	no child who was ever happy ever traveled and some man who no officer who was ever right ever believed resigned .		1
+840	1	the banker who no scientist called who ever slept traveled .		0
+841	1	the girl who no woman met ever resigned .		0
+842	1	some assistant who a senator who the judge who no senator who some senator supported supported trick ##ed hugged ever traveled and no child who ever slept ever failed .		0
+843	1	a president who a woman called who ever shouted traveled and some assistant who no senator who was not ever funny ever believed shouted .		0
+844	0	the assistant who some lawyer who ever shouted called resigned .		0
+845	1	no senator who ever succeeded ever traveled and some lawyer who a doctor who no scientist who was ever funny ever thanked hugged smiled .		1
+846	1	no doctor who ever shouted ever shouted and no secretary who ever resigned ever slept .		1
+847	1	the secretary who no lawyer who ever shouted supported slept .		1
+848	1	a banker who the child who was not ever wrong who ever resigned trick ##ed succeeded .		0
+849	1	no judge ever resigned and a girl who the doctor who no president advised trick ##ed ever succeeded .		0
+850	1	no boy who was ever smart ever slept and the girl who a professor hugged ever resigned .		0
+851	0	some secretary who some banker who the girl who the professor hated hit supported ever traveled .		0
+852	1	no president who was ever wrong ever danced and the secretary resigned .		1
+853	1	no doctor who was ever right ever traveled and a secretary who no assistant who ever ran watched slept .		1
+854	0	a secretary who some professor who the student called who was ever happy avoided ran .		0
+855	1	no girl ever smiled and a senator ever ran .		0
+856	1	a secretary who was not sad failed and the girl who a banker who some judge who some professor who no professor who ever shouted ever met believed loved loved slept .		1
+857	1	a doctor who a president who a senator who no scientist who ever shouted ever supported believed hated slept .		1
+858	1	no man who ever ran ever slept and the child who some judge who no senator watched who was ever right followed ran .		0
+859	0	a president who a secretary who a girl who some scientist who was smart who ever slept hit loved loved resigned .		0
+860	1	a scientist who no secretary who no doctor ever hugged watched succeeded and no woman who was ever right ever failed .		1
+861	1	a lawyer who a senator who no scientist pushed recommended succeeded and no president who was ever smart ever danced .		1
+862	1	some officer who no judge who ever succeeded called shouted .		1
+863	0	the officer who was ever sad traveled .		0
+864	0	some professor who a banker helped ever slept .		0
+865	0	some president who some officer who some child met hit ever slept .		0
+866	1	the president who no student ever helped who was ever right shouted and no secretary who was ever wrong ever danced .		0
+867	1	no judge who was ever happy ever traveled and the lawyer ever failed .		0
+868	1	the professor who a child who no girl who a man followed ever hugged hated traveled and some lawyer who was not sad who ever ran ran .		0
+869	0	a president ever succeeded .		0
+870	0	some girl who the president believed who ever resigned shouted .		0
+871	0	the banker who the girl who was wrong who ever succeeded supported traveled .		0
+872	0	some president who some assistant supported who was ever wrong succeeded .		0
+873	1	no senator who was ever funny ever failed and some student who some secretary who a boy helped who was ever wrong loved shouted .		0
+874	1	no man who was ever funny ever resigned and a banker who some president who no professor who no scientist ever called ever believed avoided failed .		1
+875	1	no judge who was right ever succeeded and no scientist who ever failed ever succeeded .		1
+876	0	the president who a secretary believed ever traveled .		0
+877	1	some woman who the doctor who the senator who no president ever helped believed loved shouted and some boy who the assistant who a secretary who no president who ever succeeded ever helped helped hated slept .		1
+878	1	no child who was ever wrong ever slept and a judge who was not funny ever smiled .		0
+879	1	a professor who no lawyer followed who was ever smart succeeded .		0
+880	0	the girl who some boy who some lawyer thanked hit ever succeeded and some judge who the lawyer who the girl recommended hit failed .		0
+881	1	a boy who some president who some doctor who some senator who the doctor who a student who no man followed who ever failed believed recommended hit pushed helped smiled and no lawyer who was ever sad ever		0
+882	1	the banker who shouted failed and some senator who the president who no professor who was ever happy loved believed ran .		1
+883	1	the girl who no senator ever believed succeeded .		1
+884	1	a lawyer who the student who no child who was not ever smart observed helped ever succeeded .		0
+885	1	no assistant who ever succeeded ever traveled and no boy who ever danced ever slept .		1
+886	0	the banker who was not ever right who was ever happy danced .		0
+887	1	no boy ever succeeded .		1
+888	1	a officer who no girl who ever succeeded ever pushed ever resigned and some senator who no student ever advised traveled .		0
+889	0	the lawyer who slept ever ran .		0
+890	1	the secretary who no judge who ever traveled hugged shouted and the lawyer who some child who no woman ever contacted watched succeeded .		1
+891	0	a child who a assistant met shouted and a student who the assistant believed who was ever right failed .		0
+892	1	a judge who was not funny smiled and no student who was ever happy ever resigned .		1
+893	1	a man who was not ever wrong failed .		1
+894	0	the doctor who a secretary who was ever funny advised danced .		0
+895	1	the girl who was not ever right failed and the professor who the banker who no man who ever danced supported hated ran .		1
+896	1	a student who was right danced and a scientist who some professor who no banker advised loved ever ran .		0
+897	1	some girl who no doctor who was not ever right ever believed traveled .		1
+898	0	the banker who a doctor believed ever shouted .		0
+899	0	some senator who a judge who the president who a boy who the boy observed trick ##ed hated loved danced and the boy who was smart who was ever right danced .		0
+900	0	some president who ever succeeded slept .		0
+901	1	some girl who was happy ever succeeded and no man who ever danced ever succeeded .		0
+902	1	a student who a boy who no student who was ever wrong ever met watched resigned and some boy who no president who was ever sad ever supported ever smiled .		0
+903	1	no secretary who was ever wrong ever shouted and the child who no banker who was ever funny ever loved ever shouted .		0
+904	0	the girl who some doctor who resigned who was ever sad supported traveled .		0
+905	1	some girl who a secretary who no assistant ever pushed advised slept and a girl who was not ever wrong ever traveled .		0
+906	1	no woman who no judge believed ever shouted and no man who ever shouted ever failed .		1
+907	1	a president who the secretary who no scientist who traveled ever avoided avoided succeeded .		1
+908	1	the student who some boy who the officer who a professor trick ##ed observed advised succeeded and no secretary who ever failed ever traveled .		1
+909	1	a woman who no judge who was ever happy ever observed ever traveled .		0
+910	1	a woman who no boy who ever traveled trick ##ed ever resigned and a secretary who some professor who the assistant who no senator who ever danced observed recommended trick ##ed smiled .		0
+911	0	some lawyer who some assistant who was right who ever succeeded thanked traveled .		0
+912	0	a girl who ever smiled smiled .		0
+913	0	some student who smiled who was ever smart succeeded .		0
+914	0	some student who a student who a boy who a woman who ever shouted loved contacted pushed failed .		0
+915	1	the senator who no banker who was ever happy believed resigned .		1
+916	0	the secretary who the judge who some officer advised watched ever danced .		0
+917	1	a lawyer who ever resigned succeeded and no president who ever ran ever succeeded .		0
+918	1	no woman who was ever happy ever smiled and a professor who some president who no lawyer who ever ran ever believed followed resigned .		1
+919	1	some assistant who the student who no banker who was not ever wrong hit called ever resigned .		0
+920	1	no child who no man observed ever smiled .		1
+921	1	no officer who the man liked ever succeeded .		1
+922	1	some assistant who no secretary who was ever right supported slept .		1
+923	0	the scientist who no senator who was ever right recommended smiled and a secretary who traveled ever failed .		0
+924	0	a lawyer who the banker supported who was ever right succeeded .		0
+925	1	no woman who was ever sad ever shouted and no senator who ever resigned ever shouted .		1
+926	0	some student who smiled who ever shouted danced and no scientist who ever shouted ever traveled .		0
+927	1	some secretary who a scientist who no professor who was ever smart ever thanked supported ever ran .		0
+928	0	some woman who danced slept and a man who a student who ever slept recommended resigned .		0
+929	1	no professor who ever shouted ever succeeded and a child who a child who a president who no officer who was not sad ever helped avoided supported ran .		1
+930	1	a banker who a secretary who some scientist who no assistant who was not ever wrong followed liked liked ever succeeded and the girl who a professor who no banker who was wrong ever believed supported smiled .		0
+931	1	the president who no assistant who ever succeeded ever followed ever resigned and the woman who no officer ever helped succeeded .		0
+932	0	some president who a boy hit who was ever smart danced .		0
+933	1	no scientist who was not ever wrong ever smiled and no lawyer who no banker ever believed ever danced .		1
+934	0	the lawyer who was ever happy shouted .		0
+935	1	the scientist who no officer pushed who ever slept resigned and a officer who no judge who ever succeeded ever hit danced .		0
+936	1	some judge who a scientist who the woman who no doctor who was ever right ever contacted recommended loved resigned and no professor who was ever funny ever smiled .		1
+937	1	no student who no lawyer avoided ever shouted and no student who ever ran ever resigned .		1
+938	0	the assistant who some lawyer who the boy who the child helped who ever traveled believed loved smiled .		0
+939	1	the president who a scientist who no man who was ever right ever hugged recommended resigned and a boy who no judge who was ever wrong ever trick ##ed failed .		1
+940	1	a doctor who no child loved who was ever wrong traveled and no woman who was ever wrong ever shouted .		0
+941	0	some doctor who a doctor who was sad who was ever smart believed shouted .		0
+942	0	a man who smiled resigned and a professor who was happy ever succeeded .		0
+943	1	no judge who ever succeeded ever succeeded and some lawyer who the secretary who the senator who a doctor who no student who was ever right helped hated followed recommended slept .		1
+944	1	no judge who was not ever funny ever danced and the girl who some scientist believed shouted .		1
+945	0	the lawyer who no boy who ever succeeded contacted ever traveled .		0
+946	0	a banker who some child met ever failed .		0
+947	1	the doctor who some banker who no scientist who ever shouted observed thanked danced .		1
+948	0	the judge who no officer who ever shouted avoided slept and some man who the lawyer who the professor who a president contacted hated hit ever succeeded .		0
+949	1	some assistant who no scientist who no banker ever followed recommended resigned .		1
+950	1	some student who no senator who a officer thanked recommended ever traveled .		0
+951	1	some judge who no woman who a child helped ever hugged slept .		1
+952	1	the doctor who was not ever sad slept and no secretary who was ever smart ever resigned .		1
+953	0	a boy who was happy who ever failed traveled and a student who some girl who smiled believed shouted .		0
+954	1	some judge who no doctor who was ever funny ever thanked ever danced and some boy who no man who was ever happy followed ran .		0
+955	0	a president who was sad who ever failed slept .		0
+956	1	the woman who some professor who a judge who a boy who some boy who a banker who no professor thanked watched hit observed met avoided slept and no woman who was ever smart ever succeeded .		1
+957	0	a student who ever slept resigned .		0
+958	0	some professor who succeeded who ever shouted failed .		0
+959	1	some boy who the child who no lawyer who was ever wrong ever watched called ever ran and some boy who no judge who ever ran ever pushed ran .		0
+960	1	some assistant who no girl who ever smiled hit smiled .		1
+961	0	the secretary who was sad ever slept .		0
+962	0	some assistant ever traveled .		0
+963	0	a officer who the man who the student who was happy advised trick ##ed ever danced .		0
+964	1	a woman who no secretary who was ever wrong ever met slept .		1
+965	0	a professor who the child who some assistant who some lawyer watched who was ever sad met hated failed .		0
+966	0	the assistant who the man who the officer who some banker who smiled liked supported believed ever traveled .		0
+967	0	the man who was right who was ever right danced .		0
+968	1	some boy who no professor who was not ever wrong ever watched ever resigned and no judge who was ever happy ever slept .		0
+969	0	some scientist who resigned who was ever funny resigned .		0
+970	0	the scientist who some senator believed who was ever smart failed and a student who the professor who was not smart believed slept .		0
+971	1	the woman who some boy who no assistant ever hated watched shouted .		1
+972	1	the child who some senator advised ever smiled and no senator who was ever smart ever smiled .		0
+973	1	the judge who a scientist who no lawyer who ever slept ever trick ##ed pushed ran and the senator who the lawyer who the senator who a banker who no assistant who was ever sad believed hated helped		1
+974	0	the girl who the lawyer hated who was ever funny shouted and no judge who was ever sad ever danced .		0
+975	0	the senator who was not smart ever traveled .		0
+976	1	some student who a scientist who no student who ever resigned observed pushed smiled and no doctor ever danced .		1
+977	1	no scientist who was ever happy ever shouted and no officer who ever failed ever failed .		1
+978	0	some officer who was right ever shouted .		0
+979	1	a child who ran ever danced and no assistant who smiled ever traveled .		0
+980	1	no judge who shouted ever failed and no officer who no banker hugged ever failed .		1
+981	0	some man who some lawyer who the student avoided who was ever wrong called traveled and some doctor who a senator who the student who was not funny hated hit danced .		0
+982	0	a girl who was wrong who ever failed succeeded .		0
+983	1	some lawyer who the banker who some man who a officer who no scientist who was not ever right ever called met thanked watched succeeded and the officer who no secretary who the man hit ever hugged failed		1
+984	1	a secretary who a president hugged traveled and the officer who a woman who no secretary who was ever happy met liked ever resigned .		0
+985	1	some officer who some president who no woman who was ever funny met hated ever succeeded .		0
+986	1	a professor who no banker who was ever wrong met traveled .		1
+987	0	a girl who was funny who was ever wrong slept .		0
+988	0	a doctor who the officer who was happy supported slept and a man who some officer hated ever shouted .		0
+989	0	some banker who some professor who ran avoided ever ran .		0
+990	1	no professor who ever slept ever failed and some lawyer who no professor who was ever funny helped shouted .		1
+991	0	the president who some secretary who was right who ever smiled trick ##ed succeeded .		0
+992	1	no banker who no girl ever helped ever danced .		1
+993	1	some senator who a lawyer who no lawyer ever believed who ever danced called smiled .		0
+994	1	some scientist who no officer who was ever sad ever met slept .		1
+995	1	no senator who was ever funny ever shouted .		1
+996	0	some assistant who the student who was sad who was ever right avoided ran .		0
+997	1	some man who some child who the president who no scientist who was not ever right ever helped hugged thanked ever succeeded .		0
+998	1	some president who the girl who no doctor ever loved advised smiled and some secretary who a student who no student ever observed thanked ever traveled .		0
+999	1	a girl who some woman loved who ever danced resigned and no banker who was ever wrong ever resigned .		0
+1000	1	some banker who no officer who the scientist supported hugged traveled and some officer who a doctor who a senator who was not ever wrong who was ever wrong hit believed failed .		0
+1001	1	some doctor who a girl who no senator who ever traveled advised supported slept and the judge who some professor who no judge ever hated advised succeeded .		1
+1002	1	some doctor who ever resigned succeeded and some banker who no assistant who was ever happy followed failed .		0
+1003	1	a student who was ever sad smiled and some banker who a banker who was not ever wrong advised resigned .		0
+1004	0	the assistant ever traveled .		0
+1005	1	a professor who the boy who no senator who was ever wrong ever called followed ever danced .		0
+1006	1	a student who no banker who was ever right ever hated succeeded .		1
+1007	1	the child who some boy who no child ever contacted who ever slept recommended danced .		0
+1008	1	a assistant who some president loved who was ever sad slept and no child who no assistant avoided ever smiled .		0
+1009	1	some child who no boy who was not ever right contacted ever slept .		0
+1010	0	some girl who some lawyer who was ever smart avoided succeeded .		0
+1011	1	the banker who the child watched traveled and no judge who was ever smart ever shouted .		1
+1012	0	a boy who no president who some assistant trick ##ed ever thanked slept and a banker who some president called who ever failed shouted .		0
+1013	1	the lawyer who the banker who the girl who some senator who the woman who some child who no doctor who was ever smart ever hugged hated watched avoided avoided supported traveled and no man who was ever		1
+1014	1	a lawyer who some secretary who the child who no child who was ever sad ever advised supported hit smiled .		1
+1015	1	some scientist who no man contacted who ever ran succeeded .		0
+1016	1	some officer who the scientist who no boy who ever shouted ever recommended observed ever slept .		0
+1017	1	no man who ever shouted ever resigned .		1
+1018	0	the student who succeeded who ever traveled slept .		0
+1019	0	some girl who a child who a doctor who the secretary hugged watched loved ever smiled .		0
+1020	0	some girl who was ever sad danced .		0
+1021	1	no president who no student ever thanked ever danced and no child who was not sad ever succeeded .		1
+1022	1	no judge who no lawyer hated ever danced .		1
+1023	0	the banker who a professor observed who ever traveled slept .		0
+1024	0	a man who the child who the banker who was smart who was ever right hit avoided smiled .		0
+1025	0	some girl who some secretary contacted who was ever wrong shouted .		0
+1026	0	the lawyer who the boy who some lawyer hated who ever slept advised smiled .		0
+1027	1	the child who was smart traveled and the president who no judge ever hit ever ran .		0
+1028	0	some professor who some senator followed who was ever happy succeeded and the lawyer who resigned traveled .		0
+1029	1	the boy who no woman who ever shouted watched slept and no banker who ever failed ever resigned .		1
+1030	1	the officer who the child who was not ever happy watched traveled and no boy ever traveled .		1
+1031	0	some boy who some girl who some senator watched who ever danced helped resigned and the senator resigned .		0
+1032	0	a doctor who smiled who ever slept succeeded .		0
+1033	0	some judge who a judge who some boy who resigned who was ever funny advised pushed danced .		0
+1034	0	some judge who ran who was ever wrong danced .		0
+1035	1	no senator who was not ever sad ever traveled and no officer who ever resigned ever resigned .		1
+1036	0	a woman who the child who a assistant who some child helped helped called ever ran and some senator who no secretary who ever resigned ever followed failed .		0
+1037	0	the judge who some secretary hugged who was ever right shouted .		0
+1038	1	a man who no senator ever believed succeeded and the boy who some doctor who no man who was happy believed trick ##ed smiled .		1
+1039	0	the judge who ran who ever traveled ran .		0
+1040	1	the girl who no boy who was sad believed ever ran and no boy who no boy supported ever traveled .		0
+1041	1	some doctor who the student who some assistant who the girl who a banker who no doctor who no senator recommended thanked thanked hit observed advised failed and some student who no child who no scientist ever helped		0
+1042	0	the girl who some woman contacted resigned and a lawyer who was smart ever slept .		0
+1043	0	a banker who resigned who ever ran danced .		0
+1044	1	a child who no officer who was wrong ever helped ever shouted and no assistant ever danced .		0
+1045	1	no girl who ever danced ever traveled and some boy who no boy who was ever smart thanked shouted .		1
+1046	1	a judge who no man ever recommended who was ever smart traveled .		0
+1047	1	no man who was not ever right ever ran and no man who was ever sad ever danced .		1
+1048	0	the woman who a scientist called who was ever happy shouted .		0
+1049	1	no student who ever resigned ever shouted and no scientist who was ever right ever ran .		1
+1050	1	the woman who no man who slept ever liked ran and some scientist who no secretary who shouted called shouted .		1
+1051	0	the president who some banker who succeeded who was ever right hated traveled .		0
+1052	1	no secretary who the officer helped ever shouted and no senator who was not ever wrong ever traveled .		1
+1053	1	no professor ever succeeded and a child who no child hugged ever danced .		0
+1054	0	a woman who some senator who a student observed who ever resigned believed ran .		0
+1055	1	no child who was ever right ever slept and no child who ever succeeded ever smiled .		1
+1056	0	some professor who the officer who was wrong who was ever sad hated resigned and the scientist who some banker who some assistant called watched ran .		0
+1057	1	no professor who a president contacted ever shouted and no senator ever shouted .		1
+1058	1	a president who a boy who a banker who the doctor who no man who was ever smart hit recommended avoided called resigned and no president who no doctor ever liked ever danced .		1
+1059	1	no president who was ever right ever resigned and no officer who ever shouted ever resigned .		1
+1060	1	no professor who was ever happy ever resigned and no girl who some child advised ever danced .		1
+1061	0	the child who ever smiled succeeded .		0
+1062	1	no officer who slept ever ran and some secretary who no doctor who was ever right ever believed traveled .		1
+1063	0	some scientist who was ever happy succeeded .		0
+1064	0	the lawyer who was ever right succeeded and the boy who traveled failed .		0
+1065	0	the judge who the man hated ever resigned .		0
+1066	1	a secretary who no doctor who ever resigned supported ever shouted .		0
+1067	1	some professor who no scientist who no lawyer ever followed ever trick ##ed shouted and some man who no lawyer who ever slept contacted traveled .		1
+1068	0	the student who failed who ever shouted traveled .		0
+1069	1	the professor who no woman ever avoided who ever traveled smiled .		0
+1070	1	the boy who no scientist who ever failed ever hated ever resigned and a woman who the professor who no boy who was not ever right ever pushed supported failed .		0
+1071	1	no banker ever ran and a student who no assistant who was not right ever pushed ever slept .		0
+1072	0	the girl who a woman hated who was ever wrong succeeded .		0
+1073	0	a officer who was sad who was ever happy succeeded .		0
+1074	1	a girl who a banker who no scientist who ever failed supported supported ran and the lawyer who was not wrong ever shouted .		0
+1075	1	a woman who a officer who no doctor avoided who ever danced contacted failed .		0
+1076	0	a scientist who some president loved ever resigned .		0
+1077	1	some man who some doctor who no doctor who was not funny ever hit recommended slept and no banker who ever succeeded ever traveled .		1
+1078	1	no child who ever resigned ever resigned .		1
+1079	0	a boy who the assistant liked ever smiled and some child resigned .		0
+1080	0	a boy who the student who slept who ever succeeded liked failed .		0
+1081	1	some woman who the president who a scientist who no banker hugged watched supported slept and no child who was ever smart ever succeeded .		1
+1082	1	a woman who no boy who no student ever advised loved smiled .		1
+1083	0	a senator who succeeded who ever ran resigned .		0
+1084	1	the judge who no woman who no professor ever thanked ever believed ever danced .		0
+1085	1	a professor who some judge who no assistant who ever ran hit called traveled .		1
+1086	0	some student who a child supported ever danced .		0
+1087	0	a lawyer who the man who was ever happy followed slept .		0
+1088	1	the president who the child who some professor who no child who shouted hated believed called ever succeeded .		0
+1089	1	no judge who was ever sad ever traveled and some doctor who was not funny who ever succeeded failed .		0
+1090	0	a banker who the officer avoided who was ever funny ran and the woman who no scientist who ever failed hit slept .		0
+1091	1	some scientist who was funny who ever resigned traveled and some senator who a scientist who no child who was not ever funny observed advised succeeded .		0
+1092	1	some boy who no scientist who was ever sad ever helped ever slept .		0
+1093	0	the lawyer who the president who resigned who was ever right avoided danced .		0
+1094	0	the scientist who ever failed smiled .		0
+1095	1	no boy who resigned ever danced and the doctor who no scientist ever called who ever traveled traveled .		0
+1096	0	a secretary who some senator who a officer who some girl who was funny supported pushed loved ever danced .		0
+1097	0	the scientist who the assistant who ever slept avoided traveled .		0
+1098	1	no officer who was ever happy ever failed and a scientist who ever shouted smiled .		0
+1099	1	a banker who no officer who was ever happy trick ##ed shouted .		1
+1100	0	the senator who some assistant who the officer who the child who some secretary who no scientist who no banker advised ever watched believed met helped met ever smiled .		0
+1101	1	no judge who ever resigned ever slept and some boy who no child who was happy met danced .		1
+1102	1	some professor who danced who was ever right slept and no president who was ever funny ever traveled .		0
+1103	0	a scientist who the president met who was ever wrong resigned .		0
+1104	1	no officer who ever traveled ever danced and no senator who ever smiled ever shouted .		1
+1105	0	a assistant who a man who was funny who ever smiled pushed slept .		0
+1106	0	a president who a student who a doctor who a banker met who ever shouted contacted hugged slept .		0
+1107	0	some man who a girl avoided who was ever happy failed and a lawyer who failed smiled .		0
+1108	0	a judge who resigned who was ever happy failed and some banker who a child liked danced .		0
+1109	1	no woman who was ever right ever succeeded and no child who ever succeeded ever ran .		1
+1110	1	some scientist who some banker followed ever smiled and no child who was ever funny ever failed .		0
+1111	1	the woman who a scientist who some scientist who some boy who ever shouted helped believed met slept and a president who no secretary who was ever sad ever observed failed .		0
+1112	0	some banker who the boy who no doctor who ever failed ever followed hugged smiled and some assistant who failed who ever failed traveled .		0
+1113	1	the senator who no doctor who ever slept ever loved danced and no banker who was ever wrong ever traveled .		1
+1114	1	no assistant who was ever wrong ever traveled and some lawyer who no scientist who was ever happy hit succeeded .		1
+1115	0	the senator who slept who was ever funny failed and no judge who the woman avoided ever shouted .		0
+1116	1	the senator who some student who the banker who the scientist who no judge who was ever wrong ever observed hit hated met shouted .		1
+1117	0	the scientist who the woman watched who was ever happy traveled .		0
+1118	0	a boy who some lawyer who the officer who the professor who was right who was ever happy thanked pushed hated succeeded .		0
+1119	1	no banker who ever shouted ever slept and no lawyer who ever ran ever danced .		1
+1120	0	a banker who was smart who was ever funny traveled .		0
+1121	1	no boy who failed ever resigned and some professor who was funny ran .		1
+1122	0	some professor failed and a child who the scientist pushed who was ever wrong failed .		0
+1123	0	a man who ever shouted ran .		0
+1124	1	no doctor who was ever smart ever ran and some officer who a president recommended ever ran .		0
+1125	0	some doctor who a boy followed who was ever right succeeded .		0
+1126	0	some scientist who no secretary who ever danced ever thanked ever danced and a assistant who a girl hit succeeded .		0
+1127	0	a doctor who was ever wrong slept .		0
+1128	0	the student who shouted who ever danced danced and no man who was ever funny ever succeeded .		0
+1129	1	no president who no president ever hit ever slept and no doctor who the doctor advised ever smiled .		1
+1130	0	the student ever ran .		0
+1131	1	some scientist who no man who was ever funny met succeeded .		1
+1132	1	some senator who no banker who was ever happy ever met ever succeeded .		0
+1133	1	some president who the president thanked ever smiled and no professor who was ever right ever traveled .		0
+1134	1	some man who no assistant who ever resigned watched ever danced .		0
+1135	1	some assistant who no assistant who was ever sad ever hugged slept and no officer who was not happy ever resigned .		1
+1136	1	no girl who a professor hit ever traveled and no banker who ever smiled ever shouted .		1
+1137	1	no professor who was ever right ever traveled and no professor who was not ever wrong ever danced .		1
+1138	1	no secretary who ever shouted ever smiled and no president who was ever wrong ever resigned .		1
+1139	1	no scientist who no secretary advised ever resigned and no professor who traveled ever traveled .		1
+1140	0	some assistant who some president who the judge who the officer who some president who a scientist helped thanked believed hugged advised ever shouted .		0
+1141	0	some child who some boy who the professor who the man who was right who was ever smart trick ##ed watched believed shouted and the girl who some student met succeeded .		0
+1142	0	the assistant who succeeded ever shouted .		0
+1143	1	no doctor who ever shouted ever smiled and the man who no secretary who no scientist thanked contacted ever succeeded .		0
+1144	1	a assistant who no judge who was ever wrong ever trick ##ed traveled and no woman who was ever sad ever failed .		1
+1145	0	the girl who the senator liked who was ever wrong traveled .		0
+1146	1	the woman who no secretary who was not ever wrong ever hugged traveled and no scientist who was ever smart ever failed .		1
+1147	0	a president who a assistant who a student who a man who some professor who some secretary contacted who was ever sad hit contacted believed hit failed .		0
+1148	1	a lawyer who no child who ever shouted trick ##ed ever failed .		0
+1149	0	some child who failed ever shouted .		0
+1150	1	some boy who no senator ever helped smiled and a boy who was not funny smiled .		1
+1151	0	the officer who the boy who some student who shouted who ever failed met liked failed .		0
+1152	1	a secretary who no boy who ever resigned supported traveled .		1
+1153	1	some woman who no assistant ever liked who was ever funny resigned .		0
+1154	1	some senator who no officer ever loved who ever failed failed .		0
+1155	0	a assistant who a student avoided ever traveled .		0
+1156	1	the assistant who no secretary pushed who ever danced smiled and the officer who no child who resigned recommended failed .		0
+1157	1	the woman who was not ever wrong who ever ran shouted .		0
+1158	1	the officer who no woman who was ever sad ever helped danced .		1
+1159	1	no judge who the secretary called ever ran .		1
+1160	0	some doctor who some secretary who the woman who was happy hit hit ever resigned .		0
+1161	1	some officer who no professor ever met smiled and no girl who was ever funny ever slept .		1
+1162	1	no man who ever failed ever slept and no scientist who was not funny ever traveled .		1
+1163	0	some man who failed who ever traveled resigned and the student ran .		0
+1164	0	a girl who some boy who resigned advised ever danced .		0
+1165	1	the girl who was not ever right ever smiled and no lawyer who some secretary helped ever slept .		0
+1166	1	some man who no officer met who ever shouted failed .		0
+1167	1	no senator who ever ran ever danced and a girl who some banker who some woman watched liked succeeded .		1
+1168	1	no woman who ever slept ever succeeded and the judge who no assistant who ever ran avoided ever smiled .		0
+1169	1	some boy who the doctor who was not ever funny who was ever wrong hit slept and a scientist who some boy who some student who no professor ever advised trick ##ed believed shouted .		0
+1170	0	some senator who was ever funny succeeded and a lawyer who no assistant followed shouted .		0
+1171	1	the girl who no secretary who was ever right helped ever shouted .		0
+1172	1	no lawyer who ever slept ever failed and no man who resigned ever shouted .		1
+1173	0	the woman who a assistant pushed who was ever smart traveled .		0
+1174	0	the boy who some boy who the officer thanked called ever danced .		0
+1175	1	the girl who the lawyer who no assistant ever avoided hugged ever failed .		0
+1176	0	some scientist who the scientist met who ever traveled resigned and some secretary who no boy who a lawyer called ever recommended succeeded .		0
+1177	1	a student who no student who was ever smart liked slept and no president who was ever wrong ever shouted .		1
+1178	1	no secretary who was not funny ever succeeded .		1
+1179	1	a student who no boy who ever danced hated ever succeeded and some doctor who the officer who the man who no man who ever ran hit avoided trick ##ed resigned .		0
+1180	1	no woman who was ever wrong ever smiled and no senator who ran ever traveled .		1
+1181	1	some professor who some woman who a student who no president who ever slept ever trick ##ed avoided supported smiled .		1
+1182	1	a boy who a scientist who no boy who ever resigned ever followed avoided ran and a girl who no boy who some boy hit ever recommended ever slept .		0
+1183	1	the girl who no officer who ran ever trick ##ed ever resigned .		0
+1184	1	a boy who was not ever wrong who was ever right succeeded .		0
+1185	0	the secretary who was not happy who was ever wrong slept .		0
+1186	1	the officer who was not sad ran and a child who a assistant who no president who was ever right ever supported called resigned .		1
+1187	1	some man who a senator who a officer who the president who no student who was ever right observed called hated believed slept and no doctor who was ever wrong ever ran .		1
+1188	1	some boy who the secretary watched ever succeeded and no child who was ever happy ever succeeded .		0
+1189	0	a student who failed who ever danced danced .		0
+1190	1	a secretary who no child who was ever happy supported ran .		1
+1191	1	a woman who no professor who the professor pushed liked shouted and no doctor who a student watched ever failed .		1
+1192	1	no president who was smart ever danced and some scientist who no senator who was ever happy hated ever ran .		0
+1193	0	a man who slept who was ever funny danced .		0
+1194	1	no doctor who no scientist liked ever ran and a lawyer who some woman who was happy who ever slept followed slept .		0
+1195	1	no child who ever smiled ever succeeded and the professor who the man pushed ever shouted .		0
+1196	0	some professor who the judge who the professor watched who was ever funny helped slept .		0
+1197	0	some senator who a student met who was ever smart succeeded .		0
+1198	0	the senator who a lawyer who some assistant who the scientist who was funny who ever traveled liked watched believed smiled .		0
+1199	1	a secretary who ran slept and no scientist who some president observed ever shouted .		1
+1200	1	the woman who no officer who ever succeeded advised ever danced and the professor who no child who ever slept ever supported ran .		0
+1201	0	the woman who a student who some man hit thanked ever ran .		0
+1202	1	a boy who the senator who was not wrong who was ever funny liked resigned and no lawyer who was ever happy ever slept .		0
+1203	1	some president who no assistant who was ever sad ever thanked ever slept .		0
+1204	0	some lawyer who some man who the professor who some president who a student who a president met who was ever wrong hugged hugged met supported succeeded and a assistant who some lawyer hugged danced .		0
+1205	1	some president who no officer who some boy watched contacted ever traveled and no woman who ever traveled ever resigned .		0
+1206	1	some doctor who the boy who no senator who succeeded ever believed hugged shouted .		1
+1207	1	no woman who ever traveled ever shouted and no man who resigned ever shouted .		1
+1208	1	a assistant who no man avoided failed and no judge who was funny ever danced .		1
+1209	1	a woman who resigned who ever traveled shouted and no man who ever traveled ever failed .		0
+1210	1	the officer who the boy who the president who some student who was not ever smart thanked thanked advised ran and some man who no lawyer hated slept .		1
+1211	1	some lawyer who the boy helped succeeded and no doctor who was not ever wrong ever smiled .		1
+1212	0	the officer who a banker who a professor hit who was ever smart pushed danced .		0
+1213	0	some secretary who the doctor who the boy liked who was ever right helped failed .		0
+1214	0	the child who a lawyer followed who was ever smart danced .		0
+1215	1	the judge who no girl watched ever shouted and a judge who no judge pushed slept .		0
+1216	1	the boy who no doctor who a lawyer observed contacted smiled and the scientist who no judge who was ever right followed ever danced .		0
+1217	1	no banker who ever resigned ever smiled and the girl who some officer who was happy who was ever right avoided smiled .		0
+1218	1	the senator who some secretary who no lawyer ever trick ##ed called ever succeeded and some child who a woman who no student who the man believed ever watched called danced .		0
+1219	1	a student who smiled ran and some assistant who was not ever wrong who ever resigned shouted .		0
+1220	1	no scientist who ever ran ever smiled and the girl who some scientist who some banker who no banker ever helped called trick ##ed resigned .		1
+1221	0	some doctor who a boy who some officer hated thanked ever slept .		0
+1222	0	the senator who failed who was ever wrong danced .		0
+1223	0	some professor who slept ever ran .		0
+1224	0	some judge who ran ever failed .		0
+1225	1	a woman who no secretary who was ever funny trick ##ed resigned and a girl who no president who ever traveled ever hated ever shouted .		0
+1226	0	a banker who the senator who the professor observed who was ever smart loved traveled .		0
+1227	1	no doctor who ever traveled ever danced and a student who some girl who the woman who no child ever helped pushed loved resigned .		1
+1228	1	some officer who no scientist who was not happy ever advised slept and some judge who no scientist ever thanked who ever ran danced .		0
+1229	1	no secretary who ever failed ever traveled and no secretary who was ever wrong ever failed .		1
+1230	0	some senator who was ever funny shouted .		0
+1231	1	a president who the scientist who no secretary who the girl trick ##ed ever hit followed ever succeeded .		0
+1232	0	the banker who the judge who was not ever wrong who ever traveled watched resigned and a student who was not ever smart slept .		0
+1233	1	some president who no secretary who was ever smart ever trick ##ed ever traveled and no doctor who ever resigned ever smiled .		0
+1234	0	a girl who the president hugged who was ever happy resigned .		0
+1235	1	some banker who was ever sad shouted and no judge who was ever funny ever smiled .		0
+1236	0	some girl who a woman who was ever funny hugged shouted .		0
+1237	1	the woman who a doctor who no scientist who ever succeeded ever followed avoided ever failed and the boy who no assistant who ever shouted believed smiled .		0
+1238	1	some doctor who no doctor contacted ever smiled and no man who was funny ever resigned .		0
+1239	0	some scientist who some professor who some professor advised who was ever right contacted resigned .		0
+1240	0	the child who ever danced shouted .		0
+1241	0	a child who some girl watched who was ever funny failed and a man who smiled slept .		0
+1242	1	some assistant who no banker ever recommended who was ever wrong failed .		0
+1243	1	some girl who no lawyer who was ever right advised resigned .		1
+1244	1	some doctor who the boy who some scientist who the man who a boy who was not ever sad followed trick ##ed advised hated slept and some child who the banker who no officer who no child watched		1
+1245	1	a banker who was not ever funny who ever slept danced and the assistant slept .		0
+1246	0	the woman who some professor who a professor who was smart who was ever sad hugged hit traveled and some girl who the professor who a man who the officer avoided liked contacted traveled .		0
+1247	1	the secretary who some lawyer who the scientist who the student who a banker who no man hated who ever resigned watched hated recommended liked succeeded .		0
+1248	1	some secretary who a student who the officer who no banker who was ever smart ever called called recommended smiled .		1
+1249	1	some assistant who no president hated smiled and some girl who some student who some senator who was not ever smart who ever shouted followed helped resigned .		0
+1250	1	some lawyer who a president who no student ever loved recommended succeeded and the banker who a banker called ran .		1
+1251	0	a president who the professor who was right who was ever sad believed ran .		0
+1252	0	the child who some child who some student contacted advised ever failed .		0
+1253	1	the child who no doctor who was ever wrong ever pushed ever traveled .		0
+1254	1	some woman who no secretary who the lawyer hated pushed ever resigned .		0
+1255	1	no student who was not right ever slept .		1
+1256	1	a professor who no judge who a officer avoided ever hit smiled .		1
+1257	0	a doctor who the man who a secretary who some girl who some doctor who the girl who some doctor who was not smart believed pushed hated followed observed supported smiled and some senator who ever slept shouted		0
+1258	1	some student who some scientist who no child who was ever smart ever recommended called slept and some woman who was not ever funny who ever ran failed .		0
+1259	0	a boy who some professor who the lawyer helped who ever shouted watched danced .		0
+1260	1	a officer who the officer who some student trick ##ed who ever ran helped shouted and no judge who ever shouted ever failed .		0
+1261	0	some lawyer who the woman watched who ever failed danced .		0
+1262	1	the banker who some professor who no scientist who a professor helped ever believed met ever slept .		0
+1263	0	a child who the child hit ever slept and the judge who was happy smiled .		0
+1264	0	a child who shouted who ever ran slept .		0
+1265	1	no judge who ever traveled ever smiled and some banker who ever slept resigned .		0
+1266	0	a senator ever shouted .		0
+1267	0	a child who some lawyer avoided ever failed .		0
+1268	0	a banker who some student trick ##ed who was ever right resigned .		0
+1269	0	a lawyer who some scientist who the woman helped who was ever smart observed ran .		0
+1270	0	the assistant who the man helped traveled and the girl who some senator called who ever danced ran .		0
+1271	1	no doctor who was ever right ever danced and no man who ran ever resigned .		1
+1272	1	a banker who some assistant who no boy who was ever smart hugged recommended succeeded and no professor who was ever wrong ever smiled .		1
+1273	0	the senator who was smart who was ever happy succeeded .		0
+1274	0	the girl who the man pushed who was ever right shouted .		0
+1275	1	the man who a banker who no woman avoided recommended ever danced .		0
+1276	1	the officer who no doctor who ever slept ever loved ever failed and a student who no lawyer ever hated ran .		0
+1277	1	no president who the man watched ever smiled .		1
+1278	1	no judge who was ever sad ever danced and the man who was ever right succeeded .		0
+1279	1	the man who was not ever wrong succeeded and the professor who some boy who the man who was funny who ever succeeded loved watched smiled .		0
+1280	1	some president who some senator who a child who no doctor who ever ran ever hated trick ##ed avoided smiled and the doctor who no secretary observed danced .		1
+1281	0	the secretary who a scientist hit who ever smiled slept .		0
+1282	1	no president who ever smiled ever smiled and some doctor who the scientist loved who was ever smart danced .		0
+1283	0	a assistant who the judge hugged who was ever happy resigned .		0
+1284	1	some student who a lawyer who no banker who some assistant hated ever recommended watched shouted and a senator ever ran .		0
+1285	0	some child who a man who the president who slept who was ever right supported recommended ran and a child who some senator watched slept .		0
+1286	0	the assistant who some man hit who was ever funny succeeded .		0
+1287	1	no judge who no student helped ever ran .		1
+1288	1	a assistant who no doctor who no secretary observed thanked ever shouted and no lawyer who was ever sad ever smiled .		0
+1289	1	a professor who no woman who ever ran watched ever danced and no boy who some woman pushed ever ran .		0
+1290	1	a senator who ran who was ever wrong slept and a child who some scientist who a lawyer who no child who ever succeeded ever avoided thanked recommended shouted .		0
+1291	0	the student who the child who some assistant liked who ever traveled recommended danced .		0
+1292	0	a secretary who the officer who a officer supported liked ever smiled .		0
+1293	0	some scientist who some scientist avoided who was ever smart danced .		0
+1294	0	a judge who the boy hugged who ever danced danced .		0
+1295	1	some assistant who no man who was ever wrong ever observed traveled .		1
+1296	1	a secretary who no doctor liked ever resigned .		0
+1297	1	the man who a scientist supported smiled and the child who some secretary who no assistant who no banker contacted ever thanked supported failed .		1
+1298	1	no girl ever failed and the professor who some professor who was right who was ever funny supported shouted .		0
+1299	0	the judge who a judge hit who was ever funny succeeded .		0
+1300	0	a boy who traveled who ever resigned slept .		0
+1301	0	a girl who the girl who ever shouted watched failed .		0
+1302	1	some boy who no assistant who ever smiled ever hugged ever traveled and some assistant who a banker who some woman who no secretary who was ever funny ever followed hit pushed danced .		0
+1303	1	the woman who no banker who was ever sad watched succeeded and a man who no student ever advised who was ever happy smiled .		0
+1304	0	a girl who smiled who ever slept failed .		0
+1305	0	the girl who some banker who a professor who the man who a assistant who was happy who was ever sad supported liked advised hugged resigned .		0
+1306	1	no doctor who was happy ever traveled .		1
+1307	0	a woman ever failed .		0
+1308	0	a doctor who some man advised who ever succeeded smiled .		0
+1309	0	some lawyer who a officer thanked who was ever smart resigned .		0
+1310	1	no banker who was right ever ran and some scientist who was not sad who ever traveled shouted .		0
+1311	1	a president who some doctor who some scientist who the judge who no doctor who was ever wrong ever recommended supported believed believed succeeded and no scientist who was ever funny ever shouted .		1
+1312	1	the student who some man who some banker who no president who was ever wrong avoided met recommended resigned .		1
+1313	1	a lawyer who the assistant who the man observed who ever ran supported danced and no lawyer who ever traveled ever resigned .		0
+1314	0	some man who some boy who a senator who the scientist who the man who no senator who some banker called ever avoided pushed recommended contacted pushed ever ran and the girl who some professor who a lawyer		0
+1315	1	the officer slept and the professor who no boy who was not ever right helped succeeded .		1
+1316	1	no president who succeeded ever succeeded and no scientist who was ever sad ever failed .		1
+1317	1	no senator who a student hugged ever succeeded and some student who no secretary who ever smiled ever trick ##ed failed .		1
+1318	0	a secretary who was smart who was ever wrong resigned .		0
+1319	1	the banker who no man who was ever happy followed danced and no professor who was ever right ever succeeded .		1
+1320	1	some scientist who some man who a man who was funny who was ever happy supported hugged succeeded and no man who was not funny ever resigned .		0
+1321	1	a boy who no professor who ever failed contacted succeeded .		1
+1322	1	a boy who some senator who some child who the woman who no lawyer who ever succeeded ever hated advised watched called resigned and no assistant who was right ever slept .		1
+1323	1	some student who no banker who a boy advised contacted ever resigned and the scientist who no officer who ever failed hit ran .		0
+1324	1	some student who the doctor who a woman who the secretary who was not right followed called supported smiled and some senator who no officer who ever failed ever met smiled .		1
+1325	1	the girl who no judge ever hugged traveled .		1
+1326	1	some secretary who a judge who a doctor who the man thanked observed met smiled and no lawyer who was ever funny ever resigned .		1
+1327	1	the lawyer who was ever right traveled and no president who no boy hated ever resigned .		0
+1328	0	some child who some boy who was sad who ever resigned called resigned .		0
+1329	1	a girl who a president who no lawyer who ever ran ever watched recommended ever smiled .		0
+1330	1	some boy who some professor hit ever succeeded and no president who ever smiled ever traveled .		0
+1331	1	some professor who some child who no student who ever ran ever contacted hated succeeded and a officer who resigned shouted .		1
+1332	1	some senator who the child contacted who was ever smart shouted and the girl who no man who was not ever smart contacted failed .		0
+1333	0	some secretary who some girl who some child who resigned recommended hit smiled and the judge who a woman who some assistant who slept who was ever wrong met pushed smiled .		0
+1334	1	no doctor who was ever wrong ever slept and a lawyer who no secretary who was ever happy called slept .		1
+1335	0	a scientist who a professor who a president watched who was ever happy pushed resigned .		0
+1336	1	a judge who no girl who was sad ever recommended failed .		1
+1337	1	a banker who no judge who was ever smart ever pushed failed and the lawyer who a president who was happy who was ever wrong thanked succeeded .		0
+1338	0	some professor who the banker who a boy who the scientist who a girl who some child who was not right contacted avoided trick ##ed met hated resigned and a man who the child who no secretary who		1
+1339	0	some woman who the officer advised ever danced .		0
+1340	1	the girl who was not right ever danced and no judge who no girl met ever ran .		0
+1341	1	the scientist who the president who a professor who was not smart believed observed slept and some scientist who no judge ever pushed slept .		1
+1342	0	the boy who was happy who ever traveled danced .		0
+1343	1	no girl who ever shouted ever ran and no lawyer who was ever sad ever failed .		1
+1344	0	the judge who the woman who a boy who the judge who no banker who shouted trick ##ed supported avoided loved danced and some scientist who was smart who ever shouted traveled .		0
+1345	0	the child who some president liked who was ever funny slept .		0
+1346	1	some secretary who some officer who the judge avoided recommended shouted and some girl who a senator who no scientist who was ever right ever loved hugged ran .		1
+1347	0	some senator who the banker who was ever sad pushed resigned .		0
+1348	1	some scientist who no professor ever supported slept and some banker who no boy who ever ran ever observed smiled .		1
+1349	1	no woman who the officer advised ever shouted and a doctor who some girl who the senator who the boy loved thanked liked danced .		1
+1350	0	the woman who the man supported who ever danced resigned .		0
+1351	1	a boy who no lawyer who was sad ever believed shouted .		1
+1352	0	a president who was happy who was ever right succeeded .		0
+1353	1	a assistant who was not wrong who ever failed failed and no lawyer who was ever wrong ever failed .		0
+1354	1	no professor who ever failed ever slept and no boy who was sad ever shouted .		1
+1355	0	the president who a doctor believed ever shouted .		0
+1356	1	the woman who no woman ever loved ever shouted and no child who ever danced ever resigned .		0
+1357	0	a man who the secretary who was sad who ever failed observed shouted .		0
+1358	1	some boy who no assistant who was not ever wrong supported traveled .		1
+1359	1	a man who a boy who some secretary hugged who ever succeeded hugged succeeded and no woman who ever failed ever shouted .		0
+1360	1	the officer who a professor who no doctor who ever failed ever thanked hugged danced .		1
+1361	1	some scientist who some child who some professor who was right hated contacted succeeded and no officer who no lawyer ever thanked ever failed .		1
+1362	0	some man who some man who a child liked who was ever funny contacted traveled .		0
+1363	1	no senator who was ever smart ever ran and no senator who the judge called ever resigned .		1
+1364	1	no woman who no professor ever followed ever shouted .		1
+1365	0	some president who the banker who the secretary who some girl who a secretary who a banker who was wrong who was ever sad hit liked hit trick ##ed called ran .		0
+1366	1	the boy who no child who was wrong hit smiled and no doctor who ever ran ever shouted .		1
+1367	0	a woman who a banker who no scientist who was ever right ever pushed hated traveled and a secretary who was wrong who ever ran succeeded .		0
+1368	0	some senator who the secretary who resigned who ever slept hugged failed .		0
+1369	0	a officer who was ever right ran .		0
+1370	1	no secretary who was not wrong ever ran .		1
+1371	0	some banker who was smart who was ever right failed .		0
+1372	1	the judge who a scientist who a senator who the professor who no secretary ever advised who was ever smart helped liked hit shouted .		0
+1373	1	no assistant who was ever right ever failed and no secretary who no professor hugged ever succeeded .		1
+1374	1	no student who ever succeeded ever resigned .		1
+1375	0	some woman who the president believed ever ran .		0
+1376	1	some president who no doctor who was not ever happy avoided danced .		1
+1377	1	a secretary who no senator who was ever wrong ever helped ever failed and no lawyer ever shouted .		0
+1378	0	a man who was wrong who ever failed shouted .		0
+1379	1	some assistant who some assistant who no officer ever pushed who was ever wrong hated smiled .		0
+1380	0	the scientist who smiled traveled and some student who the senator who smiled who ever slept recommended slept .		0
+1381	0	some girl who ever smiled succeeded and some man danced .		0
+1382	1	some banker who no doctor who was ever right met smiled and the student who no senator met shouted .		1
+1383	0	some lawyer who was not funny who ever slept danced .		0
+1384	1	some man who the secretary who some lawyer who the judge who no professor who ever succeeded thanked followed trick ##ed believed traveled and some lawyer who a professor hated failed .		1
+1385	0	some professor who some senator avoided who was ever wrong ran .		0
+1386	1	some president who traveled who ever traveled danced and the lawyer who no child who was not ever wrong observed danced .		0
+1387	1	no officer who no judge ever watched ever slept and no lawyer who was ever happy ever succeeded .		1
+1388	1	the woman who no officer who ever danced hated ran and no secretary who ever slept ever danced .		1
+1389	0	the secretary who the banker who a lawyer who ever smiled met called ran .		0
+1390	0	some president who traveled who was ever funny failed .		0
+1391	0	some girl who was sad who was ever right failed .		0
+1392	1	some senator who some judge who was not ever right who was ever sad followed succeeded and no president who a professor followed ever danced .		0
+1393	0	a woman who a secretary who some professor liked who ever smiled thanked slept .		0
+1394	1	no child who was ever right ever traveled and the lawyer who some judge loved failed .		1
+1395	1	the senator who no senator ever recommended traveled and a secretary who no president who ever ran loved ever slept .		0
+1396	0	some secretary who was ever right succeeded .		0
+1397	1	no boy who no secretary hated ever ran .		1
+1398	0	some senator who was ever funny smiled .		0
+1399	0	some president who was smart who ever succeeded failed .		0
+1400	1	some boy who was not right ever succeeded .		0
+1401	0	some banker who some lawyer supported who was ever happy smiled .		0
+1402	1	the president who some banker who no officer who ever failed ever contacted recommended failed and the judge who the man who no banker who was ever right trick ##ed hit ever failed .		0
+1403	0	the senator who failed who ever failed resigned .		0
+1404	0	some assistant who smiled who ever failed succeeded .		0
+1405	1	no child who was ever sad ever resigned and a girl who the judge helped who ever shouted shouted .		0
+1406	1	no child who was not ever sad ever traveled and no girl who ever slept ever danced .		1
+1407	0	the doctor who was funny who ever ran traveled .		0
+1408	1	the officer who the scientist who some assistant who a lawyer who no lawyer who was ever smart ever believed helped helped pushed ever resigned and the judge who no secretary who was ever smart ever advised ran		0
+1409	0	a judge who some student who was sad who was ever funny watched traveled .		0
+1410	1	the secretary who no boy who was ever sad advised slept and no lawyer who ever danced ever failed .		1
+1411	0	the banker who resigned who was ever smart succeeded .		0
+1412	1	the lawyer who no doctor who was ever funny hated danced and no judge who was ever happy ever resigned .		1
+1413	1	a girl who no man ever met shouted .		1
+1414	1	no professor who ever slept ever danced and the girl who no professor who was right ever hugged ever succeeded .		0
+1415	0	the lawyer who a student loved slept and some man who the lawyer who the woman who was sad followed observed ever shouted .		0
+1416	0	some president ever traveled .		0
+1417	1	no doctor who no lawyer ever believed ever smiled .		1
+1418	0	the president who the woman contacted who was ever smart resigned .		0
+1419	0	some woman who a boy who the scientist who some boy who some secretary who was funny who ever slept pushed trick ##ed trick ##ed contacted shouted .		0
+1420	1	a scientist who no professor who ever shouted supported ever traveled and the scientist who the girl who the president supported thanked traveled .		0
+1421	1	a man who no secretary who was ever funny supported traveled .		1
+1422	1	some man who no officer ever observed who ever failed smiled .		0
+1423	1	a president who no senator who ever smiled thanked resigned and no child ever succeeded .		1
+1424	0	some woman who the secretary loved who was ever happy shouted and the student who a officer supported shouted .		0
+1425	1	no woman who was ever wrong ever failed and a boy who some boy who no officer who ever ran ever supported observed failed .		1
+1426	1	no lawyer who no secretary ever liked ever failed and a girl who no man who some lawyer pushed hated shouted .		1
+1427	1	no professor who no president ever loved ever traveled and no woman who no woman liked ever slept .		1
+1428	1	some boy who a student who was not ever right liked ever smiled .		0
+1429	1	no girl who was not ever happy ever shouted and no president who ever shouted ever succeeded .		1
+1430	1	no scientist who no woman avoided ever ran .		1
+1431	1	a woman who the professor who no judge who a secretary observed ever met believed shouted and some banker who no man thanked who ever resigned succeeded .		0
+1432	1	no banker who ever traveled ever danced and a boy who some president who no man who was not ever sad loved hated ever smiled .		0
+1433	1	no banker who a scientist recommended ever succeeded and no president who no scientist ever trick ##ed ever slept .		1
+1434	1	no president who some judge watched ever resigned .		1
+1435	1	a assistant who some senator who some doctor who the boy who no assistant who was ever funny liked watched observed thanked danced and some lawyer who some child who no assistant who the student hit watched contacted		1
+1436	0	some secretary who a boy who a man recommended helped ever succeeded .		0
+1437	0	the student who the boy who a boy who no banker who was ever sad hated contacted contacted ever slept .		0
+1438	0	a senator who the lawyer supported who was ever right slept .		0
+1439	1	some child who some officer who no president ever hugged called resigned and some girl who no banker who ever shouted thanked failed .		1
+1440	0	a man who some man thanked who was ever smart danced .		0
+1441	1	no lawyer who was not funny ever danced and no assistant who a senator believed ever ran .		1
+1442	1	no man who no president hit ever traveled .		1
+1443	1	no boy who ever slept ever resigned and the secretary who the lawyer helped who ever succeeded ran .		0
+1444	1	the girl who was not sad succeeded and no secretary who was ever wrong ever shouted .		1
+1445	1	no senator who ever failed ever danced and the woman who some judge who some boy who some president who no man who ever slept supported pushed watched supported ever succeeded .		0
+1446	1	the secretary who no banker ever hated ever smiled .		0
+1447	0	a woman who the child who was smart who was ever wrong contacted slept .		0
+1448	1	some lawyer who a officer who no scientist who was ever funny advised followed traveled .		1
+1449	1	a professor who no boy who no officer ever believed ever trick ##ed ever slept .		0
+1450	0	a senator who some lawyer recommended ever smiled .		0
+1451	0	a man who the boy liked who ever resigned danced .		0
+1452	0	some student who was sad who was ever funny shouted .		0
+1453	0	the student who resigned ever smiled .		0
+1454	0	some judge who was funny who ever danced resigned .		0
+1455	1	a judge who shouted who ever failed slept and no student who was ever wrong ever danced .		0
+1456	1	some assistant failed and no banker who ever resigned ever traveled .		1
+1457	1	the boy who no assistant who was ever wrong avoided ever resigned .		0
+1458	0	a man who a man recommended who ever danced ran .		0
+1459	1	some doctor who no doctor who was ever sad ever recommended traveled and no judge who smiled ever resigned .		1
+1460	1	no assistant who some assistant liked ever resigned and a boy who some man who some senator hugged followed ever smiled .		0
+1461	1	a judge who no president who was ever happy ever helped ever slept .		0
+1462	1	some lawyer who a officer who the professor who no man who was not ever funny liked called pushed ran and the man who a senator trick ##ed resigned .		1
+1463	1	no assistant who the lawyer advised ever danced and a girl who resigned ever slept .		0
+1464	1	a lawyer who no doctor who ever failed helped ever succeeded and a assistant who a boy who some president who some senator who was right followed observed believed succeeded .		0
+1465	1	some girl who no officer who a officer trick ##ed ever advised resigned and no secretary who was ever smart ever traveled .		1
+1466	0	the woman who some assistant who a boy recommended who ever shouted hugged succeeded .		0
+1467	1	the doctor who was not ever right who was ever wrong danced and the president who no senator who was ever right ever watched smiled .		0
+1468	0	a girl who resigned ever slept and some president who no woman who was ever wrong contacted danced .		0
+1469	1	a doctor who no boy who was ever right ever advised succeeded and no lawyer who was ever funny ever smiled .		1
+1470	0	some student who the girl recommended ever shouted and the professor who some student who a senator who a judge who some lawyer thanked loved thanked called ran .		0
+1471	0	a president who the assistant believed ever resigned .		0
+1472	1	no student who was sad ever danced and the boy who the banker who some student followed who ever failed loved succeeded .		0
+1473	1	no doctor ever succeeded and some assistant who no senator who was ever sad called traveled .		1
+1474	1	some boy who no secretary who was ever sad ever called smiled .		1
+1475	1	some banker who no judge who was happy ever hated ever smiled and some boy who no banker ever pushed smiled .		0
+1476	1	some professor who was not funny resigned and no judge who ever danced ever shouted .		1
+1477	1	some president who the professor who a girl who some scientist who the child who no girl who ever ran avoided liked trick ##ed believed helped smiled and no professor who ever danced ever danced .		1
+1478	1	some girl who no child who no lawyer ever advised ever believed smiled and no president who ever smiled ever failed .		1
+1479	0	a doctor who ever smiled ran and some child who danced resigned .		0
+1480	1	some student who no assistant who was ever wrong recommended ever resigned .		0
+1481	0	a banker who a banker who the scientist who traveled who ever failed watched hit resigned .		0
+1482	1	some doctor who no lawyer who was ever wrong ever thanked traveled and the professor who a lawyer who was ever right hugged succeeded .		0
+1483	1	the woman who no lawyer avoided who ever danced shouted and some assistant who no president who was ever sad recommended failed .		0
+1484	0	the officer who a man recommended who was ever happy slept .		0
+1485	1	the president who no officer who ever resigned hated shouted .		1
+1486	1	the student who no lawyer who was ever wrong hated shouted and the boy who a secretary who no man recommended contacted smiled .		1
+1487	1	no professor who was ever happy ever shouted and no assistant who was ever wrong ever ran .		1
+1488	1	some professor who a senator who no judge who was ever happy ever pushed liked smiled and no judge who was wrong ever resigned .		1
+1489	0	a secretary who the child who was right who ever failed pushed shouted and some student who failed failed .		0
+1490	1	a officer who no boy who a student met ever trick ##ed traveled .		1
+1491	1	no senator who ever traveled ever resigned and the senator who no woman who was ever sad hit traveled .		1
+1492	0	a boy who no doctor who ever succeeded ever contacted ever danced .		0
+1493	1	some child who no woman who ever slept followed failed and the professor who the child who no banker who no man ever supported hit hugged ever ran .		0
+1494	1	no officer who no doctor ever believed ever succeeded and some professor who a doctor who some lawyer who some senator who no woman who was ever sad helped observed believed loved resigned .		1
+1495	1	no child who was ever wrong ever traveled and a woman who no doctor who was ever right believed ever smiled .		0
+1496	1	some scientist who no boy who was ever wrong ever hit ran and some woman who no woman helped succeeded .		1
+1497	1	some doctor who was not ever happy resigned .		1
+1498	1	a doctor who no banker who no girl ever avoided liked danced and some senator who no president who was ever happy watched shouted .		1
+1499	0	a president who a president who a banker who the man who some secretary who was ever wrong watched pushed trick ##ed met resigned .		0
