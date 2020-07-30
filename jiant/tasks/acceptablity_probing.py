@@ -8,26 +8,25 @@ import random
 
 # Fields for instance processing
 from allennlp.data import Instance, Token, vocabulary
-from allennlp.data.fields import LabelField, MetadataField, MultiLabelField, IndexField, TextField
+from allennlp.data.fields import IndexField, LabelField, MetadataField, MultiLabelField, TextField
 from allennlp.data.token_indexers import SingleIdTokenIndexer
 from allennlp.training.metrics import CategoricalAccuracy
-
 from jiant.allennlp_mods.correlation import Correlation
 from jiant.allennlp_mods.numeric_field import NumericField
-from jiant.utils import utils
-from jiant.utils.data_loaders import load_span_data, load_tsv, tokenize_and_truncate, TagVocab
-from jiant.utils.tokenizers import get_tokenizer
-from jiant.tasks.registry import register_task  # global task registry
 from jiant.metrics.winogender_metrics import GenderParity
+from jiant.tasks.registry import register_task  # global task registry
 from jiant.tasks.tasks import (
-    Task,
-    SingleClassificationTask,
     PairClassificationTask,
-    sentence_to_text_field,
-    create_subset_scorers,
-    update_subset_scorers,
+    SingleClassificationTask,
+    Task,
     collect_subset_scores,
+    create_subset_scorers,
+    sentence_to_text_field,
+    update_subset_scorers,
 )
+from jiant.utils import utils
+from jiant.utils.data_loaders import TagVocab, load_span_data, load_tsv, tokenize_and_truncate
+from jiant.utils.tokenizers import get_tokenizer
 
 
 @register_task("npi_adv_li", rel_path="NPI/probing/adverbs/licensor")
@@ -917,6 +916,7 @@ class BlimpAcceptabilityTask(SingleClassificationTask):
         self.scorer2(logits, labels)
         return
 
+
 # @register_task("blimp-acceptability", rel_path="blimp/splits")
 # class BlimpAcceptabilityTask(SingleClassificationTask):
 #     """ Task class for full sentence acceptability preference.
@@ -1046,6 +1046,7 @@ def common_prefix_length(sent1, sent2):
             return i
     return min_length
 
+
 @register_task(
     "npi_probing_strong",
     linguistic_property="npi",
@@ -1106,6 +1107,36 @@ def common_prefix_length(sent1, sent2):
     rel_path="blimp/probing/sva",
     counter_example_rate=5,
 )
+@register_task(
+    "gap_probing_strong",
+    linguistic_property="gap",
+    rel_path="blimp/probing/gap",
+    counter_example_rate=None,
+)
+@register_task(
+    "gap_probing_weak",
+    linguistic_property="gap",
+    rel_path="blimp/probing/gap",
+    counter_example_rate=None,
+)
+@register_task(
+    "gap_finetune_0",
+    linguistic_property="gap",
+    rel_path="blimp/probing/gap",
+    counter_example_rate=0,
+)
+@register_task(
+    "gap_finetune_1",
+    linguistic_property="gap",
+    rel_path="blimp/probing/gap",
+    counter_example_rate=1,
+)
+@register_task(
+    "gap_finetune_5",
+    linguistic_property="gap",
+    rel_path="blimp/probing/gap",
+    counter_example_rate=5,
+)
 class AcceptabilityProbe(SingleClassificationTask):
     def __init__(self, path, max_seq_len, name, linguistic_property, counter_example_rate, **kw):
         """ """
@@ -1134,7 +1165,9 @@ class AcceptabilityProbe(SingleClassificationTask):
         sents = []
         random.shuffle(data)
         for example in data:
-            sents.append(tokenize_and_truncate(self._tokenizer_name, example["sentence"], self.max_seq_len))
+            sents.append(
+                tokenize_and_truncate(self._tokenizer_name, example["sentence"], self.max_seq_len)
+            )
             labels.append(example["label"])
 
             # TODO: get the tags working.

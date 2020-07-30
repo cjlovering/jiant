@@ -9,21 +9,21 @@ from typing import Dict, Iterable, List, Sequence, Tuple
 
 import pandas as pd
 import torch
+
 from allennlp.data.iterators import BasicIterator
 from allennlp.nn.util import move_to_device
 from jiant import tasks as tasks_module
+from jiant.tasks.edge_probing import EdgeProbingTask
+from jiant.tasks.qa import MultiRCTask, ReCoRDTask
 from jiant.tasks.tasks import (
     BooleanQuestionTask,
     CommitmentTask,
     COPATask,
+    GLUEDiagnosticTask,
     RTESuperGLUETask,
     WiCTask,
     WinogradCoreferenceTask,
-    GLUEDiagnosticTask,
 )
-from jiant.tasks.qa import MultiRCTask, ReCoRDTask
-from jiant.tasks.edge_probing import EdgeProbingTask
-
 
 LOG_INTERVAL = 30
 
@@ -169,7 +169,12 @@ def write_preds(
             "sva_probing_weak",
             "sva_finetune_0",
             "sva_finetune_1",
-            "sva_finetune_5"
+            "sva_finetune_5",
+            "gap_probing_strong",
+            "gap_probing_weak",
+            "gap_finetune_0",
+            "gap_finetune_1",
+            "gap_finetune_5",
         ]
         if task.name in blimp_probing_tasks:
             _write_glue_preds(task.name, preds_df, pred_dir, split_name, strict_glue_format=False)
