@@ -4,7 +4,7 @@
 #$ -l gpus=2
 #$ -e ./logs/
 #$ -o ./logs/
-#$ -t 1-5
+#$ -t 1-1
 #$ -tc 5
 
 mkdir -p ./logs/
