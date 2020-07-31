@@ -175,6 +175,11 @@ def write_preds(
             "gap_finetune_0",
             "gap_finetune_1",
             "gap_finetune_5",
+            "isl_probing_strong",
+            "isl_probing_weak",
+            "isl_finetune_0",
+            "isl_finetune_1",
+            "isl_finetune_5",
         ]
         if task.name in blimp_probing_tasks:
             _write_glue_preds(task.name, preds_df, pred_dir, split_name, strict_glue_format=False)

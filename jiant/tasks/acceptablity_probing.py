@@ -8,24 +8,21 @@ import random
 
 # Fields for instance processing
 from allennlp.data import Instance, Token, vocabulary
-from allennlp.data.fields import IndexField, LabelField, MetadataField, MultiLabelField, TextField
+from allennlp.data.fields import (IndexField, LabelField, MetadataField,
+                                  MultiLabelField, TextField)
 from allennlp.data.token_indexers import SingleIdTokenIndexer
 from allennlp.training.metrics import CategoricalAccuracy
 from jiant.allennlp_mods.correlation import Correlation
 from jiant.allennlp_mods.numeric_field import NumericField
 from jiant.metrics.winogender_metrics import GenderParity
 from jiant.tasks.registry import register_task  # global task registry
-from jiant.tasks.tasks import (
-    PairClassificationTask,
-    SingleClassificationTask,
-    Task,
-    collect_subset_scores,
-    create_subset_scorers,
-    sentence_to_text_field,
-    update_subset_scorers,
-)
+from jiant.tasks.tasks import (PairClassificationTask,
+                               SingleClassificationTask, Task,
+                               collect_subset_scores, create_subset_scorers,
+                               sentence_to_text_field, update_subset_scorers)
 from jiant.utils import utils
-from jiant.utils.data_loaders import TagVocab, load_span_data, load_tsv, tokenize_and_truncate
+from jiant.utils.data_loaders import (TagVocab, load_span_data, load_tsv,
+                                      tokenize_and_truncate)
 from jiant.utils.tokenizers import get_tokenizer
 
 
@@ -1109,6 +1106,28 @@ def common_prefix_length(sent1, sent2):
 )
 @register_task(
     "gap_finetune_5", linguistic_property="gap", rel_path="data_gen/gap", counter_example_rate=5
+)
+
+@register_task(
+    "isl_probing_strong",
+    linguistic_property="isl",
+    rel_path="data_gen/isl",
+    counter_example_rate=None,
+)
+@register_task(
+    "isl_probing_weak",
+    linguistic_property="isl",
+    rel_path="data_gen/isl",
+    counter_example_rate=None,
+)
+@register_task(
+    "isl_finetune_0", linguistic_property="isl", rel_path="data_gen/isl", counter_example_rate=0
+)
+@register_task(
+    "isl_finetune_1", linguistic_property="isl", rel_path="data_gen/isl", counter_example_rate=1
+)
+@register_task(
+    "isl_finetune_5", linguistic_property="isl", rel_path="data_gen/isl", counter_example_rate=5
 )
 class AcceptabilityProbe(SingleClassificationTask):
     def __init__(self, path, max_seq_len, name, linguistic_property, counter_example_rate, **kw):
