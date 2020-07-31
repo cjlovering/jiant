@@ -1050,92 +1050,65 @@ def common_prefix_length(sent1, sent2):
 @register_task(
     "npi_probing_strong",
     linguistic_property="npi",
-    rel_path="blimp/probing/npi",
+    rel_path="data_gen/npi",
     counter_example_rate=None,
 )
 @register_task(
     "npi_probing_weak",
     linguistic_property="npi",
-    rel_path="blimp/probing/npi",
+    rel_path="data_gen/npi",
     counter_example_rate=None,
 )
 @register_task(
-    "npi_finetune_0",
-    linguistic_property="npi",
-    rel_path="blimp/probing/npi",
-    counter_example_rate=0,
+    "npi_finetune_0", linguistic_property="npi", rel_path="data_gen/npi", counter_example_rate=0
 )
 @register_task(
-    "npi_finetune_1",
-    linguistic_property="npi",
-    rel_path="blimp/probing/npi",
-    counter_example_rate=1,
+    "npi_finetune_1", linguistic_property="npi", rel_path="data_gen/npi", counter_example_rate=1
 )
 @register_task(
-    "npi_finetune_5",
-    linguistic_property="npi",
-    rel_path="blimp/probing/npi",
-    counter_example_rate=5,
+    "npi_finetune_5", linguistic_property="npi", rel_path="data_gen/npi", counter_example_rate=5
 )
 @register_task(
     "sva_probing_strong",
     linguistic_property="sva",
-    rel_path="blimp/probing/sva",
+    rel_path="data_gen/sva",
     counter_example_rate=None,
 )
 @register_task(
     "sva_probing_weak",
     linguistic_property="sva",
-    rel_path="blimp/probing/sva",
+    rel_path="data_gen/sva",
     counter_example_rate=None,
 )
 @register_task(
-    "sva_finetune_0",
-    linguistic_property="sva",
-    rel_path="blimp/probing/sva",
-    counter_example_rate=0,
+    "sva_finetune_0", linguistic_property="sva", rel_path="data_gen/sva", counter_example_rate=0
 )
 @register_task(
-    "sva_finetune_1",
-    linguistic_property="sva",
-    rel_path="blimp/probing/sva",
-    counter_example_rate=1,
+    "sva_finetune_1", linguistic_property="sva", rel_path="data_gen/sva", counter_example_rate=1
 )
 @register_task(
-    "sva_finetune_5",
-    linguistic_property="sva",
-    rel_path="blimp/probing/sva",
-    counter_example_rate=5,
+    "sva_finetune_5", linguistic_property="sva", rel_path="data_gen/sva", counter_example_rate=5
 )
 @register_task(
     "gap_probing_strong",
     linguistic_property="gap",
-    rel_path="blimp/probing/gap",
+    rel_path="data_gen/gap",
     counter_example_rate=None,
 )
 @register_task(
     "gap_probing_weak",
     linguistic_property="gap",
-    rel_path="blimp/probing/gap",
+    rel_path="data_gen/gap",
     counter_example_rate=None,
 )
 @register_task(
-    "gap_finetune_0",
-    linguistic_property="gap",
-    rel_path="blimp/probing/gap",
-    counter_example_rate=0,
+    "gap_finetune_0", linguistic_property="gap", rel_path="data_gen/gap", counter_example_rate=0
 )
 @register_task(
-    "gap_finetune_1",
-    linguistic_property="gap",
-    rel_path="blimp/probing/gap",
-    counter_example_rate=1,
+    "gap_finetune_1", linguistic_property="gap", rel_path="data_gen/gap", counter_example_rate=1
 )
 @register_task(
-    "gap_finetune_5",
-    linguistic_property="gap",
-    rel_path="blimp/probing/gap",
-    counter_example_rate=5,
+    "gap_finetune_5", linguistic_property="gap", rel_path="data_gen/gap", counter_example_rate=5
 )
 class AcceptabilityProbe(SingleClassificationTask):
     def __init__(self, path, max_seq_len, name, linguistic_property, counter_example_rate, **kw):
