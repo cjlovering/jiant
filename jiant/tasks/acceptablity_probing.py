@@ -1110,20 +1110,23 @@ def common_prefix_length(sent1, sent2):
 @register_task(
     "gap_probing_strong",
     linguistic_property="gap",
-    rel_path="properties/",
+    rel_path="properties/gap",
     counter_example_rate=None,
 )
 @register_task(
-    "gap_probing_weak", linguistic_property="gap", rel_path="properties/", counter_example_rate=None
+    "gap_probing_weak",
+    linguistic_property="gap",
+    rel_path="properties/gap",
+    counter_example_rate=None,
 )
 @register_task(
-    "gap_finetune_0", linguistic_property="gap", rel_path="properties/", counter_example_rate=0
+    "gap_finetune_0", linguistic_property="gap", rel_path="properties/gap", counter_example_rate=0
 )
 @register_task(
-    "gap_finetune_1", linguistic_property="gap", rel_path="properties/", counter_example_rate=1
+    "gap_finetune_1", linguistic_property="gap", rel_path="properties/gap", counter_example_rate=1
 )
 @register_task(
-    "gap_finetune_5", linguistic_property="gap", rel_path="properties/", counter_example_rate=5
+    "gap_finetune_5", linguistic_property="gap", rel_path="properties/gap", counter_example_rate=5
 )
 @register_task(
     "isl_probing_strong",
